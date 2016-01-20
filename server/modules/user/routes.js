@@ -1,7 +1,7 @@
-var express   = require('express');
-var actions   = require('./actions');
+var express = require('express');
+var actions = require('./actions');
 
-var router    = express.Router();
+var router = express.Router();
 
 router.get('/', actions.list);
 router.get('/:id', actions.get);

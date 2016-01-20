@@ -1,14 +1,12 @@
 var jwt = require('jsonwebtoken');
 
-var userService  = require('../../modules/user/services/userService');
-var auth       = require('../../config').auth;
+var userService = require('../../modules/user/services/userService');
+var auth = require('../../config').auth;
 
-var actions = {
-  login: function(req, res, next) {
-    res.header('Access-Control-Expose-Headers', 'X-Token');
+function login(req, res, next) {
+  res.header('Access-Control-Expose-Headers', 'X-Token');
 
-    var user = userService.findByEmail(req.body.email)
-
+  var user = userService.findByEmail(req.body.email)
     .then(function(user) {
       if (!user) {
         return res.status(400).send({
@@ -16,8 +14,7 @@ var actions = {
         });
       }
 
-      user.verify(req.body.password, function(err, success) {
-
+      user.verifyPassword(req.body.password, function(err, success) {
         if (err || !success) {
           return res.status(400).send({
             message: "Senha inválida"
@@ -36,7 +33,8 @@ var actions = {
         });
       });
     });
-  }
-};
+}
 
-module.exports = actions;
+module.exports = {
+  login: login
+};
