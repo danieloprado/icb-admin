@@ -6,8 +6,7 @@
     'ngMdIcons',
     'md.data.table',
     'ngRoute',
-    'App',
-    'BankAccount'
+    'App'
   ]);
 
   app.constant('API', 'http://localhost:3000/api');

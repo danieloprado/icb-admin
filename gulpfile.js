@@ -14,7 +14,7 @@ var jsFiles = [
   'src/js/**/*.js',
   'src/js/app.js'
 ];
-
+ 
 var sassFiles = [
   'src/scss/**/*.scss'
 ];
