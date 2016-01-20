@@ -1,0 +1,36 @@
+{
+    "name": "icb",
+    "version": "0.0.0",
+    "description": "ICB App",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server/server.js",
+        "install": "./node_modules/.bin/bower install -F",
+        "postinstall": "./node_modules/.bin/gulp compile"
+    },
+    "author": "danieloprado",
+    "license": "MIT",
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "body-parser": "^1.14.1",
+        "express": "^4.13.3",
+        "jade": "^1.11.0",
+        "jsonwebtoken": "^5.4.1",
+        "mongoose": "^4.2.5",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "bower": "^1.6.5",
+        "gulp": "^3.9.0",
+        "gulp-autoprefixer": "^3.1.0",
+        "gulp-concat": "^2.6.0",
+        "gulp-csso": "^1.0.1",
+        "gulp-jade": "^1.1.0",
+        "gulp-jshint": "^1.12.0",
+        "gulp-live-server": "0.0.29",
+        "gulp-rimraf": "^0.2.0",
+        "gulp-sass": "^2.1.0",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-uglify": "^1.4.2"
+    }
+}

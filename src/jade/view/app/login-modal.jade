@@ -1,0 +1,25 @@
+md-dialog
+  md-dialog-content
+    div.md-inline-form(layout="column")
+      form(ng-submit="login()")
+
+        md-toolbar
+          .md-toolbar-tools
+            h2 Login
+
+        md-content(layout-padding="", layout="row" layout-sm="column")
+          md-input-container
+            label Email
+            input(ng-model="user.email", required="")
+
+          md-input-container
+            label Senha
+            input(ng-model="user.password", type="password", required="")
+
+        md-dialog-actions(layout="row")
+
+          md-button.md-raised(type="button", ng-click="cancel()") Cancelar
+          span(flex)
+          md-button.md-raised.md-primary Entrar
+
+
