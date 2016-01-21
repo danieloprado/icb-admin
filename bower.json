@@ -1,13 +1,12 @@
 {
-  "name": "cash-flow",
+  "name": "icb",
   "version": "0.0.1",
   "dependencies": {
-    "angular-material-data-table": "~0.8.14",
-    "angular": "~1.4.7",
-    "angular-route": "~1.4.7",
-    "angular-animate": "~1.4.7",
-    "angular-material": "~0.11.4",
-    "angular-aria": "~1.4.7",
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-material": "~1.0.2",
+    "angular-aria": "~1.4.8",
+    "angular-animate": "~1.4.8",
     "angular-jwt": "~0.0.9"
   },
   "private": true
