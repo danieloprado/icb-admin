@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('App')
-  .factory('loginService', ['API', 'cfHttp', '$mdDialog', loginService]);
+    .factory('loginService', ['API', 'cfHttp', '$mdDialog', loginService]);
 
   function loginService(API, cfHttp, $mdDialog) {
 
@@ -14,10 +14,10 @@
 
     function login($event) {
       dialog = $mdDialog.show({
-         templateUrl: '/view/app/login-modal.html',
-         controller: 'App.LoginCtrl',
-         clickOutsideToClose: true,
-         escapeToClose: true
+        templateUrl: '/view/app/login-modal.html',
+        controller: 'App.LoginCtrl',
+        clickOutsideToClose: true,
+        escapeToClose: true
       });
     }
 

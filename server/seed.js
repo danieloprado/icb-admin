@@ -3,7 +3,7 @@ var userModule = require('./modules/user/module');
 module.exports = function() {
   console.log("seed");
 
-  userModule.services.userService.findByEmail("danielopraod@outlook.com")
+  userModule.services.userService.findByEmail("danieloprado@outlook.com")
     .then(function(user) {
       if (user) {
         return;
@@ -11,16 +11,12 @@ module.exports = function() {
 
       console.log("seed: creating user");
       userModule.services.userService.create({
-        email: "danielopraod@outlook.com",
-        senha: "123"
-      }).then(function(err) {
-        console.log(err);
-        if (err) {
-          console.error(err);
-          return;
-        }
-
+        email: "danieloprado@outlook.com",
+        password: "123"
+      }).then(function() {
         console.log("seed: user created");
+      }).catch(function(err) {
+        console.log(err);
       });
     });
 };

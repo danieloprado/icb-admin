@@ -1,23 +1,23 @@
 var jwt = require('jsonwebtoken');
 
-var userService = require('../../modules/user/services/userService');
+var userModule = require('../../modules/user/module');
 var auth = require('../../config').auth;
 
 function login(req, res, next) {
   res.header('Access-Control-Expose-Headers', 'X-Token');
 
-  var user = userService.findByEmail(req.body.email)
+  userModule.services.userService.findByEmail(req.body.email)
     .then(function(user) {
       if (!user) {
         return res.status(400).send({
-          message: "Email não encontrado"
+          message: "O email ou a senha são inválidos"
         });
       }
 
       user.verifyPassword(req.body.password, function(err, success) {
         if (err || !success) {
           return res.status(400).send({
-            message: "Senha inválida"
+            message: "O email ou a senha são inválidos"
           });
         }
 

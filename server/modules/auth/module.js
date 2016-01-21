@@ -1,8 +1,9 @@
-
 var routes = require('./routes');
-var middlewares = require('./middlewares');
+var autoRenewToken = require('./middlewares/autoRenewToken');
 
 module.exports = {
-    middlewares: middlewares,
-    routes: routes
+  middlewares: {
+    autoRenewToken: autoRenewToken
+  },
+  routes: routes
 };

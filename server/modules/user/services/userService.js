@@ -18,7 +18,9 @@ var Service = {
   create: function(obj) {
     var User = mongoose.model('User');
     var user = new User(obj);
-    return user.save();
+    return user.save(function(err) {
+      console.log(err);
+    });
   }
 };
 

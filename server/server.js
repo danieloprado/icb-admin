@@ -8,8 +8,13 @@ var seed = require('./seed'),
 
 var app = express();
 
-mongoose.connect('mongodb://root:123@ds056698.mongolab.com:56698/icb');
-seed();
+mongoose.connect('mongodb://root:123@ds056698.mongolab.com:56698/icb', function(err) {
+  if (err) {
+    throw err;
+  }
+
+  seed();
+});
 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
