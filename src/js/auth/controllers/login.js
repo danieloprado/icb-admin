@@ -1,8 +1,8 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbApp')
-    .controller("icbApp.appCtrl", [
+  angular.module('icbAuth')
+    .controller("icbAuth.loginCtrl", [
       '$scope',
       function($scope) {
 

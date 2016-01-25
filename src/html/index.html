@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="icbApp">
+
+<head>
+  <meta name="viewport" content="initial-scale=1">
+  <meta charset="UTF-8">
+
+  <title>ICB</title>
+
+  <link rel="stylesheet" href="css/libs.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body layout="column" ng-controller="icbApp.appCtrl">
+
+  <md-toolbar layout="row">
+    <div class="md-toolbar-tools">
+      <md-button ng-click="toggleSidenav('left')" hide-gt-sm="" class="md-icon-button">
+        <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+      </md-button>
+      <h1>Cash Flow</h1><span flex=""></span>
+      <md-button ng-if="isAuthenticated">Logout</md-button>
+    </div>
+  </md-toolbar>
+
+  <div layout="row" flex>
+    <md-sidenav ng-if="isAuthenticated" layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left md-whiteframe-4dp">
+      <md-button ng-href="#/">
+        <ng-md-icon icon="dashboard" size="32"></ng-md-icon>Dashboard
+      </md-button>
+      <md-button>
+        <ng-md-icon icon="attach_money" size="32"></ng-md-icon>Entradas
+      </md-button>
+      <md-button ng-href="#/category">
+        <ng-md-icon icon="assignment" size="32"></ng-md-icon>Categorias
+      </md-button>
+      <md-button ng-href="#/bank_account">
+        <ng-md-icon icon="account_balance" size="32"></ng-md-icon>Contas Bancárias
+      </md-button>
+      <md-button ng-href="#/credit_cards">
+        <ng-md-icon icon="credit_card" size="32"></ng-md-icon>Cartões de Crédito
+      </md-button>
+      <md-button ng-href="#/people">
+        <ng-md-icon icon="account_box" size="32"></ng-md-icon>Pessoas
+      </md-button>
+    </md-sidenav>
+    <div id="main" layout="column" flex>
+      <md-content ng-view="" layout="column" flex="" layout-padding=""></md-content>
+    </div>
+  </div>
+
+  <script src="js/libs.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.6.0/angular-material-icons.min.js"></script>
+  <script src="js/all.min.js"></script>
+</body>
+
+</html>

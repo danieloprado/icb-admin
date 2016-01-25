@@ -6,6 +6,16 @@ var SALT_WORK_FACTOR = 11;
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
+  name: {
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    }
+  },
   email: {
     type: String,
     lowercase: true,

@@ -1,0 +1,27 @@
+<div class="content-hover">
+  <form ng-submit="login()">
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Login</h2>
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" layout="row" layout-sm="column">
+      <md-input-container>
+        <label>Email</label>
+        <input ng-model="user.email" required="" />
+      </md-input-container>
+      <md-input-container>
+        <label>Senha</label>
+        <input ng-model="user.password" type="password" required="" />
+      </md-input-container>
+    </md-content>
+
+    <md-dialog-actions layout="row">
+      <md-button type="button" ng-click="cancel()" class="md-raised">Cancelar</md-button><span flex="flex"></span>
+      <md-button class="md-raised md-primary">Entrar</md-button>
+    </md-dialog-actions>
+
+  </form>
+</div>

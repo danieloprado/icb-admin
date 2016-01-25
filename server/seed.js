@@ -11,6 +11,10 @@ module.exports = function() {
 
       console.log("seed: creating user");
       userModule.services.userService.create({
+        name: {
+          firstName: "Daniel",
+          lastName: "Prado"
+        },
         email: "danieloprado@outlook.com",
         password: "123"
       }).then(function() {

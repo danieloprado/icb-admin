@@ -1,11 +1,13 @@
-(function() {
-    'use strict';
+(function(angular) {
+  'use strict';
 
-    angular.module('App')
-    .controller('App.HomeCtrl', ['$scope', ctrl]);
+  angular.module('icbApp')
+    .controller("icbApp.homeCtrl", [
+      '$scope',
+      function($scope) {
 
-    function ctrl($scope) {
 
-    }
+      }
+    ]);
 
-})();
+})(angular);
