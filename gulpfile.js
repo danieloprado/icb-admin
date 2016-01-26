@@ -39,72 +39,60 @@ var files = {
 };
 
 //CLEAN
-gulp.task('clean:js', function(cb) {
-  rimraf(paths.dist + 'js/**/*.js', cb);
-});
-gulp.task('clean:css', function(cb) {
-  rimraf(paths.dist + 'css/app.css', cb);
-});
+gulp.task('clean:js', cb => rimraf(paths.dist + 'js/**/*.js', cb));
+gulp.task('clean:css', cb => rimraf(paths.dist + 'css/app.css', cb));
 gulp.task('clean', ['clean:js', 'clean:css']);
 
 //CSS
-gulp.task('css:fonts', function() {
-  return gulp.src(paths.cssFonts)
-    .pipe(gulp.dest(paths.dist + 'fonts'));
-});
-gulp.task('css:libs', ['css:fonts'], function() {
-  return gulp.src(paths.cssLibs)
-    .pipe($.concat('libs.css'))
-    .pipe(gulp.dest(paths.dist + 'css'));
-});
+gulp.task('css:fonts', () =>
+  gulp.src(paths.cssFonts)
+  .pipe(gulp.dest(paths.dist + 'fonts')));
+
+gulp.task('css:libs', ['css:fonts'], () =>
+  gulp.src(paths.cssLibs)
+  .pipe($.concat('libs.css'))
+  .pipe(gulp.dest(paths.dist + 'css')));
+
 gulp.task('css', ['css:fonts', 'css:libs']);
 
 //SASS
-gulp.task("sass", ['css'], function() {
-  return gulp.src(paths.sass)
-    .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      outputStyle: "compressed",
-    }).on('error', $.sass.logError))
-    .pipe($.autoprefixer({
-      browsers: ["last 2 versions", "ie >= 9"]
-    }))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(paths.dist + 'css'));
-});
+gulp.task("sass", ['css'], () =>
+  gulp.src(paths.sass)
+  .pipe($.sourcemaps.init())
+  .pipe($.sass({
+    outputStyle: "compressed",
+  }).on('error', $.sass.logError))
+  .pipe($.autoprefixer({
+    browsers: ["last 2 versions", "ie >= 9"]
+  }))
+  .pipe($.sourcemaps.write())
+  .pipe(gulp.dest(paths.dist + 'css')));
 
 //JS
-gulp.task("js:libs", function() {
-  return gulp.src(paths.jsLibs)
-    .pipe($.concat("libs.js"))
-    .pipe(gulp.dest(paths.webrootJs));
-});
+gulp.task("js:libs", () =>
+  gulp.src(paths.jsLibs)
+  .pipe($.concat("libs.js"))
+  .pipe(gulp.dest(paths.webrootJs)));
 
-
-
-gulp.task('views', function() {
-  return gulp.src(files.views)
-    .pipe($.jade({
-      pretty: true
-    }))
-    .pipe(gulp.dest(files.distFolder));
-});
+gulp.task('jade', () =>
+  gulp.src(files.views)
+  .pipe($.jade({
+    pretty: true
+  }))
+  .pipe(gulp.dest(files.distFolder)));
 
 gulp.task('serve', ['compile', 'watch'], function() {
   var server = gls.static('dist', 4000);
   server.start();
 
-  gulp.watch(files.dist, function(file) {
-    server.notify.apply(server, [file]);
-  });
+  // gulp.watch(files.dist, function(file) {
+  //   server.notify.apply(server, [file]);
+  // });
 });
 
-gulp.task('watch', ['compile'], function() {
-  gulp.watch(files.js, ['minify']);
+gulp.task('watch', function() {
   gulp.watch('src/scss/**/*.scss', ['sass']);
-  gulp.watch(files.views, ['views']);
+  gulp.watch(files.jade, ['jade']);
 });
 
-// Default Task
-gulp.task('compile', ['libs', 'minify', 'sass', 'views']);
 gulp.task('default', ['serve']);
