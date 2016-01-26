@@ -1,86 +1,86 @@
 var gulp = require('gulp'),
-  $ = require("gulp-load-plugins")(),
+  $ = require('gulp-load-plugins')(),
   gls = require('gulp-live-server');
 
 var files = {
-  js: [
-    'src/js/app/module.js',
-    'src/js/auth/module.js',
-    'src/js/**/*.js'
-  ],
-
+  ts: 'src/ts/**/*.ts',
   sass: 'src/scss/styles.scss',
-  sassAll: 'src/scss/**/*.scss',
+  jade: 'src/jade/**/*.jade',
 
-  views: 'src/jade/**/*.jade',
-
-  dist: 'dist/**/*',
-  distFolder: 'dist/',
-
-  jsLibs: [
-    'bower_components/angular/angular.js',
-    'bower_components/angular-route/angular-route.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/angular-aria/angular-aria.js',
-    'bower_components/angular-jwt/dist/angular-jwt.js',
-    'bower_components/angular-material/angular-material.js',
-    'bower_components/angular-material-data-table/dist/md-data-table.js'
-  ],
+  dist: 'dist/',
 
   cssLibs: [
-    'bower_components/angular-material/angular-material.css',
-    'bower_components/angular-material-data-table/dist/md-data-table.css'
+    'bower_components/bootstrap/dist/css/bootstrap.min.css',
+    'bower_components/animate.css/animate.min.css'
+  ],
+  cssFonts: [
+    'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
+  ],
+
+  jsLibs: [
+    'bower_components/jquery/dist/jquery.min.js',
+
+    //jquery validate
+    'bower_components/jquery-validation/dist/jquery.validate.min.js',
+    'bower_components/jquery-validation/dist/additional-methods.min.js',
+    'bower_components/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js',
+
+    //bootstrap
+    'bower_components/bootstrap/dist/js/bootstrap.min.js',
+
+    //angular
+    'node_modules/angular2/bundles/angular2-polyfills.js',
+    'node_modules/systemjs/dist/system.src.js',
+    'node_modules/rxjs/bundles/Rx.min.js',
+    'node_modules/angular2/bundles/angular2.dev.js',
+    'node_modules/angular2/bundles/router.dev.js',
+    'node_modules/angular2/bundles/http.dev.js'
   ]
 };
 
-gulp.task('clean', function() {
-  gulp.src([files.distFolder], {
-      read: false
-    })
-    .pipe($.rimraf());
+//CLEAN
+gulp.task('clean:js', function(cb) {
+  rimraf(paths.dist + 'js/**/*.js', cb);
 });
-
-gulp.task('lint', function() {
-  return gulp.src(files.js)
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('default'));
+gulp.task('clean:css', function(cb) {
+  rimraf(paths.dist + 'css/app.css', cb);
 });
+gulp.task('clean', ['clean:js', 'clean:css']);
 
-gulp.task('libs', function() {
-  gulp.src(files.jsLibs)
-    .pipe($.concat('libs.min.js'))
-    .pipe($.uglify())
-    .pipe(gulp.dest(files.distFolder + 'js'));
-
-  gulp.src(files.cssLibs)
+//CSS
+gulp.task('css:fonts', function() {
+  return gulp.src(paths.cssFonts)
+    .pipe(gulp.dest(paths.dist + 'fonts'));
+});
+gulp.task('css:libs', ['css:fonts'], function() {
+  return gulp.src(paths.cssLibs)
     .pipe($.concat('libs.css'))
-    .pipe($.csso())
-    .pipe(gulp.dest(files.distFolder + 'css'));
+    .pipe(gulp.dest(paths.dist + 'css'));
 });
+gulp.task('css', ['css:fonts', 'css:libs']);
 
-gulp.task('minify', ['lint'], function() {
-  return gulp.src(files.js)
-    .pipe($.sourcemaps.init())
-    .pipe($.uglify())
-    .pipe($.concat('all.min.js'))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(files.distFolder + 'js'));
-});
-
-gulp.task('sass', function() {
-  return gulp.src(files.sass)
+//SASS
+gulp.task("sass", ['css'], function() {
+  return gulp.src(paths.sass)
     .pipe($.sourcemaps.init())
     .pipe($.sass({
-      outputStyle: 'compressed'
-    }))
+      outputStyle: "compressed",
+    }).on('error', $.sass.logError))
     .pipe($.autoprefixer({
-      browsers: ['last 3 versions'],
-      cascade: false
+      browsers: ["last 2 versions", "ie >= 9"]
     }))
-    .pipe($.csso())
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(files.distFolder + 'css'));
+    .pipe(gulp.dest(paths.dist + 'css'));
 });
+
+//JS
+gulp.task("js:libs", function() {
+  return gulp.src(paths.jsLibs)
+    .pipe($.concat("libs.js"))
+    .pipe(gulp.dest(paths.webrootJs));
+});
+
+
 
 gulp.task('views', function() {
   return gulp.src(files.views)
@@ -101,7 +101,7 @@ gulp.task('serve', ['compile', 'watch'], function() {
 
 gulp.task('watch', ['compile'], function() {
   gulp.watch(files.js, ['minify']);
-  gulp.watch(files.sassAll, ['sass']);
+  gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch(files.views, ['views']);
 });
 
