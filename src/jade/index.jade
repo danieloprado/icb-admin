@@ -1,0 +1,47 @@
+doctype
+html(lang='en', ng-app='icbApp')
+  head
+    meta(name='viewport', content='initial-scale=1')
+    meta(charset='UTF-8')
+    title ICB
+    link(rel='stylesheet', href='css/libs.css')
+    link(rel='stylesheet', href='css/styles.css')
+  body(layout='column', ng-controller='AppCtrl')
+    cf-loading
+
+    md-toolbar(layout='row')
+      .md-toolbar-tools
+        md-button.md-icon-button(ng-click="toggleSidenav('left')", hide-gt-sm='')
+          md-icon(aria-label='Menu', md-svg-icon='https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg')
+        h1 Cash Flow
+        span(flex='')
+        md-button(ng-if='!isAuthenticated', cf-login='') Login
+        md-button(ng-if='isAuthenticated', cf-logout='') Logout
+
+    div(layout="row", flex)
+      md-sidenav.md-sidenav-left.md-whiteframe-4dp(ng-if='isAuthenticated', layout='column', md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')")
+        md-button(ng-href="#/")
+          ng-md-icon(icon="dashboard", size=32)
+          | Dashboard
+        md-button
+          ng-md-icon(icon="attach_money", size=32)
+          | Entradas
+        md-button(ng-href="#/category")
+          ng-md-icon(icon="assignment", size=32)
+          | Categorias
+        md-button(ng-href="#/bank_account")
+          ng-md-icon(icon="account_balance", size=32)
+          | Contas Bancárias
+        md-button(ng-href="#/credit_cards")
+          ng-md-icon(icon="credit_card", size=32)
+          | Cartões de Crédito
+        md-button(ng-href="#/people")
+          ng-md-icon(icon="account_box", size=32)
+          | Pessoas
+
+      #main(layout='column', flex)
+        md-content(ng-view='', layout='column', flex='', layout-padding='')
+
+    script(src='js/libs.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.6.0/angular-material-icons.min.js')
+    script(src='js/all.min.js')

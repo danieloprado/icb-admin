@@ -8,9 +8,7 @@ var files = {
   sass: 'src/scss/styles.scss',
   sassAll: 'src/scss/**/*.scss',
 
-  views: [
-    'src/html/**/*.html'
-  ],
+  views: 'src/jade/**/*.jade',
 
   dist: 'dist/**/*',
   distFolder: 'dist/',
@@ -82,6 +80,9 @@ gulp.task('sass', function() {
 
 gulp.task('views', function() {
   return gulp.src(files.views)
+    .pipe($.jade({
+      pretty: true
+    }))
     .pipe(gulp.dest(files.distFolder));
 });
 
