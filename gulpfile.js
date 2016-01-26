@@ -3,7 +3,11 @@ var gulp = require('gulp'),
   gls = require('gulp-live-server');
 
 var files = {
-  js: 'src/js/**/*.js',
+  js: [
+    'src/js/app/module.js',
+    'src/js/auth/module.js',
+    'src/js/**/*.js'
+  ],
 
   sass: 'src/scss/styles.scss',
   sassAll: 'src/scss/**/*.scss',
@@ -98,7 +102,7 @@ gulp.task('serve', ['compile', 'watch'], function() {
 gulp.task('watch', ['compile'], function() {
   gulp.watch(files.js, ['minify']);
   gulp.watch(files.sassAll, ['sass']);
-  gulp.watch(files.viewsAll, ['views']);
+  gulp.watch(files.views, ['views']);
 });
 
 // Default Task
