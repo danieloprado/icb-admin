@@ -43,7 +43,7 @@ export class AppComponent {
         });
 
         if (!_accountService.isLogged()) {
-            _router.navigate(['Login']);
+          //  _router.navigate(['Login']);
         }
     }
 
