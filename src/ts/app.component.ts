@@ -12,7 +12,6 @@ import {UserComponent} from './components/dashboard/user.component';
 
 import {AccountService} from './services/account';
 
-
 @Component({
     selector: 'app',
     templateUrl: 'templates/layout',
@@ -49,7 +48,7 @@ export class AppComponent {
         }
     }
 
-    logoff = function () {
+    logoff = function() {
         this._accountService.logoff();
         this._router.navigate(['Login']);
     }

@@ -5,15 +5,19 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "noImplicitAny": false,
-    "outDir": "wwwroot/js",
+    "outDir": "dist/js",
     "removeComments": true,
     "sourceMap": true
+  },
+  "atom": {
+    "formatOnSave": true,
+    "rewriteTsconfig": true
   },
   "exclude": [
     "node_modules",
     "bower_components",
-    "wwwroot"
+    "dist"
   ]
 }

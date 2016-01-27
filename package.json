@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "description": "ICB App",
   "scripts": {
+    "tsc": "tsc",
+    "seed": "node server/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "install": "./node_modules/.bin/bower install -F",
-    "postinstall": "./node_modules/.bin/gulp compile",
-    "seed": "node server/seed.js"
+    "postinstall": "./node_modules/.bin/gulp compile"
   },
   "author": "danieloprado",
   "license": "MIT",
@@ -38,9 +39,9 @@
     "gulp-rimraf": "^0.2.0",
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-typescript": "^2.10.0",
     "gulp-uglify": "^1.4.2",
     "jade": "^1.11.0",
+    "rimraf": "^2.5.1",
     "typescript": "^1.7.3"
   }
 }

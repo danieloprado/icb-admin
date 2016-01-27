@@ -1,8 +1,10 @@
 var gulp = require('gulp'),
   $ = require('gulp-load-plugins')(),
+  rimraf = require('rimraf'),
   gls = require('gulp-live-server');
+run = require('gulp-run');
 
-var files = {
+var paths = {
   ts: 'src/ts/**/*.ts',
   sass: 'src/scss/styles.scss',
   jade: 'src/jade/**/*.jade',
@@ -20,11 +22,6 @@ var files = {
   jsLibs: [
     'bower_components/jquery/dist/jquery.min.js',
 
-    //jquery validate
-    'bower_components/jquery-validation/dist/jquery.validate.min.js',
-    'bower_components/jquery-validation/dist/additional-methods.min.js',
-    'bower_components/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js',
-
     //bootstrap
     'bower_components/bootstrap/dist/js/bootstrap.min.js',
 
@@ -39,11 +36,9 @@ var files = {
 };
 
 //CLEAN
-gulp.task('clean:js', cb => rimraf(paths.dist + 'js/**/*.js', cb));
-gulp.task('clean:css', cb => rimraf(paths.dist + 'css/app.css', cb));
-gulp.task('clean', ['clean:js', 'clean:css']);
+gulp.task('clean', cb => rimraf(paths.dist, cb));
 
-//CSS
+//LIBS
 gulp.task('css:fonts', () =>
   gulp.src(paths.cssFonts)
   .pipe(gulp.dest(paths.dist + 'fonts')));
@@ -53,10 +48,15 @@ gulp.task('css:libs', ['css:fonts'], () =>
   .pipe($.concat('libs.css'))
   .pipe(gulp.dest(paths.dist + 'css')));
 
-gulp.task('css', ['css:fonts', 'css:libs']);
+gulp.task("js:libs", () =>
+  gulp.src(paths.jsLibs)
+  .pipe($.concat("libs.js"))
+  .pipe(gulp.dest(paths.dist + "js")));
+
+gulp.task('libs', ['css:fonts', 'css:libs', 'js:libs']);
 
 //SASS
-gulp.task("sass", ['css'], () =>
+gulp.task("sass", () =>
   gulp.src(paths.sass)
   .pipe($.sourcemaps.init())
   .pipe($.sass({
@@ -68,31 +68,30 @@ gulp.task("sass", ['css'], () =>
   .pipe($.sourcemaps.write())
   .pipe(gulp.dest(paths.dist + 'css')));
 
-//JS
-gulp.task("js:libs", () =>
-  gulp.src(paths.jsLibs)
-  .pipe($.concat("libs.js"))
-  .pipe(gulp.dest(paths.webrootJs)));
-
+//JADE
 gulp.task('jade', () =>
-  gulp.src(files.views)
+  gulp.src(paths.jade)
   .pipe($.jade({
     pretty: true
   }))
-  .pipe(gulp.dest(files.distFolder)));
+  .pipe(gulp.dest(paths.dist)));
+
+//TS
+gulp.task('ts', () => run('npm run tsc -s').exec());
 
 gulp.task('serve', ['compile', 'watch'], function() {
   var server = gls.static('dist', 4000);
   server.start();
 
-  // gulp.watch(files.dist, function(file) {
+  // gulp.watch(paths.dist, function(file) {
   //   server.notify.apply(server, [file]);
   // });
 });
 
 gulp.task('watch', function() {
   gulp.watch('src/scss/**/*.scss', ['sass']);
-  gulp.watch(files.jade, ['jade']);
+  gulp.watch(paths.jade, ['jade']);
 });
 
+gulp.task('compile', ['libs', 'jade', 'sass', 'ts']);
 gulp.task('default', ['serve']);

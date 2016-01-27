@@ -6,7 +6,6 @@ import {Response} from 'angular2/http';
 
 import {LoginModel} from './login.model';
 import {AccountService} from './../../services/account';
-import {ModelValidationService} from './../../services/modelValidation';
 
 import {APP_DIRECTIVES} from '../../app.directives';
 
@@ -23,8 +22,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private _router: Router,
-        private _accountService: AccountService,
-        private _modelService: ModelValidationService
+        private _accountService: AccountService
     ) {
         this.model = new LoginModel();
     }
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit {
     private onLoginError(err: Response) {
         switch (err.status) {
             case 400:
-                this._modelService.resolve(this.form, err.json());
+                //this._modelService.resolve(this.form, err.json());
                 break;
             case 401:
                 this.errorMessage = "Informaçoes de acesso inválidas";
@@ -61,4 +59,3 @@ export class LoginComponent implements OnInit {
         }
     }
 }
-
