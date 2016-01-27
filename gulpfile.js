@@ -79,15 +79,6 @@ gulp.task('jade', () =>
 //TS
 gulp.task('ts', () => run('npm run tsc -s').exec());
 
-gulp.task('serve', ['compile', 'watch'], function() {
-  var server = gls.static('dist', 4000);
-  server.start();
-
-  // gulp.watch(paths.dist, function(file) {
-  //   server.notify.apply(server, [file]);
-  // });
-});
-
 gulp.task('watch', function() {
   gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch(paths.jade, ['jade']);

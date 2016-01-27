@@ -24,11 +24,12 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 app.use(allowCrossDomain);
+app.use(express.static(__dirname + '/../dist'));
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
 app.use(authModule.middlewares.autoRenewToken);
 
 app.use('/api/auth', authModule.routes);
