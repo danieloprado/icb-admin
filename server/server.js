@@ -6,6 +6,8 @@ var seed = require('./seed'),
   userModule = require('./modules/user/module'),
   authModule = require('./modules/auth/module');
 
+var publicDir = __dirname + '/../dist';
+
 var app = express();
 
 mongoose.connect('mongodb://root:123@ds056698.mongolab.com:56698/icb', function(err) {
@@ -24,7 +26,7 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 app.use(allowCrossDomain);
-app.use(express.static(__dirname + '/../dist'));
+app.use(express.static(publicDir));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -34,6 +36,12 @@ app.use(authModule.middlewares.autoRenewToken);
 
 app.use('/api/auth', authModule.routes);
 app.use('/api/user', userModule.routes);
+
+app.all("/*", function(req, res) {
+  res.sendFile('index.html', {
+    root: publicDir
+  });
+});
 
 app.use(function(err, req, res, next) {
   res.status(500);

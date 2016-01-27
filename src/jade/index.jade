@@ -1,15 +1,24 @@
-doctype
-html(lang='en', ng-app='icbApp')
+doctype html
+html
   head
-    meta(name='viewport', content='initial-scale=1')
-    meta(charset='UTF-8')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title ICB
-    link(rel='stylesheet', href='css/libs.css')
-    link(rel='stylesheet', href='css/styles.css')
-  body(layout='column', ng-controller='icbApp.appCtrl')
-      #main(layout='column', flex)
-        md-content(ng-view='', layout='column', flex='', layout-padding='')
-
-    script(src='js/libs.min.js')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.6.0/angular-material-icons.min.js')
-    script(src='js/all.min.js')
+    base(href='/')
+    link(href='/css/libs.css', rel='stylesheet')
+    link(href='/css/styles.css', rel='stylesheet')
+  body
+    app
+    script(src='/js/libs.js', asp-append-version='true')
+    script.
+      System.config({
+        packages: {
+          js: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      
+      System.import('js/bootstrap')
+      .then(null, console.error.bind(console));

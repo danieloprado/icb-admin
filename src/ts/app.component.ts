@@ -6,7 +6,7 @@ import {Http} from 'angular2/http';
 
 import {APP_DIRECTIVES} from './app.directives';
 
-import {LoginComponent} from './components/account/login.component';
+import {LoginComponent} from './components/auth/login.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {UserComponent} from './components/dashboard/user.component';
 
@@ -14,7 +14,7 @@ import {AccountService} from './services/account';
 
 @Component({
     selector: 'app',
-    templateUrl: 'templates/layout',
+    templateUrl: '/views/app/layout.html',
     directives: [ROUTER_DIRECTIVES, APP_DIRECTIVES]
 })
 @RouteConfig([
@@ -30,7 +30,6 @@ export class AppComponent {
             if (!_accountService.isLogged() && publicPaths.indexOf(url) < 0) {
                 return;
             }
-
 
             var form = $("#app-content-body form");
 

@@ -11,7 +11,7 @@ import {APP_DIRECTIVES} from '../../app.directives';
 
 
 @View({
-    templateUrl: "/templates/account/login",
+    templateUrl: "/views/auth/login.html",
     directives: [APP_DIRECTIVES]
 })
 @Component({})
