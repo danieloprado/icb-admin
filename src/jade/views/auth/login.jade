@@ -1,19 +1,21 @@
-div.content-hover
+section.content-hover.login-content.animated.fadeIn
+  .content.animated.fadeInDown
   
-  form(ng-submit='login()')
-    md-toolbar
-      .md-toolbar-tools
-        h2 Login
+    form(method='post', (ngSubmit)='onSubmit(form)', #loginForm='ngForm', novalidate='', [ngClass]="{'form-submitted': submitted}")
+      .logo
+        img(src='/imgs/logo.png')
         
-    md-content(layout-padding, layout='row', layout-sm='column')
-      md-input-container
-        label Email
-        input(ng-model='user.email', required='')
-      md-input-container
-        label Senha
-        input(ng-model='user.password', type='password', required='')
+      .form-group
+        input.form-control(type='email',placeholder='Email', [(ngModel)]='model.email', ngControl='email')
+        {{loginForm.form.valid}}
         
-    md-dialog-actions(layout='row')
-      md-button.md-raised(type='button', ng-click='cancel()') Cancelar
-      span(flex='flex')
-      md-button.md-raised.md-primary Entrar
+      .form-group
+        input.form-control(type='password', placeholder='Password', required, [(ngModel)]='model.password', ngControl='password')
+        
+      .form-group.text-right
+        button.btn.btn-success.btn-addon(type='submit',(click)="submitted=true")
+          i.glyphicon.glyphicon-log-in
+          | Log in
+          
+      .validation-summary-errors([ngShow]='errorMessage')
+        | {{errorMessage}}

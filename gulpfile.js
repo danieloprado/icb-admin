@@ -6,14 +6,16 @@ run = require('gulp-run');
 
 var paths = {
   ts: 'src/ts/**/*.ts',
-  sass: 'src/scss/styles.scss',
+  sass: 'src/scss/app.scss',
   jade: 'src/jade/**/*.jade',
 
   dist: 'dist/',
+  imgs: 'src/imgs/**/*',
 
   cssLibs: [
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/animate.css/animate.min.css',
+    'src/libs/theme/style.css'
   ],
   cssFonts: [
     'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
@@ -53,7 +55,13 @@ gulp.task("js:libs", () =>
   .pipe($.concat("libs.js"))
   .pipe(gulp.dest(paths.dist + "js")));
 
-gulp.task('libs', ['css:fonts', 'css:libs', 'js:libs']);
+gulp.task('imgs', () =>
+  gulp.src(paths.imgs)
+  .pipe(gulp.dest(paths.dist + 'imgs')));
+
+gulp.task('libs', ['css:fonts', 'css:libs', 'js:libs', 'imgs']);
+
+
 
 //SASS
 gulp.task("sass", () =>
@@ -66,7 +74,10 @@ gulp.task("sass", () =>
     browsers: ["last 2 versions", "ie >= 9"]
   }))
   .pipe($.sourcemaps.write())
-  .pipe(gulp.dest(paths.dist + 'css')));
+  .pipe(gulp.dest(paths.dist + 'css'))
+  .pipe($.livereload({
+    start: true
+  })));
 
 //JADE
 gulp.task('jade', () =>
@@ -80,9 +91,10 @@ gulp.task('jade', () =>
 gulp.task('ts', () => run('npm run tsc -s').exec());
 
 gulp.task('watch', function() {
+  $.livereload.listen();
   gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch(paths.jade, ['jade']);
 });
 
 gulp.task('compile', ['libs', 'jade', 'sass', 'ts']);
-gulp.task('default', ['serve']);
+gulp.task('default', ['compile', 'watch']);

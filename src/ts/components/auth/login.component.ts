@@ -35,13 +35,10 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(form: any) {
-        this.form = form;
-        this.errorMessage = "";
-
-        if (!$(form).valid()) return;
-
-        this._accountService.login(this.model.email, this.model.password)
-            .subscribe((response) => this.onLoginSuccesfully(response), (err) => this.onLoginError(err));
+        return;
+        //
+        // this._accountService.login(this.model.email, this.model.password)
+        //     .subscribe((response) => this.onLoginSuccesfully(response), (err) => this.onLoginError(err));
     }
 
     private onLoginSuccesfully(response) {

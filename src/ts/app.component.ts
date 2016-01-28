@@ -37,13 +37,13 @@ export class AppComponent {
                 return;
             }
 
-            form.removeData("validator");
-            form.removeData("unobtrusiveValidation");
-            $.validator.unobtrusive.parse(form);
+            // form.removeData("validator");
+            // form.removeData("unobtrusiveValidation");
+            // $.validator.unobtrusive.parse(form);
         });
 
         if (!_accountService.isLogged()) {
-          //  _router.navigate(['Login']);
+            _router.navigate(['Login']);
         }
     }
 
