@@ -2,9 +2,14 @@
   "name": "icb",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "3.3.5",
-    "jquery": "2.1.4",
-    "animate.css": "~3.5.1"
+    "angular": "~1.4.9",
+    "angular-route": "~1.4.9",
+    "angular-material": "~1.0.4",
+    "angular-aria": "~1.4.9",
+    "angular-animate": "~1.4.9",
+    "angular-jwt": "~0.0.9",
+    "animate.css": "~3.5.1",
+    "angular-messages": "~1.4.9"
   },
   "private": true
 }

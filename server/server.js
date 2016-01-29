@@ -37,6 +37,11 @@ app.use(authModule.middlewares.autoRenewToken);
 app.use('/api/auth', authModule.routes);
 app.use('/api/user', userModule.routes);
 
+app.all('/views/*', function(req, res) {
+  res.status(404);
+  res.send("Not Found");
+});
+
 app.all("/*", function(req, res) {
   res.sendFile('index.html', {
     root: publicDir

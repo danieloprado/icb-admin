@@ -1,21 +1,27 @@
 section.content-hover.login-content.animated.fadeIn
   .content.animated.fadeInDown
   
-    form(method='post', (ngSubmit)='onSubmit(form)', #loginForm='ngForm', novalidate='', [ngClass]="{'form-submitted': submitted}")
-      .logo
-        img(src='/imgs/logo.png')
-        
-      .form-group
-        input.form-control(type='email',placeholder='Email', [(ngModel)]='model.email', ngControl='email')
-        {{loginForm.form.valid}}
-        
-      .form-group
-        input.form-control(type='password', placeholder='Password', required, [(ngModel)]='model.password', ngControl='password')
-        
-      .form-group.text-right
-        button.btn.btn-success.btn-addon(type='submit',(click)="submitted=true")
-          i.glyphicon.glyphicon-log-in
-          | Log in
+    form(ng-submit='loginForm.$valid && submit()',name='loginForm', novalidate='')          
+      
+      md-input-container.md-block
+        label Email
+        input(ng-model='model.email', name='email', type='email', required)
+        div(ng-messages='loginForm.email.$error', ng-show="loginForm.$submitted || loginForm.email.$touched", md-auto-hide='false')
+          div(ng-message='email') Email inválido
+          div(ng-message='required') Obrigatório
           
-      .validation-summary-errors([ngShow]='errorMessage')
-        | {{errorMessage}}
+            
+      md-input-container.md-block
+        label Senha
+        input(ng-model='model.password', name='password', type='password', required)
+        div(ng-messages='loginForm.password.$error', ng-show="loginForm.$submitted || loginForm.password.$touched", md-auto-hide='false')
+          div(ng-message='required')
+            | Obrigatório
+          
+        //- .alert.alert-danger.alert-dismissable
+        //-   ul
+        //-     li(ng-repeat='item in loginForm.$validationSummary') {{item.field }}: {{item.message}}
+          
+      md-dialog-actions(layout='row')
+        span(flex='')
+        md-button.md-raised.md-primary(type='submit') Entrar
