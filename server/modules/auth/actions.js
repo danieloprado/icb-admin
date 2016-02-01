@@ -5,6 +5,7 @@ var auth = require('../../config').auth;
 
 function login(req, res, next) {
   res.header('Access-Control-Expose-Headers', 'X-Token');
+  console.log(req.body.email);
 
   userModule.services.userService.findByEmail(req.body.email)
     .then(function(user) {

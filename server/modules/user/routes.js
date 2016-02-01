@@ -1,7 +1,11 @@
-var express = require('express');
-var actions = require('./actions');
+const express = require('express');
 
-var router = express.Router();
+const actions = require('./actions');
+const auth = require("../auth/module");
+
+const router = express.Router();
+
+router.use(auth.middlewares.checkLogin());
 
 router.get('/', actions.list);
 router.get('/:id', actions.get);

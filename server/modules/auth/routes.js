@@ -1,7 +1,7 @@
-var express = require('express');
-var actions = require('./actions');
+const express = require('express');
+const actions = require('./actions');
 
-var router  = express.Router();
+const router = express.Router();
 
 router.post('/login', actions.login);
 

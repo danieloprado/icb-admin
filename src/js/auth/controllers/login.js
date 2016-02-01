@@ -7,7 +7,10 @@
       'Loader',
       'loginService',
       function($scope, Loader, loginService) {
-        $scope.model = {};
+        $scope.model = {
+          email: "danieloprado@outlook.com",
+          password: "123"
+        };
 
         $scope.submit = function() {
           $scope.errorMessage = null;

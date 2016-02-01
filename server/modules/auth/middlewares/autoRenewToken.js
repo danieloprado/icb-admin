@@ -9,15 +9,15 @@ function autoRenewToken(req, res, next) {
   }
 
   token = token.split(' ')[1];
-
-  var now = Math.floor(Date.now() / 1000);
-
   jwt.verify(token, auth.secret, function(err, decoded) {
 
-    if (err) {
+    if (err || !decoded) {
       next();
     }
 
+    req.user = decoded;
+
+    var now = Math.floor(Date.now() / 1000);
     var diff = decoded.exp - now;
 
     if (diff <= (auth.timeout * 0.6)) {

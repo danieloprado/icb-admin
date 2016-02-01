@@ -24,6 +24,7 @@ var UserSchema = new Schema({
       unique: true
     }
   },
+  roles: [String],
   password: {
     type: String,
     required: true

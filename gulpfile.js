@@ -22,7 +22,7 @@ var paths = {
   ],
 
   jsLibs: [
-    'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/jQuery/dist/jquery.min.js',
 
     //angular
     'bower_components/angular/angular.js',

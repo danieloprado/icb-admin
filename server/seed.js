@@ -16,6 +16,7 @@ module.exports = function() {
           lastName: "Prado"
         },
         email: "danieloprado@outlook.com",
+        roles: ["admin"],
         password: "123"
       }).then(function() {
         console.log("seed: user created");
