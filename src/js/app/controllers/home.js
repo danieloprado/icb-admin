@@ -6,7 +6,6 @@
       '$scope',
       function($scope) {
 
-
       }
     ]);
 

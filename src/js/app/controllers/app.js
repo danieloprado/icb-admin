@@ -4,10 +4,15 @@
   angular.module('icbApp')
     .controller("icbApp.appCtrl", [
       '$scope',
-      function($scope) {
-
-
-      }
+      '$mdSidenav',
+      AppCtrl
     ]);
+
+  function AppCtrl($scope, $mdSidenav) {
+
+    $scope.toggleSidenav = function(menuId) {
+      $mdSidenav(menuId).toggle();
+    };
+  }
 
 })(angular);

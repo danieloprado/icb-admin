@@ -2,6 +2,13 @@
 @import "mixin";
 @import "components";
 
+nav.menu {
+  .md-button {
+    display: block;
+    text-align: left;
+  }
+}
+
 .error-message {
   color: $danger;
   margin-bottom: 20px;

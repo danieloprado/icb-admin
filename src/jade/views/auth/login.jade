@@ -9,7 +9,7 @@ section.content-hover.login-content.animated.fadeIn(ng-if='!hide')
         div(ng-messages='loginForm.email.$error', ng-show="loginForm.$submitted || loginForm.email.$touched", md-auto-hide='false')
           div(ng-message='email') Email inválido
           div(ng-message='required') Obrigatório
-          
+          g
       md-input-container.md-block
         label Senha
         input(ng-model='model.password', name='password', type='password', required)

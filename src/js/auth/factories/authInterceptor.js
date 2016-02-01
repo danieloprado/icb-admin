@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module("icbApp")
+  angular.module("icbAuth")
     .factory("authInterceptor", ["auth", factory]);
 
   function factory(auth) {

@@ -1,13 +1,12 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const userService = require("modules/user/services/userService");
 
-var userModule = require('../../modules/user/module');
-var auth = require('../../config').auth;
+var auth = require('config').auth;
 
-function login(req, res, next) {
+function login(req, res) {
   res.header('Access-Control-Expose-Headers', 'X-Token');
-  console.log(req.body.email);
 
-  userModule.services.userService.findByEmail(req.body.email)
+  userService.findByEmail(req.body.email)
     .then(function(user) {
       if (!user) {
         return res.status(400).send({

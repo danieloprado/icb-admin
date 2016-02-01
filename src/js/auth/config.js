@@ -1,6 +1,11 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth');
+  angular.module('icbAuth')
+    .config(['$httpProvider', configInterceptor]);
+
+  function configInterceptor($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+  }
 
 })(angular);

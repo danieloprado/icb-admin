@@ -1,4 +1,4 @@
-var auth = require('../../../config').auth;
+var auth = require('config').auth;
 var jwt = require('jsonwebtoken');
 
 function autoRenewToken(req, res, next) {

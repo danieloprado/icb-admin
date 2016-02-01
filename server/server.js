@@ -1,16 +1,19 @@
+require('app-module-path').addPath(__dirname);
+
 const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
-  seed = require('./seed'),
-  m = require("./modulesRegister");
+  appPath = require('app-module-path'),
+  seed = require('./seed');
 
-m.register("user", './modules/user/module');
-m.register("auth", './modules/auth/module');
 
-var publicDir = __dirname + '/../dist';
+var authModule = require("modules/auth/module");
+var userModule = require("modules/user/module");
+
 var app = express();
 
-mongoose.connect('mongodb://root:123@ds056698.mongolab.com:56698/icb', function(err) {
+//mongodb://root:123@ds056698.mongolab.com:56698/icb
+mongoose.connect('mongodb://localhost', function(err) {
   if (err) {
     throw err;
   }
@@ -25,7 +28,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(publicDir));
+app.use(express.static(__dirname + "/../dist"));
 app.all('/views/*', function(req, res) {
   res.status(404);
   res.send("Not Found");
@@ -35,10 +38,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(m.auth.middlewares.autoRenewToken);
+app.use(authModule.middlewares.autoRenewToken);
 
-app.use('/api/auth', m.auth.routes);
-app.use('/api/user', m.user.routes);
+app.use('/api/auth', authModule.routes);
+app.use('/api/user', userModule.routes);
 
 app.all("/*", function(req, res) {
   res.sendFile('index.html', {
