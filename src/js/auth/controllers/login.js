@@ -7,17 +7,26 @@
       'Loader',
       'loginService',
       function($scope, Loader, loginService) {
+        $scope.model = {};
 
         $scope.submit = function() {
+          $scope.errorMessage = null;
 
-          console.log('ok', $scope.model);
-          return;
-          //
-          // Loader(loginService.login($scope.model))
-          //   .then(function(data) {
-          //     alert('ok');
-          //   });
+          Loader(loginService.login($scope.model))
+            .then(function() {
+              $scope.model = {};
+            })
+            .catch(function(res) {
+              switch (res.status) {
+                case 400:
+                  $scope.errorMessage = res.data.message;
+                  break;
+                default:
+                  $scope.errorMessage = "Ocorreu um erro no servidor";
+              }
+            });
         };
+
       }
     ]);
 

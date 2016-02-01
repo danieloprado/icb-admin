@@ -6,6 +6,7 @@
       'ngMessages',
       'ngAnimate',
       'ngRoute',
+      'angular-jwt',
       'icbAuth'
     ])
     .constant('API', '/api');

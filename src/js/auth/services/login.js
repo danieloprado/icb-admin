@@ -2,18 +2,45 @@
   'use strict';
 
   angular.module('icbAuth')
-    .service('loginService', ['API', '$http', LoginService]);
+    .service('loginService', [
+      'API',
+      '$http',
+      '$q',
+      '$timeout',
+      '$rootScope',
+      '$route',
+      'auth',
+      LoginService
+    ]);
 
-  function LoginService(API, $http) {
-
-    var endpoints = {
+  function LoginService(API, $http, $q, $timeout, $rootScope, $route, auth) {
+    let loginPromise = null;
+    let endpoints = {
       login: API + '/auth/login'
     };
 
-    this.login = (credentials) => {
-      return $http.post(endpoints.login, credentials);
+    this.openLogin = () => {
+      loginPromise = $q.defer();
+
+      $timeout(() => $rootScope.$broadcast("show-login"));
+      return loginPromise.promise;
     };
 
+    this.login = (credentials) => {
+      var promise = $http.post(endpoints.login, credentials);
+
+      promise.then(function() {
+        loginPromise.resolve();
+        $timeout(() => $rootScope.$broadcast("hide-login"));
+      });
+
+      return promise;
+    };
+
+    this.logout = () => {
+      auth.removeToken();
+      $route.reload();
+    };
   }
 
 })(angular);

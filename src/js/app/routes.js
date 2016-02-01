@@ -15,7 +15,8 @@
         $routeProvider
           .when('/', {
             templateUrl: 'views/app/home.html',
-            controller: 'icbApp.homeCtrl'
+            controller: 'icbApp.homeCtrl',
+            //allowAnonymous: true
           })
           .otherwise({
             redirectTo: "/"

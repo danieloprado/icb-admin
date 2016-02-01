@@ -12,6 +12,7 @@ html(lang='en', ng-app='icbApp')
       
   body.ng-cloak(layout='column', ng-controller='icbApp.appCtrl')
     icb-loading
+    icb-login
 
     md-toolbar(layout='row')
       .md-toolbar-tools
@@ -19,8 +20,7 @@ html(lang='en', ng-app='icbApp')
           md-icon(aria-label='Menu', md-svg-icon='https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg')
         h1 ICB
         span(flex='')
-        md-button(ng-if='!isAuthenticated', cf-login='') Login
-        md-button(ng-if='isAuthenticated', cf-logout='') Logout
+        md-button(icb-logout='') Logout
 
     div(layout="row", flex)
       md-sidenav.md-sidenav-left.md-whiteframe-4dp(ng-if='isAuthenticated', layout='column', md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')")

@@ -2,6 +2,11 @@
 @import "mixin";
 @import "components";
 
+.error-message {
+  color: $danger;
+  margin-bottom: 20px;
+}
+
 .content-hover {
   position: fixed;
   top: 0;

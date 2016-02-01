@@ -32,7 +32,8 @@ var paths = {
     'bower_components/angular-jwt/dist/angular-jwt.js',
     'bower_components/angular-material/angular-material.js',
     'bower_components/angular-material-data-table/dist/md-data-table.js',
-    'bower_components/angular-messages/angular-messages.min.js'
+    'bower_components/angular-messages/angular-messages.min.js',
+    'bower_components/angular-jwt/dist/angular-jwt.min.js'
   ]
 };
 

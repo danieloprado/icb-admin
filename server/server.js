@@ -7,7 +7,6 @@ var seed = require('./seed'),
   authModule = require('./modules/auth/module');
 
 var publicDir = __dirname + '/../dist';
-
 var app = express();
 
 mongoose.connect('mongodb://root:123@ds056698.mongolab.com:56698/icb', function(err) {
