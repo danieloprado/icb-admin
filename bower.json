@@ -12,5 +12,8 @@
     "angular-messages": "~1.4.9",
     "jQuery": "^2.2.0"
   },
-  "private": true
+  "private": true,
+  "resolutions": {
+    "angular": "1.4.9"
+  }
 }

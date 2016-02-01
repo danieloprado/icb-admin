@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "install": "./node_modules/.bin/bower install -F",
-    "postinstall": "./node_modules/.bin/gulp"
+    "postinstall": "./node_modules/.bin/gulp compile"
   },
   "author": "danieloprado",
   "license": "MIT",
