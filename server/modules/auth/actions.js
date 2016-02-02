@@ -3,18 +3,18 @@ const userService = require("modules/user/services/userService");
 
 var auth = require('config').auth;
 
-function login(req, res) {
+const login = (req, res) => {
   res.header('Access-Control-Expose-Headers', 'X-Token');
 
   userService.findByEmail(req.body.email)
-    .then(function(user) {
+    .then(user => {
       if (!user) {
         return res.status(400).send({
           message: "O email ou a senha são inválidos"
         });
       }
 
-      user.verifyPassword(req.body.password, function(err, success) {
+      user.verifyPassword(req.body.password, (err, success) => {
         if (err || !success) {
           return res.status(400).send({
             message: "O email ou a senha são inválidos"
@@ -32,8 +32,9 @@ function login(req, res) {
           token: token
         });
       });
-    });
-}
+    })
+    .catch(next);
+};
 
 module.exports = {
   login: login

@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth', [
+  angular.module('icbInformative', [
     'ngRoute'
   ]);
 

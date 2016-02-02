@@ -7,10 +7,12 @@ const express = require('express'),
   seed = require('./seed');
 
 
-var authModule = require("modules/auth/module");
-var userModule = require("modules/user/module");
+const authModule = require("modules/auth/module");
+const informativeModule = require("modules/informative/module");
+const userModule = require("modules/user/module");
 
-var app = express();
+const app = express();
+const publicDir = __dirname + "/../dist";
 
 //mongodb://root:123@ds056698.mongolab.com:56698/icb
 mongoose.connect('mongodb://localhost', function(err) {
@@ -28,10 +30,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + "/../dist"));
+app.use(express.static(publicDir));
 app.all('/views/*', function(req, res) {
-  res.status(404);
-  res.send("Not Found");
+  res.status(404).send("Not Found");
 });
 
 app.use(bodyParser.urlencoded({
@@ -41,22 +42,21 @@ app.use(bodyParser.json());
 app.use(authModule.middlewares.autoRenewToken);
 
 app.use('/api/auth', authModule.routes);
+app.use('/api/informative', informativeModule.routes);
 app.use('/api/user', userModule.routes);
 
-app.all("/*", function(req, res) {
+app.get("*", function(req, res) {
   res.sendFile('index.html', {
     root: publicDir
   });
 });
 
 app.use(function(req, res, next) {
-  res.status(404);
-  res.send("Not Found");
+  res.status(404).send("Not Found");
 });
 
 app.use(function(err, req, res, next) {
-  res.status(500);
-  res.send({
+  res.status(500).send({
     error: err
   });
 });

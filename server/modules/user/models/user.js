@@ -1,11 +1,10 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 
-var SALT_WORK_FACTOR = 11;
+const SALT_WORK_FACTOR = 11;
+const Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
-
-var UserSchema = new Schema({
+const UserSchema = new Schema({
   name: {
     firstName: {
       type: String,
@@ -31,19 +30,19 @@ var UserSchema = new Schema({
   }
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', next => {
   var user = this;
 
   if (!user.isModified('password')) {
     return next();
   }
 
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) {
       return next(err);
     }
 
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
+    bcrypt.hash(user.password, salt, null, (err, hash) => {
       if (err) return next(err);
 
       user.password = hash;
@@ -52,10 +51,12 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.verifyPassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
+UserSchema.methods.verifyPassword = (candidatePassword) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+      if (err || !isMatch) return reject(err);
+      resolve();
+    });
   });
 };
 

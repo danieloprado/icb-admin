@@ -1,4 +1,4 @@
-var userModel = require('./model/user');
+var userModel = require('./models/user');
 var userService = require('./services/userService');
 var routes = require('./routes');
 

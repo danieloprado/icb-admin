@@ -1,16 +1,16 @@
-var userModule = require('./modules/user/module');
+var userService = require('modules/user/services/userService');
 
 module.exports = function() {
   console.log("seed");
 
-  userModule.services.userService.findByEmail("danieloprado@outlook.com")
+  userService.findByEmail("danieloprado@outlook.com")
     .then(function(user) {
       if (user) {
         return;
       }
 
       console.log("seed: creating user");
-      userModule.services.userService.create({
+      userService.create({
         name: {
           firstName: "Daniel",
           lastName: "Prado"

@@ -1,5 +1,16 @@
-md-input-container {
-  //width: 100%;
+md-content {
+  color: inherit;
+}
+
+.md-button {
+  text-transform: none;
+  
+  ng-md-icon {
+    margin: 5px 10px 5px 0;
+    float: left;
+    height: 24px;
+    fill: $color;
+  }
 }
 
 icb-loading > div {
