@@ -7,7 +7,6 @@ const express = require('express'),
   seed = require('./seed'),
   logger = require('morgan');
 
-
 const authModule = require("modules/auth/module");
 const informativeModule = require("modules/informative/module");
 const userModule = require("modules/user/module");
@@ -16,19 +15,16 @@ const app = express();
 const publicDir = __dirname + "/../dist";
 
 //mongodb://root:123@ds056698.mongolab.com:56698/icb
+mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost', function(err) {
-  if (err) {
+  if (err) 
     throw err;
-  }
-
   seed();
 });
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(authModule.middlewares.autoRenewToken);
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -50,9 +46,7 @@ app.use('/api/informative', informativeModule.routes);
 app.use('/api/user', userModule.routes);
 
 app.get("*", function(req, res) {
-  res.sendFile('index.html', {
-    root: publicDir
-  });
+  res.sendFile('index.html', {root: publicDir});
 });
 
 // catch 404 and forward to error handler
@@ -66,10 +60,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.send({message: err.message, status: err.status, stack: err.stack});
   });
 }
 
