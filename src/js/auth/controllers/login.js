@@ -4,9 +4,10 @@
   angular.module('icbAuth')
     .controller("icbAuth.loginCtrl", [
       '$scope',
+      'Toast',
       'Loader',
       'loginService',
-      function($scope, Loader, loginService) {
+      function($scope, Toast, Loader, loginService) {
         $scope.model = {
           email: "danieloprado@outlook.com",
           password: "123"
@@ -22,10 +23,10 @@
             .catch(function(res) {
               switch (res.status) {
                 case 400:
-                  $scope.errorMessage = res.data.message;
+                  Toast(res.data.message);
                   break;
                 default:
-                  $scope.errorMessage = "Ocorreu um erro no servidor";
+                  Toast("Ocorreu um erro no servidor");
               }
             });
         };

@@ -22,9 +22,9 @@ md-toolbar {
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     content: "";
     height: 56px;
-    left: -2%;
+    left: 0;
+    right: 0;
     position: absolute;
-    width: 104%;
     will-change: top,left;
   }
 }
@@ -41,7 +41,7 @@ md-toolbar {
   right: 0;
   bottom: 0;
   background: $white;
-  z-index: 1025;
+  z-index: 99;
   overflow: auto;
   animation-duration: 0.5s;
   @include transition;

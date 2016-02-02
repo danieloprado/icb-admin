@@ -51,10 +51,13 @@ UserSchema.pre('save', next => {
   });
 });
 
-UserSchema.methods.verifyPassword = (candidatePassword) => {
+UserSchema.methods.verifyPassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-      if (err || !isMatch) return reject(err);
+      if (err || !isMatch) {
+        return reject(err || "Invalid password");
+      }
+
       resolve();
     });
   });

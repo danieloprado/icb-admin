@@ -4,7 +4,8 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   appPath = require('app-module-path'),
-  seed = require('./seed');
+  seed = require('./seed'),
+  logger = require('morgan');
 
 
 const authModule = require("modules/auth/module");
@@ -23,6 +24,12 @@ mongoose.connect('mongodb://localhost', function(err) {
   seed();
 });
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(authModule.middlewares.autoRenewToken);
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -30,16 +37,13 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Views
 app.use(express.static(publicDir));
 app.all('/views/*', function(req, res) {
-  res.status(404).send("Not Found");
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
-
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
-app.use(authModule.middlewares.autoRenewToken);
 
 app.use('/api/auth', authModule.routes);
 app.use('/api/informative', informativeModule.routes);
@@ -51,13 +55,31 @@ app.get("*", function(req, res) {
   });
 });
 
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  res.status(404).send("Not Found");
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
+// error handlers
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(500).send({
-    error: err
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
   });
 });
 

@@ -17,13 +17,6 @@ section.content-hover.login-content.animated.fadeIn(ng-if='!hide')
           div(ng-message='required')
             | Obrigatório
           
-        //- .alert.alert-danger.alert-dismissable
-        //-   ul
-        //-     li(ng-repeat='item in loginForm.$validationSummary') {{item.field }}: {{item.message}}
-          
-      .error-message(ng-show="errorMessage")
-        {{errorMessage}}
-          
       md-dialog-actions(layout='row')
         span(flex='')
         md-button.md-raised.md-primary(type='submit') Entrar

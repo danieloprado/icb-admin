@@ -3,7 +3,7 @@ const userService = require("modules/user/services/userService");
 
 var auth = require('config').auth;
 
-const login = (req, res) => {
+function login(req, res, next) {
   res.header('Access-Control-Expose-Headers', 'X-Token');
 
   userService.findByEmail(req.body.email)
@@ -14,27 +14,28 @@ const login = (req, res) => {
         });
       }
 
-      user.verifyPassword(req.body.password, (err, success) => {
-        if (err || !success) {
+      user.verifyPassword(req.body.password)
+        .then(() => {
+          const token = jwt.sign({
+            email: user.email,
+            id: user._id,
+            exp: Math.floor(Date.now() / 1000) + auth.timeout
+          }, auth.secret);
+
+          res.setHeader("X-Token", token);
+          return res.send({
+            token: token
+          });
+        })
+        .catch((err) => {
+          console.log("error", err);
           return res.status(400).send({
             message: "O email ou a senha são inválidos"
           });
-        }
-
-        var token = jwt.sign({
-          email: user.email,
-          id: user._id,
-          exp: Math.floor(Date.now() / 1000) + auth.timeout
-        }, auth.secret);
-
-        res.setHeader("X-Token", token);
-        res.send({
-          token: token
         });
-      });
     })
     .catch(next);
-};
+}
 
 module.exports = {
   login: login
