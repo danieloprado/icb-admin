@@ -3,9 +3,7 @@ var mongoose = require('mongoose');
 var Service = {
   findOne: query => mongoose.model('User').findOne(query || {}),
 
-  findByEmail: email => mongoose.model('User').findOne({
-    email: email
-  }),
+  findByEmail: email => mongoose.model('User').findOne({email: email}),
 
   list: query => mongoose.model('User').find(query || {}),
 
