@@ -1,22 +1,41 @@
-(function(angular) {
+((angular) => {
   'use strict';
 
   angular.module('icbInformative')
-    .service('informativeService', [
+    .factory('informativeService', [
       'API',
       '$http',
+      '$mdDialog',
       InformativeService
     ]);
 
-  function InformativeService(API, $http) {
+  function InformativeService(API, $http, $mdDialog) {
     let endpoints = {
       list: API + '/informative/'
     };
 
-    this.list = () => {
+    const list = () => {
       return $http.get(endpoints.list).then(function(response) {
         return response.data;
       });
+    };
+
+    const create = ($event) => {
+      $mdDialog.show({
+        templateUrl: 'views/informative/form.html',
+        controller: 'icbInformative.formCtrl',
+        clickOutsideToClose: true,
+        escapeToClose: true,
+        targetEvent: $event,
+        locals: {
+          informative: null
+        }
+      });
+    };
+
+    return {
+      list: list,
+      create: create
     };
   }
 

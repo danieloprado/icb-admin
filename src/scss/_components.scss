@@ -2,15 +2,22 @@ md-content {
   color: inherit;
 }
 
-.md-button {
-  text-transform: none;
-  
-  ng-md-icon {
-    margin: 5px 10px 5px 0;
-    float: left;
-    height: 24px;
-    fill: $color;
+ng-md-icon {
+  svg {
+    vertical-align: middle;
+    fill: inherit;
   }
+}
+
+.md-button:not(.md-fab) ng-md-icon {
+  margin: 0 10px 0 0;
+  float: left;
+  height: 24px;
+  fill: inherit;
+}
+
+.md-fab {
+  fill: white;
 }
 
 icb-loading > div {

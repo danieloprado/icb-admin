@@ -16,16 +16,24 @@ html(lang='en', ng-app='icbApp')
     icb-loading
     icb-login
 
-    md-toolbar(layout='row')
-      .md-toolbar-tools
-        md-button.md-icon-button(ng-click="toggleSidenav('left')", hide-gt-sm='')
-          md-icon(aria-label='Menu', md-svg-icon='/icons/menu.svg')
-        h1 ICB
-        span(flex='')
-        md-button(icb-logout='') Sair
-
     div(layout="row", flex)
       md-sidenav.md-sidenav-left.md-whiteframe-4dp(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')")
+        
+        header
+          div.logo
+            img(src="/imgs/logo.png")
+        
+          p Daniel Prado
+      
+          md-menu(md-position-mode="target-right target")
+            md-button.md-icon-button(ng-click='$mdOpenMenu($event)')
+              ng-md-icon(icon='more_vert')
+            md-menu-content
+              md-menu-item
+                md-button(icb-logout='')
+                  ng-md-icon(icon='exit_to_app') 
+                  | Sair
+          
         nav.menu
           md-button(ng-href="/")
             ng-md-icon(icon="dashboard", size=24)
@@ -35,6 +43,12 @@ html(lang='en', ng-app='icbApp')
             | Informativo
 
       #main(layout='column', flex)
+        md-toolbar(layout='row')
+          .md-toolbar-tools
+            md-button.md-icon-button(ng-click="toggleSidenav('left')", hide-gt-sm='')
+              md-icon(aria-label='Menu', md-svg-icon='/icons/menu.svg')
+            h1 ICB
+            
         md-content.main-content(ng-view='', layout='column', flex='', layout-padding='')
 
     script(src='js/libs.min.js')

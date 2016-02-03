@@ -12,6 +12,10 @@
     informativeService.list().then(function(response) {
       console.log(response);
     });
+
+    $scope.create = () => {
+      informativeService.create();
+    };
   }
 
 })(angular);

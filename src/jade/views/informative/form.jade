@@ -1,0 +1,28 @@
+md-dialog(flex="30", flex-lg="40", flex-md="60", flex-sm="80", flex-xs="90")
+  md-dialog-content
+    div.md-inline-form(layout="column")
+    
+      form(ng-submit="infoForm.$valid && submit()", name="infoForm", novalidate)
+        md-toolbar
+          .md-toolbar-tools
+            h2(ng-if="!editing") Novo Informativo
+            h2(ng-if="editing") Editar Informativo
+            
+        md-content(layout-padding="")
+          div
+            md-input-container.md-block
+              label Titulo
+              input(ng-model='model.title', name='title', required)
+              div(ng-messages='infoForm.title.$error', ng-show="infoForm.$submitted || infoForm.title.$touched", md-auto-hide='false')
+                div(ng-message='required') Obrigatório
+                
+            md-input-container.md-block
+              label Mensagem
+              textarea(ng-model='model.message', name='message', required)
+              div(ng-messages='infoForm.message.$error', ng-show="infoForm.$submitted || infoForm.message.$touched", md-auto-hide='false')
+                div(ng-message='required') Obrigatório
+            
+        md-dialog-actions(layout="row")
+          md-button.md-raised(type="button", ng-click="cancel()") Cancelar
+          span(flex)
+          md-button.md-raised.md-primary(type="submit") Salvar
