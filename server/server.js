@@ -17,14 +17,16 @@ const publicDir = __dirname + "/../dist";
 //mongodb://root:123@ds056698.mongolab.com:56698/icb
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost', function(err) {
-  if (err) 
+  if (err)
     throw err;
   seed();
 });
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(authModule.middlewares.autoRenewToken);
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -35,7 +37,7 @@ app.use(function(req, res, next) {
 
 //Views
 app.use(express.static(publicDir));
-app.all('/views/*', function(req, res) {
+app.all('/views/*', function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -46,7 +48,9 @@ app.use('/api/informative', informativeModule.routes);
 app.use('/api/user', userModule.routes);
 
 app.get("*", function(req, res) {
-  res.sendFile('index.html', {root: publicDir});
+  res.sendFile('index.html', {
+    root: publicDir
+  });
 });
 
 // catch 404 and forward to error handler
@@ -60,7 +64,11 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.send({message: err.message, status: err.status, stack: err.stack});
+    res.send({
+      message: err.message,
+      status: err.status,
+      stack: err.stack
+    });
   });
 }
 
