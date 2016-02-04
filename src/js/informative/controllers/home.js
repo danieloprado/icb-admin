@@ -9,6 +9,8 @@
     ]);
 
   function HomeCtrl($scope, informativeService) {
+    $scope.$emit("change-page-title", "Informative");
+
     informativeService.list().then(function(response) {
       console.log(response);
     });

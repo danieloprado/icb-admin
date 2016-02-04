@@ -10,7 +10,9 @@ var Service = {
     const informative = new Informative(obj);
 
     return informative.save(err => {
-      throw err;
+      console.log('eror', err);
+
+      //throw err;
     });
   }
 };

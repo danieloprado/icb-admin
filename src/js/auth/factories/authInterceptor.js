@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module("icbAuth")
-    .factory("authInterceptor", ["auth", factory]);
+    .factory("authInterceptor", ["$q", "$injector", "auth", AuthInterceptor]);
 
-  function factory(auth) {
+  function AuthInterceptor($q, $injector, auth) {
     return {
       request: function(config) {
         if (auth.hasToken()) {
@@ -20,6 +20,32 @@
         }
 
         return response;
+      },
+      responseError: function(response) {
+        if (response.status != 401) {
+          return response;
+        }
+
+        console.log("resolve login");
+
+        const loginService = $injector.get("loginService");
+        const $http = $injector.get("$http");
+        const Loader = $injector.get("Loader");
+
+        const deferred = $q.defer();
+
+        Loader.disable();
+        loginService.openLogin().then(() => {
+          Loader.enable();
+
+          $http(response.config).then((response) => {
+            deferred.resolve(response);
+          }).catch((response) => {
+            deferred.reject(response);
+          });
+        });
+
+        return deferred.promise;
       }
     };
   }

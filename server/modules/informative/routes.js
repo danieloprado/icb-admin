@@ -9,6 +9,6 @@ router.use(checkLogin());
 
 router.get('/', actions.list);
 router.get('/:id', actions.get);
-router.post('/', actions.create);
+router.post('/', actions.save);
 
 module.exports = router;

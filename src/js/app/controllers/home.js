@@ -4,9 +4,11 @@
   angular.module('icbApp')
     .controller("icbApp.homeCtrl", [
       '$scope',
-      function($scope) {
-
-      }
+      HomeCtrl
     ]);
+
+  function HomeCtrl($scope) {
+    $scope.$emit("change-page-title", "Dashboard");
+  }
 
 })(angular);

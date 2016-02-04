@@ -8,14 +8,14 @@
       'Loader',
       'loginService',
       function($scope, Toast, Loader, loginService) {
+        $scope.$emit("change-page-title", "Login");
+
         $scope.model = {
           email: "danieloprado@outlook.com",
           password: "123"
         };
 
         $scope.submit = function() {
-          $scope.errorMessage = null;
-
           Loader(loginService.login($scope.model))
             .then(function() {
               $scope.model = {};

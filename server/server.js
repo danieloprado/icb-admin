@@ -16,7 +16,7 @@ const publicDir = __dirname + "/../dist";
 
 //mongodb://root:123@ds056698.mongolab.com:56698/icb
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost', function(err) {
+mongoose.connect('mongodb://localhost/icb', function(err) {
   if (err)
     throw err;
   seed();

@@ -4,7 +4,8 @@
   angular.module('icbApp').config(['$mdThemingProvider', configTheme]);
 
   function configTheme($mdThemingProvider, $translateProvider) {
-    var customPrimary = {
+
+    $mdThemingProvider.definePalette('customPrimary', {
       '50': '#6c8a99',
       '100': '#617d8b',
       '200': '#56707c',
@@ -20,10 +21,9 @@
       'A400': '#9aaeb8',
       'A700': '#030304',
       'contrastDefaultColor': 'light'
-    };
-    $mdThemingProvider.definePalette('customPrimary', customPrimary);
+    });
 
-    var customAccent = {
+    $mdThemingProvider.definePalette('customAccent', {
       '50': '#65ab72',
       '100': '#579f65',
       '200': '#4e8e5a',
@@ -39,33 +39,11 @@
       'A400': '#96c69f',
       'A700': '#060b07',
       'contrastDefaultColor': 'light'
-    };
-    $mdThemingProvider.definePalette('customAccent', customAccent);
+    });
 
-    var customWarn = {
-      '50': '#f4a8a6',
-      '100': '#f1928f',
-      '200': '#ee7b79',
-      '300': '#eb6562',
-      '400': '#e84f4c',
-      '500': '#e53935',
-      '600': '#e2231e',
-      '700': '#cd1e1a',
-      '800': '#b61b17',
-      '900': '#9f1815',
-      'A100': '#f6bebd',
-      'A200': '#f9d4d3',
-      'A400': '#fceaea',
-      'A700': '#891412'
-    };
-    $mdThemingProvider.definePalette('customWarn', customWarn);
-
-    $mdThemingProvider.theme('default').primaryPalette('customPrimary').accentPalette('customAccent').warnPalette('customWarn');
-
-    // $mdThemingProvider.theme('default')
-    //   .primaryPalette('blue')
-    //   .accentPalette('red');
-
+    $mdThemingProvider.theme('default')
+      .primaryPalette('customPrimary')
+      .accentPalette('customAccent');
   }
 
 })(angular);

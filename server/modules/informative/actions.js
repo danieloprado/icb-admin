@@ -21,7 +21,7 @@ function get(req, res, next) {
     .catch(next);
 }
 
-function create(req, res, next) {
+function save(req, res, next) {
   service.create(req.body)
     .then(informative => {
       res.status(201).send(informative);
@@ -32,5 +32,5 @@ function create(req, res, next) {
 module.exports = {
   list: list,
   get: get,
-  create: create
+  save: save
 };

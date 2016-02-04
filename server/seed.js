@@ -21,7 +21,7 @@ module.exports = function() {
       }).then(function() {
         console.log("seed: user created");
       }).catch(function(err) {
-        console.log(err);
+        console.log('seed: user error', JSON.stringify(err, null, 2));
       });
     });
 };

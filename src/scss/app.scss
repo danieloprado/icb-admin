@@ -13,6 +13,16 @@ md-toolbar {
   min-height: 0;
   height: 56px;
   
+  &.main-toolbar {
+    background: $white;
+    color: $color;
+    fill: $color;
+    
+    md-icon {
+      fill: $color;
+    }
+  }
+
   .md-toolbar-tools {
     height: 56px;
   }

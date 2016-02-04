@@ -13,7 +13,7 @@
           'loading-started');
       };
 
-      return (target) => {
+      const obj = (target) => {
         const promise = target;
         promises.push(promise);
 
@@ -28,6 +28,15 @@
         return promise;
       };
 
+      obj.enable = () => {
+        $rootScope.$broadcast('loading-started');
+      };
+
+      obj.disable = () => {
+        $rootScope.$broadcast('loading-finished');
+      };
+
+      return obj;
     }]);
 
 

@@ -11,7 +11,8 @@
 
   function InformativeService(API, $http, $mdDialog) {
     let endpoints = {
-      list: API + '/informative/'
+      list: API + '/informative/',
+      save: API + '/informative/'
     };
 
     const list = () => {
@@ -33,9 +34,16 @@
       });
     };
 
+    const save = (model) => {
+      return $http.post(endpoints.save, model).then(function(response) {
+        return response.data;
+      });
+    };
+
     return {
       list: list,
-      create: create
+      create: create,
+      save: save
     };
   }
 
