@@ -17,11 +17,17 @@
 
     const list = () => {
       return $http.get(endpoints.list).then(function(response) {
-        return response.data;
+        return response.data.map((item) => {
+          if (item.date) {
+            item.date = new Date(item.date);
+          }
+
+          return item;
+        });
       });
     };
 
-    const create = ($event) => {
+    const form = ($event, informative) => {
       $mdDialog.show({
         templateUrl: 'views/informative/form.html',
         controller: 'icbInformative.formCtrl',
@@ -29,8 +35,15 @@
         escapeToClose: true,
         targetEvent: $event,
         locals: {
-          informative: null
+          informative: angular.copy(informative || {})
         }
+      }).then(function() {
+        console.log("OK!");
+      }).catch(function() {
+        console.log("catch!");
+      }).finally(function() {
+        console.log("finally!");
+
       });
     };
 
@@ -42,7 +55,7 @@
 
     return {
       list: list,
-      create: create,
+      form: form,
       save: save
     };
   }

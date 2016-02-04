@@ -29,7 +29,6 @@
       var promise = $http.post(endpoints.login, credentials);
 
       promise.then(() => {
-        console.log("login success");
         loginPromise.resolve();
         $timeout(() => $rootScope.$broadcast("hide-login"));
       });

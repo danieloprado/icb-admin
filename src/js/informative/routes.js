@@ -10,8 +10,8 @@
   function Routes($routeProvider) {
     $routeProvider
       .when('/informative', {
-        templateUrl: 'views/informative/index.html',
-        controller: 'icbInformative.homeCtrl',
+        templateUrl: 'views/informative/list.html',
+        controller: 'icbInformative.listCtrl',
       });
   }
 

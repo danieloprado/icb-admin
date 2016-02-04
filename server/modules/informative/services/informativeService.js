@@ -1,20 +1,25 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Informative = mongoose.model('Informative');
 
 var Service = {
-  findOne: query => mongoose.model('Informative').findOne(query || {}),
+  findOne: query => Informative.findOne(query || {}),
 
-  list: query => mongoose.model('Informative').find(query || {}),
+  list: query => Informative.find(query || {}),
 
-  create: obj => {
-    const Informative = mongoose.model('Informative');
+  create: (obj) => {
     const informative = new Informative(obj);
+    return informative.save();
+  },
 
-    return informative.save(err => {
-      console.log('eror', err);
+  update: (obj) => {
+    delete obj.createdAt;
+    delete obj.updatedAt;
 
-      //throw err;
-    });
+    return Informative.findOneAndUpdate({
+      _id: obj._id
+    }, obj);
   }
+
 };
 
 module.exports = Service;

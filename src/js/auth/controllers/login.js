@@ -4,10 +4,11 @@
   angular.module('icbAuth')
     .controller("icbAuth.loginCtrl", [
       '$scope',
+      '$timeout',
       'Toast',
       'Loader',
       'loginService',
-      function($scope, Toast, Loader, loginService) {
+      function($scope, $timeout, Toast, Loader, loginService) {
         $scope.$emit("change-page-title", "Login");
 
         $scope.model = {
@@ -18,7 +19,9 @@
         $scope.submit = function() {
           Loader(loginService.login($scope.model))
             .then(function() {
-              $scope.model = {};
+              $timeout(() => {
+                $scope.model = {};
+              }, 500);
             })
             .catch(function(res) {
               switch (res.status) {

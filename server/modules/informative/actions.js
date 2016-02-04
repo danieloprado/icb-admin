@@ -22,7 +22,15 @@ function get(req, res, next) {
 }
 
 function save(req, res, next) {
-  service.create(req.body)
+  var promise;
+
+  if (!req.body._id) {
+    promise = service.create(req.body);
+  } else {
+    promise = service.update(req.body);
+  }
+
+  promise
     .then(informative => {
       res.status(201).send(informative);
     })

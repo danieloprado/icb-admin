@@ -20,6 +20,36 @@ ng-md-icon {
   fill: white;
 }
 
+md-datepicker {
+  margin-top: 18px !important;
+  display: block;
+  
+  .md-datepicker-input-container {
+    margin-left: 0;
+    width: calc(100% - 60px);
+  }
+}
+
+.ng-submitted,
+md-datepicker {
+  &.ng-invalid:not(.ng-untouched),
+  md-datepicker.ng-invalid {
+    .md-datepicker-input-container {
+      border-color: $danger;
+    }
+
+    md-icon {
+      fill: rgba($danger, 0.8);
+    }
+
+    & + [ng-messages] {
+      padding-left: 50px;
+      color: $danger;
+      font-size: 12px;
+    }
+  }
+}
+
 icb-loading > div {
   position: absolute;
   z-index: 10000;
