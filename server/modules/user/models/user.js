@@ -30,7 +30,7 @@ const UserSchema = new Schema({
   }
 });
 
-UserSchema.pre('save', next => {
+UserSchema.pre('save', function(next) {
   var user = this;
 
   if (!user.isModified('password')) {
@@ -43,8 +43,9 @@ UserSchema.pre('save', next => {
     }
 
     bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err) return next(err);
-
+      if (err) 
+        return next(err);
+      
       user.password = hash;
       next();
     });

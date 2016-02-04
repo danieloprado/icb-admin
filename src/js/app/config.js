@@ -1,8 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbApp')
-    .config(['$mdThemingProvider', configTheme]);
+  angular.module('icbApp').config(['$mdThemingProvider', configTheme]);
 
   function configTheme($mdThemingProvider, $translateProvider) {
     var customPrimary = {
@@ -19,11 +18,10 @@
       'A100': '#7c96a3',
       'A200': '#8ba2ae',
       'A400': '#9aaeb8',
-      'A700': '#030304'
+      'A700': '#030304',
+      'contrastDefaultColor': 'light'
     };
-    $mdThemingProvider
-      .definePalette('customPrimary',
-        customPrimary);
+    $mdThemingProvider.definePalette('customPrimary', customPrimary);
 
     var customAccent = {
       '50': '#65ab72',
@@ -39,11 +37,10 @@
       'A100': '#75b481',
       'A200': '#86bd90',
       'A400': '#96c69f',
-      'A700': '#060b07'
+      'A700': '#060b07',
+      'contrastDefaultColor': 'light'
     };
-    $mdThemingProvider
-      .definePalette('customAccent',
-        customAccent);
+    $mdThemingProvider.definePalette('customAccent', customAccent);
 
     var customWarn = {
       '50': '#f4a8a6',
@@ -61,40 +58,13 @@
       'A400': '#fceaea',
       'A700': '#891412'
     };
-    $mdThemingProvider
-      .definePalette('customWarn',
-        customWarn);
+    $mdThemingProvider.definePalette('customWarn', customWarn);
 
-    var customBackground = {
-      '50': '#ffffff',
-      '100': '#ffffff',
-      '200': '#ffffff',
-      '300': '#ffffff',
-      '400': '#ffffff',
-      '500': '#ffffff',
-      '600': '#f2f2f2',
-      '700': '#e6e6e6',
-      '800': '#d9d9d9',
-      '900': '#cccccc',
-      'A100': '#ffffff',
-      'A200': '#ffffff',
-      'A400': '#ffffff',
-      'A700': '#bfbfbf'
-    };
-    $mdThemingProvider
-      .definePalette('customBackground',
-        customBackground);
-
-    $mdThemingProvider.theme('default')
-      .primaryPalette('customPrimary')
-      .accentPalette('customAccent')
-      .warnPalette('customWarn')
-      .backgroundPalette('customBackground');
+    $mdThemingProvider.theme('default').primaryPalette('customPrimary').accentPalette('customAccent').warnPalette('customWarn');
 
     // $mdThemingProvider.theme('default')
     //   .primaryPalette('blue')
     //   .accentPalette('red');
-
 
   }
 
