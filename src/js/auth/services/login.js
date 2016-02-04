@@ -1,17 +1,16 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth')
-    .service('loginService', [
-      'API',
-      '$http',
-      '$q',
-      '$timeout',
-      '$rootScope',
-      '$route',
-      'auth',
-      LoginService
-    ]);
+  angular.module('icbAuth').service('loginService', [
+    'API',
+    '$http',
+    '$q',
+    '$timeout',
+    '$rootScope',
+    '$route',
+    'auth',
+    LoginService
+  ]);
 
   function LoginService(API, $http, $q, $timeout, $rootScope, $route, auth) {
     let loginPromise = null;
@@ -29,7 +28,8 @@
     this.login = (credentials) => {
       var promise = $http.post(endpoints.login, credentials);
 
-      promise.then(function() {
+      promise.then(() => {
+        console.log("login success");
         loginPromise.resolve();
         $timeout(() => $rootScope.$broadcast("hide-login"));
       });

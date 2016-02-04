@@ -1,23 +1,26 @@
 (function() {
   'use strict';
 
-  angular.module('icbApp')
-    .factory('Loader', ['$rootScope', ($rootScope) => {
+  angular.module('icbApp').factory('Loader', [
+    '$rootScope', ($rootScope) => {
 
       const promises = [];
       const messages = [];
+      let disabled = 0;
 
       const emitChange = () => {
-        $rootScope.$broadcast(promises.length === 0 ?
-          'loading-finished' :
-          'loading-started');
+        const qtd = promises.length - disabled;
+
+        $rootScope.$broadcast(qtd === 0
+          ? 'loading-finished'
+          : 'loading-started');
       };
 
       const obj = (target) => {
         const promise = target;
         promises.push(promise);
 
-        promise.finally(() => {
+        promise. finally(() => {
           const index = promises.indexOf(promise);
           promises.splice(index, 1);
 
@@ -29,15 +32,17 @@
       };
 
       obj.enable = () => {
-        $rootScope.$broadcast('loading-started');
+        disabled--;
+        emitChange();
       };
 
       obj.disable = () => {
-        $rootScope.$broadcast('loading-finished');
+        disabled++;
+        emitChange();
       };
 
       return obj;
-    }]);
-
+    }
+  ]);
 
 })();

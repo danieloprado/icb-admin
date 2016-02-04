@@ -1,8 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module("icbAuth")
-    .factory("authInterceptor", ["$q", "$injector", "auth", AuthInterceptor]);
+  angular.module("icbAuth").factory("authInterceptor", ["$q", "$injector", "auth", AuthInterceptor]);
 
   function AuthInterceptor($q, $injector, auth) {
     return {
@@ -22,17 +21,16 @@
         return response;
       },
       responseError: function(response) {
-        if (response.status != 401) {
-          return response;
-        }
+        const deferred = $q.defer();
 
-        console.log("resolve login");
+        if (response.status != 401) {
+          deferred.reject(response);
+          return deferred.promise;
+        }
 
         const loginService = $injector.get("loginService");
         const $http = $injector.get("$http");
         const Loader = $injector.get("Loader");
-
-        const deferred = $q.defer();
 
         Loader.disable();
         loginService.openLogin().then(() => {

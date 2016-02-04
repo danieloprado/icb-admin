@@ -1,13 +1,10 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth')
-    .run(['$rootScope', '$location', 'auth', 'loginService', loginCheck]);
+  angular.module('icbAuth').run(['$rootScope', '$location', 'auth', 'loginService', loginCheck]);
 
   function loginCheck($rootScope, $location, auth, loginService) {
     $rootScope.$on("$routeChangeStart", ($event, next) => {
-      console.log(auth.hasToken(), auth.getToken());
-
       if (!next.$$route || next.$$route.allowAnonymous || auth.hasToken()) {
         return true;
       }
@@ -24,6 +21,5 @@
 
     $rootScope.$on("$routeChangeError", loginService.logout);
   }
-
 
 })(angular);
