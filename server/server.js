@@ -11,7 +11,7 @@ const churchModule = require("church/module");
 const informativeModule = require("informative/module");
 const userModule = require("user/module");
 
-//const seed = require('./seed');
+const seed = require('./seed');
 
 const app = express();
 const publicDir = __dirname + "/../dist";
@@ -21,7 +21,7 @@ mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/icb', function(err) {
   if (err)
     throw err;
-  //seed();
+  seed();
 });
 
 app.use(logger('dev'));

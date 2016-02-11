@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Church = require('church/models/church');
 
 var Service = {

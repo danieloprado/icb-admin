@@ -8,7 +8,6 @@ const ChurchSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    required: true,
     index: {
       unique: true
     }
@@ -24,7 +23,10 @@ ChurchSchema.pre('save', function(next) {
     return next();
   }
 
-  churh.slug = slugGenerator(church.name);
+  church.slug = slugGenerator(church.name, {
+    lower: true
+  });
+  console.log('chruhc slug', church.slug);
 });
 
 module.exports = mongoose.model('Church', ChurchSchema);
