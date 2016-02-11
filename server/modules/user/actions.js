@@ -1,4 +1,4 @@
-var userService = require('./services/userService');
+const userService = require('./services/userService');
 
 function list(req, res, next) {
   userService.list(req.query).then(function(users) {

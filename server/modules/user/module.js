@@ -1,6 +1,8 @@
-var userModel = require('./models/user');
-var userService = require('./services/userService');
-var routes = require('./routes');
+const churchModule = require("church/module");
+
+const userModel = require('./models/user');
+const userService = require('./services/userService');
+const routes = require('./routes');
 
 module.exports = {
   models: {

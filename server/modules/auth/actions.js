@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const userService = require("modules/user/services/userService");
+const userService = require("user/services/userService");
 
 var auth = require('config').auth;
 
@@ -8,7 +8,9 @@ function login(req, res, next) {
 
   userService.findByEmail(req.body.email).then(user => {
     if (!user) {
-      return res.status(400).send({message: "O email ou a senha são inválidos"});
+      return res.status(400).send({
+        message: "O email ou a senha são inválidos"
+      });
     }
 
     user.verifyPassword(req.body.password).then(() => {
@@ -19,9 +21,13 @@ function login(req, res, next) {
       }, auth.secret);
 
       res.setHeader("X-Token", token);
-      return res.send({token: token});
+      return res.send({
+        token: token
+      });
     }).catch((err) => {
-      return res.status(400).send({message: "O email ou a senha são inválidos"});
+      return res.status(400).send({
+        message: "O email ou a senha são inválidos"
+      });
     });
 
   }).catch(next);

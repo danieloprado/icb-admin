@@ -1,15 +1,17 @@
-require('app-module-path').addPath(__dirname);
+require('app-module-path').addPath(__dirname + "/modules");
 
 const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   appPath = require('app-module-path'),
-  seed = require('./seed'),
   logger = require('morgan');
 
-const authModule = require("modules/auth/module");
-const informativeModule = require("modules/informative/module");
-const userModule = require("modules/user/module");
+const authModule = require("auth/module");
+const churchModule = require("church/module");
+const informativeModule = require("informative/module");
+const userModule = require("user/module");
+
+//const seed = require('./seed');
 
 const app = express();
 const publicDir = __dirname + "/../dist";
@@ -19,7 +21,7 @@ mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/icb', function(err) {
   if (err)
     throw err;
-  seed();
+  //seed();
 });
 
 app.use(logger('dev'));

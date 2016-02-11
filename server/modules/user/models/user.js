@@ -23,11 +23,17 @@ const UserSchema = new Schema({
       unique: true
     }
   },
-  roles: [String],
   password: {
     type: String,
     required: true
-  }
+  },
+  churchs: [{
+    roles: [String],
+    church: {
+      type: Schema.Types.ObjectId,
+      ref: 'Church'
+    }
+  }]
 });
 
 UserSchema.pre('save', function(next) {
@@ -43,9 +49,9 @@ UserSchema.pre('save', function(next) {
     }
 
     bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err) 
+      if (err)
         return next(err);
-      
+
       user.password = hash;
       next();
     });
