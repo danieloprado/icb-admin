@@ -6,23 +6,33 @@ var auth = require('config').auth;
 const sendToken = (res, user, churchId) => {
   res.header('Access-Control-Expose-Headers', 'X-Token');
 
-  console.log(user, churchId);
-
-  if (churchId) {
-
-  }
-
-  const token = jwt.sign({
+  const tokenData = {
     email: user.email,
     name: user.name,
     id: user._id,
     exp: Math.floor(Date.now() / 1000) + auth.timeout
-  }, auth.secret);
+  };
 
-  res.setHeader("X-Token", token);
-  return res.send({
-    token: token
-  });
+  const send = ()=>{
+    const token = jwt.sign(tokenData, auth.secret);
+
+    res.setHeader("X-Token", token);
+    return res.send({
+      token: token
+    });
+  };
+
+  if (churchId) {
+    user.getRoles(churchId).then((roles)=>{
+      tokenData.churchId = churchId;
+      tokenData.roles = roles;
+
+      send();
+    });
+    return;
+  }
+
+  send();
 };
 
 function login(req, res, next) {

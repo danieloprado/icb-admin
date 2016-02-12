@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
+const _ = require("lodash");
 
 const SALT_WORK_FACTOR = 11;
 const Schema = mongoose.Schema;
@@ -73,6 +74,21 @@ UserSchema.methods.verifyPassword = function(candidatePassword) {
 
       resolve();
     });
+  });
+};
+
+UserSchema.methods.getRoles = function(churchId) {
+  return new Promise((resolve, reject)=>{
+    var churchInfo = _.find(this.churches, (item) => {
+      return item.church == churchId || item.church._id == item;
+    });
+
+    if(church) {
+      resolve(churchInfo.roles);
+      return;
+    }
+
+    reject("not found");
   });
 };
 
