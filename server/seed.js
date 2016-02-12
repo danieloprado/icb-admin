@@ -2,14 +2,15 @@ var userService = require('user/services/userService');
 var churchService = require('church/services/churchService');
 
 const createChurch = () => {
+  console.log("seed: begin create church");
+
   return churchService.findBySlug("icb-sorocaba")
     .then((church) => {
-      console.log("church", church);
-
       if (church) {
         return church;
       }
 
+      console.log("seed: create church");
       return churchService.create({
         name: "ICB Sorocaba"
       });
@@ -17,7 +18,7 @@ const createChurch = () => {
 };
 
 const createUser = () => {
-  console.log("create user");
+  console.log("seed: begin create user");
 
   return userService.findByEmail("danieloprado@outlook.com")
     .then((user) => {
@@ -25,6 +26,7 @@ const createUser = () => {
         return user;
       }
 
+      console.log("seed: create user");
       return userService.create({
         name: {
           firstName: "Daniel",
@@ -37,16 +39,14 @@ const createUser = () => {
 };
 
 module.exports = function() {
-  console.log("seed begin");
+  console.log("seed: begin");
 
   createChurch()
     .then(createUser)
     .then(() => {
-      console.log("seed completed");
+      console.log("seed: completed");
     })
     .catch(err => {
-      console.log('seed: error', JSON.stringify(err, null, 2));
+      console.log('seed: error', err);
     });
-
-
 };

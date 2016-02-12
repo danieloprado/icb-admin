@@ -26,7 +26,8 @@ ChurchSchema.pre('save', function(next) {
   church.slug = slugGenerator(church.name, {
     lower: true
   });
-  console.log('chruhc slug', church.slug);
+
+  return next();
 });
 
 module.exports = mongoose.model('Church', ChurchSchema);
