@@ -21,8 +21,6 @@
       });
     };
 
-
-
     return {
       request: function(config) {
         if (auth.hasToken()) {

@@ -17,6 +17,7 @@
   },
   "private": true,
   "resolutions": {
-    "angular": "1.4.9"
+    "angular": "1.4.9",
+    "angular-material": "~1.0.4"
   }
 }
