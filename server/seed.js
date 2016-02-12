@@ -17,8 +17,8 @@ const createChurch = () => {
     });
 };
 
-const createUser = () => {
-  console.log("seed: begin create user");
+const createUser = (church) => {
+  console.log("seed: begin create user on", church.name);
 
   return userService.findByEmail("danieloprado@outlook.com")
     .then((user) => {
@@ -34,7 +34,7 @@ const createUser = () => {
         },
         email: "danieloprado@outlook.com",
         password: "123"
-      }, "icb-sorocaba", ["admin"]);
+      }, church._id, ["admin"]);
     });
 };
 

@@ -1,5 +1,6 @@
 var _ = require('lodash');
 
+
 const checkLogin = (roles) => {
 
   return (req, res, next) => {
@@ -8,9 +9,15 @@ const checkLogin = (roles) => {
     }
 
     if (!req.user) {
-      res.status(401);
-      res.send({
+      res.status(401).send({
         error: "Senta lá Cláudia!"
+      });
+      return;
+    }
+
+    if (!req.user.church) {
+      res.status(403).send({
+        error: "church"
       });
       return;
     }
@@ -25,9 +32,8 @@ const checkLogin = (roles) => {
     const isAuthorized = _.intersection(roles, req.user.roles).length > 0;
 
     if (!isAuthorized) {
-      res.status(403);
-      res.send({
-        error: "Senta lá Cláudia!"
+      res.status(403).send({
+        error: "role"
       });
       return;
     }

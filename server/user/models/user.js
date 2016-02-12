@@ -4,6 +4,18 @@ const bcrypt = require('bcrypt-nodejs');
 const SALT_WORK_FACTOR = 11;
 const Schema = mongoose.Schema;
 
+const UserChurchSchema = new Schema({
+  roles: [String],
+  church: {
+    type: Schema.Types.ObjectId,
+    ref: 'Church',
+    required: true,
+    _id: false
+  }
+}, {
+  _id: false
+});
+
 const UserSchema = new Schema({
   name: {
     firstName: {
@@ -27,13 +39,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  churchs: [{
-    roles: [String],
-    church: {
-      type: Schema.Types.ObjectId,
-      ref: 'Church'
-    }
-  }]
+  churches: [UserChurchSchema]
 });
 
 UserSchema.pre('save', function(next) {

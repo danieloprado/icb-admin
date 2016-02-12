@@ -10,20 +10,19 @@ module.exports = {
 
   list: query => User.find(query || {}),
 
-  create: (data, churchSlug, roles) =>
-    churchService.findBySlug(churchSlug)
+  create: (data, churchId, roles) =>
+    churchService.findOne({
+      _id: churchId
+    })
     .then((church) => {
       if (!church) {
         throw "Church not found: " + churchSlug;
       }
 
-      console.log(church);
-
       var user = new User(data);
-
-      user.churchs.push({
-        church: church,
-        roles: roles
+      user.churches.push({
+        church,
+        roles
       });
 
       return user.save();
