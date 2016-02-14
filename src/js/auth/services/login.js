@@ -40,6 +40,20 @@
       auth.removeToken();
       $route.reload();
     };
+
+    this.openSelectChurch = () =>
+      $mdDialog.show({
+        templateUrl: 'views/auth/selectChurch.html',
+        controller: 'icbAuth.churchCtrl',
+        clickOutsideToClose: true,
+        escapeToClose: true
+      }).then(function() {
+        console.log("OK!");
+      }).catch(function() {
+        console.log("catch!");
+      }).finally(function() {
+        console.log("finally!");
+      });
   }
 
 })(angular);

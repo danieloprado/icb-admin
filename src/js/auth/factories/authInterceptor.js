@@ -4,20 +4,35 @@
   angular.module("icbAuth").factory("authInterceptor", ["$q", "$injector", "auth", AuthInterceptor]);
 
   function AuthInterceptor($q, $injector, auth) {
-    var resolveLogin = function(deferred) {
-      const loginService = $injector.get("loginService");
+    const retry = (response) => {
       const $http = $injector.get("$http");
+
+      $http(response.config).then((response) => {
+        deferred.resolve(response);
+      }).catch((response) => {
+        deferred.reject(response);
+      });
+    };
+
+    const resolveLogin = (deferred) => {
+      const loginService = $injector.get("loginService");
       const Loader = $injector.get("Loader");
 
       Loader.disable();
       loginService.openLogin().then(() => {
         Loader.enable();
+        retry();
+      });
+    };
 
-        $http(response.config).then((response) => {
-          deferred.resolve(response);
-        }).catch((response) => {
-          deferred.reject(response);
-        });
+    const resolveChurch = (deferred) => {
+      const loginService = $injector.get("loginService");
+      const Loader = $injector.get("Loader");
+
+      Loader.disable();
+      loginService.openSelectChurch().then(() => {
+        Loader.enable();
+        retry();
       });
     };
 
@@ -45,12 +60,19 @@
             resolveLogin(deferred);
             break;
           case 403:
-            console.log(response);
-            deferred.reject(response);
+
+            switch (response.data.error) {
+              case "church":
+                resolveChurch(deferred);
+                break;
+              default:
+                console.log(response);
+                deferred.reject(response);
+            }
+
             break;
           default:
-            var Toast = $injector.get("Toast");
-            Toast.genericError();
+            $injector.get("Toast").genericError();
             deferred.reject(response);
         }
 
