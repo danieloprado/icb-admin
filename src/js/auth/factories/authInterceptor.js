@@ -4,10 +4,9 @@
   angular.module("icbAuth").factory("authInterceptor", ["$q", "$injector", "auth", AuthInterceptor]);
 
   function AuthInterceptor($q, $injector, auth) {
-    const retry = (response) => {
+    const retry = (response, deferred) => {
       const $http = $injector.get("$http");
 
-      console.log(response);
       $http(response.config).then((response) => {
         deferred.resolve(response);
       }).catch((response) => {
@@ -24,19 +23,18 @@
         console.log("login finished");
 
         Loader.enable();
-        retry(response);
+        retry(response, deferred);
       });
     };
 
-    const resolveChurch = (deferred) => {
+    const resolveChurch = (response, deferred) => {
       const loginService = $injector.get("authChurchService");
       const Loader = $injector.get("Loader");
 
       Loader.disable();
       loginService.openSelection().then(() => {
-        console.log("ok");
         Loader.enable();
-        retry();
+        retry(response, deferred);
       });
     };
 
@@ -61,13 +59,13 @@
 
         switch (response.status) {
           case 401:
-            resolveLogin(deferred);
+            resolveLogin(response, deferred);
             break;
           case 403:
 
             switch (response.data.error) {
               case "church":
-                resolveChurch(deferred);
+                resolveChurch(response, deferred);
                 break;
               default:
                 deferred.reject(response);

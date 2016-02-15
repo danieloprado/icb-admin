@@ -17,6 +17,7 @@
     };
 
     $scope.dataPromise = informativeService.list().then((data) => {
+      console.log(data);
       $scope.informatives = data;
     });
 

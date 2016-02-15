@@ -5,17 +5,6 @@ const _ = require("lodash");
 const SALT_WORK_FACTOR = 11;
 const Schema = mongoose.Schema;
 
-const UserChurchSchema = new Schema({
-  roles: [String],
-  church: {
-    type: Schema.Types.ObjectId,
-    ref: 'Church',
-    required: true
-  }
-}, {
-  _id: false
-});
-
 const UserSchema = new Schema({
   name: {
     firstName: {
@@ -38,8 +27,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  },
-  churches: [UserChurchSchema]
+  }
 });
 
 UserSchema.pre('save', function(next) {
@@ -55,9 +43,9 @@ UserSchema.pre('save', function(next) {
     }
 
     bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err)
+      if (err) 
         return next(err);
-
+      
       user.password = hash;
       next();
     });

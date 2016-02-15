@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 const slugGenerator = require('slug');
 
+const ChurchUserSchema = new new mongoose.Schema({
+  roles: [String],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Church',
+    required: true
+  }
+}, {_id: false});
+
 const ChurchSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -11,10 +20,9 @@ const ChurchSchema = new mongoose.Schema({
     index: {
       unique: true
     }
-  }
-}, {
-  timestamps: true
-});
+  },
+  users: [ChurchUserSchema]
+}, {timestamps: true});
 
 ChurchSchema.pre('save', function(next) {
   var church = this;
@@ -23,9 +31,7 @@ ChurchSchema.pre('save', function(next) {
     return next();
   }
 
-  church.slug = slugGenerator(church.name, {
-    lower: true
-  });
+  church.slug = slugGenerator(church.name, {lower: true});
 
   return next();
 });
