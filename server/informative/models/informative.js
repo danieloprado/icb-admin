@@ -13,6 +13,11 @@ const InformativeSchema = new Schema({
   message: {
     type: String,
     required: true
+  },
+  church: {
+    type: Schema.Types.ObjectId,
+    ref: 'Church',
+    required: true
   }
 }, {
   timestamps: true

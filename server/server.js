@@ -46,8 +46,15 @@ app.all('/views/*', function(req, res, next) {
 });
 
 app.use('/api/auth', authModule.routes);
+app.use('/api/church', churchModule.routes);
 app.use('/api/informative', informativeModule.routes);
 app.use('/api/user', userModule.routes);
+
+app.use('/api', function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 app.get("*", function(req, res) {
   res.sendFile('index.html', {

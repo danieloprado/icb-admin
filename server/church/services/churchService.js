@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Church = require('church/models/church');
 
 var Service = {
@@ -8,6 +9,19 @@ var Service = {
   }),
 
   list: query => Church.find(query || {}),
+
+  listByUser: (user) => {
+    const userService = require('user/services/userService');
+    return userService.findOne({
+        _id: user._id
+      })
+      .populate("churches.church")
+      .then((user) => {
+        return _.map(user.churches, (churchInfo) => {
+          return churchInfo.church;
+        });
+      });
+  },
 
   create: (obj) => {
     const church = new Church(obj);

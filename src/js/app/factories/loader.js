@@ -11,7 +11,7 @@
       const emitChange = () => {
         const qtd = promises.length - disabled;
 
-        $rootScope.$broadcast(qtd === 0 ? 'loading-finished' : 'loading-started');
+        $rootScope.$broadcast(qtd <= 0 ? 'loading-finished' : 'loading-started');
       };
 
       const obj = (target) => {
@@ -30,11 +30,15 @@
       };
 
       obj.enable = () => {
+        if (disabled === 0) return;
+
         disabled--;
         emitChange();
       };
 
       obj.disable = () => {
+        if (promises.length === 0) return;
+
         disabled++;
         emitChange();
       };

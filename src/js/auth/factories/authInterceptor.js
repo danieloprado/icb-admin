@@ -7,6 +7,7 @@
     const retry = (response) => {
       const $http = $injector.get("$http");
 
+      console.log(response);
       $http(response.config).then((response) => {
         deferred.resolve(response);
       }).catch((response) => {
@@ -14,23 +15,26 @@
       });
     };
 
-    const resolveLogin = (deferred) => {
+    const resolveLogin = (response, deferred) => {
       const loginService = $injector.get("loginService");
       const Loader = $injector.get("Loader");
 
       Loader.disable();
       loginService.openLogin().then(() => {
+        console.log("login finished");
+
         Loader.enable();
-        retry();
+        retry(response);
       });
     };
 
     const resolveChurch = (deferred) => {
-      const loginService = $injector.get("loginService");
+      const loginService = $injector.get("authChurchService");
       const Loader = $injector.get("Loader");
 
       Loader.disable();
-      loginService.openSelectChurch().then(() => {
+      loginService.openSelection().then(() => {
+        console.log("ok");
         Loader.enable();
         retry();
       });
@@ -66,14 +70,10 @@
                 resolveChurch(deferred);
                 break;
               default:
-                console.log(response);
                 deferred.reject(response);
             }
 
             break;
-          default:
-            $injector.get("Toast").genericError();
-            deferred.reject(response);
         }
 
         return deferred.promise;

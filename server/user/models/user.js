@@ -10,8 +10,7 @@ const UserChurchSchema = new Schema({
   church: {
     type: Schema.Types.ObjectId,
     ref: 'Church',
-    required: true,
-    _id: false
+    required: true
   }
 }, {
   _id: false
@@ -78,12 +77,14 @@ UserSchema.methods.verifyPassword = function(candidatePassword) {
 };
 
 UserSchema.methods.getRoles = function(churchId) {
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve, reject) => {
     var churchInfo = _.find(this.churches, (item) => {
       return item.church == churchId || item.church._id == item;
     });
 
-    if(church) {
+    console.log(churchInfo);
+
+    if (churchInfo) {
       resolve(churchInfo.roles);
       return;
     }

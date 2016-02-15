@@ -1,7 +1,13 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbApp').config(['$mdThemingProvider', configTheme]);
+  angular.module('icbApp')
+    .config(['$httpProvider', configInterceptor])
+    .config(['$mdThemingProvider', configTheme]);
+
+  function configInterceptor($httpProvider) {
+    //  $httpProvider.interceptors.push('errorInterceptor');
+  }
 
   function configTheme($mdThemingProvider, $translateProvider) {
 

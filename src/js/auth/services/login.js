@@ -8,11 +8,12 @@
     '$timeout',
     '$rootScope',
     '$route',
+    '$mdDialog',
     'auth',
     LoginService
   ]);
 
-  function LoginService(API, $http, $q, $timeout, $rootScope, $route, auth) {
+  function LoginService(API, $http, $q, $timeout, $rootScope, $route, $mdDialog, auth) {
     let loginPromise = null;
     let endpoints = {
       login: API + '/auth/login'
@@ -40,20 +41,6 @@
       auth.removeToken();
       $route.reload();
     };
-
-    this.openSelectChurch = () =>
-      $mdDialog.show({
-        templateUrl: 'views/auth/selectChurch.html',
-        controller: 'icbAuth.churchCtrl',
-        clickOutsideToClose: true,
-        escapeToClose: true
-      }).then(function() {
-        console.log("OK!");
-      }).catch(function() {
-        console.log("catch!");
-      }).finally(function() {
-        console.log("finally!");
-      });
   }
 
 })(angular);

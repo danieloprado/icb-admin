@@ -9,7 +9,7 @@ const sendToken = (res, user, churchId) => {
   const tokenData = {
     email: user.email,
     name: user.name,
-    id: user._id,
+    _id: user._id,
     exp: Math.floor(Date.now() / 1000) + auth.timeout
   };
 
@@ -17,11 +17,14 @@ const sendToken = (res, user, churchId) => {
     const token = jwt.sign(tokenData, auth.secret);
 
     res.setHeader("X-Token", token);
-    return res.send({token: token});
+    return res.send({
+      token: token
+    });
   };
 
   if (churchId) {
     user.getRoles(churchId).then((roles) => {
+      console.log(roles);
       tokenData.churchId = churchId;
       tokenData.roles = roles;
 
@@ -37,23 +40,34 @@ function login(req, res, next) {
 
   userService.findByEmail(req.body.email).then(user => {
     if (!user) {
-      return res.status(400).send({message: "O email ou a senha são inválidos"});
+      return res.status(400).send({
+        message: "O email ou a senha são inválidos"
+      });
     }
 
     user.verifyPassword(req.body.password).then(() => {
       sendToken(res, user);
     }).catch((err) => {
-      return res.status(400).send({message: "O email ou a senha são inválidos"});
+      return res.status(400).send({
+        message: "O email ou a senha são inválidos"
+      });
     });
 
   }).catch(next);
 }
 
 function selectChurch(req, res, next) {
-  if (!req.user) {
-    return res.status(401).send({error: "Senta lá Cláudia!"});
+  if (!req.body.churchId) {
+    return res.status(400).send({
+      message: "A igreja é obrigatória"
+    });
   }
 
+  userService.findOne({
+    _id: req.user._id
+  }).then((user) => {
+    sendToken(res, user, req.body.churchId);
+  }).catch(next);
 }
 
 module.exports = {

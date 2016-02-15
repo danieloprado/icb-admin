@@ -1,5 +1,6 @@
 const churchModel = require('./models/church');
 const churchService = require('./services/churchService');
+const routes = require('./routes');
 
 module.exports = {
   models: {
@@ -7,5 +8,6 @@ module.exports = {
   },
   services: {
     churchService: churchService
-  }
+  },
+  routes: routes
 };

@@ -1,7 +1,6 @@
 var _ = require('lodash');
 
-
-const checkLogin = (roles) => {
+const checkLogin = (roles, ignoreChurch) => {
 
   return (req, res, next) => {
     if (req.method == 'OPTIONS') {
@@ -15,7 +14,7 @@ const checkLogin = (roles) => {
       return;
     }
 
-    if (!req.user.church) {
+    if (!ignoreChurch && !req.user.churchId) {
       res.status(403).send({
         error: "church"
       });
