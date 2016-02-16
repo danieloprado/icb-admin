@@ -9,6 +9,8 @@ router.use(checkLogin());
 
 router.get('/', actions.list);
 router.get('/:id', actions.get);
+
+router.use(checkLogin(["admin"]));
 router.post('/', actions.save);
 
 module.exports = router;

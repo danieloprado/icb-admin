@@ -1,16 +1,21 @@
 const mongoose = require('mongoose');
 const slugGenerator = require('slug');
+const _ = require('lodash');
 
-const ChurchUserSchema = new new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const ChurchUserSchema = new Schema({
   roles: [String],
   user: {
     type: Schema.Types.ObjectId,
     ref: 'Church',
     required: true
   }
-}, {_id: false});
+}, {
+  _id: false
+});
 
-const ChurchSchema = new mongoose.Schema({
+const ChurchSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -22,7 +27,9 @@ const ChurchSchema = new mongoose.Schema({
     }
   },
   users: [ChurchUserSchema]
-}, {timestamps: true});
+}, {
+  timestamps: true
+});
 
 ChurchSchema.pre('save', function(next) {
   var church = this;
@@ -31,9 +38,24 @@ ChurchSchema.pre('save', function(next) {
     return next();
   }
 
-  church.slug = slugGenerator(church.name, {lower: true});
-
+  church.slug = slugGenerator(church.name, {
+    lower: true
+  });
   return next();
 });
+
+ChurchSchema.methods.getUserRoles = function(user) {
+  return new Promise((resolve, reject) => {
+    const userInfo = _.find(this.users, (item) => {
+      return item.user == user._id || item.user._id == user._id;
+    });
+
+    if (userInfo) {
+      return resolve(userInfo.roles);
+    }
+
+    return resolve([]);
+  });
+};
 
 module.exports = mongoose.model('Church', ChurchSchema);

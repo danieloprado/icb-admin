@@ -38,14 +38,11 @@ UserSchema.pre('save', function(next) {
   }
 
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-    if (err) {
-      return next(err);
-    }
+    if (err) return next(err);
 
     bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err) 
-        return next(err);
-      
+      if (err) return next(err);
+
       user.password = hash;
       next();
     });
@@ -61,23 +58,6 @@ UserSchema.methods.verifyPassword = function(candidatePassword) {
 
       resolve();
     });
-  });
-};
-
-UserSchema.methods.getRoles = function(churchId) {
-  return new Promise((resolve, reject) => {
-    var churchInfo = _.find(this.churches, (item) => {
-      return item.church == churchId || item.church._id == item;
-    });
-
-    console.log(churchInfo);
-
-    if (churchInfo) {
-      resolve(churchInfo.roles);
-      return;
-    }
-
-    reject("not found");
   });
 };
 

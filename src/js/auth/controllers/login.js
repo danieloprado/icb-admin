@@ -24,6 +24,7 @@
               }, 500);
             })
             .catch(function(res) {
+              console.log(res);
               switch (res.status) {
                 case 400:
                   Toast(res.data.message);

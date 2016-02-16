@@ -12,10 +12,15 @@ var paths = {
   dist: 'dist/',
   imgs: 'src/imgs/**/*',
 
+  fonts: [
+    'bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
+  ],
+
   cssLibs: [
     'bower_components/animate.css/animate.min.css',
     'bower_components/angular-material/angular-material.min.css',
-    'bower_components/angular-material-data-table/dist/md-data-table.min.css'
+    'bower_components/angular-material-data-table/dist/md-data-table.min.css',
+    'bower_components/material-design-icons/iconfont/material-icons.css'
   ],
 
   jsLibs: [
@@ -45,38 +50,66 @@ var paths = {
 gulp.task('clean', cb => rimraf(paths.dist, cb));
 
 //LIBS
-gulp.task('css:libs', () => gulp.src(paths.cssLibs).pipe($.concat('libs.min.css')).pipe(gulp.dest(paths.dist + 'css')));
+gulp.task('css:libs', () =>
+  gulp.src(paths.cssLibs)
+  .pipe($.concat('libs.min.css'))
+  .pipe(gulp.dest(paths.dist + 'css')));
 
-gulp.task("js:libs", () => gulp.src(paths.jsLibs).pipe($.concat("libs.min.js")).pipe(gulp.dest(paths.dist + "js")));
+gulp.task("js:libs", () =>
+  gulp.src(paths.jsLibs)
+  .pipe($.concat("libs.min.js"))
+  .pipe(gulp.dest(paths.dist + "js")));
 
-gulp.task('imgs', () => gulp.src(paths.imgs).pipe(gulp.dest(paths.dist + 'imgs')));
+gulp.task('imgs', () =>
+  gulp.src(paths.imgs)
+  .pipe(gulp.dest(paths.dist + 'imgs')));
 
-gulp.task('libs', ['css:libs', 'js:libs', 'imgs']);
+gulp.task('fonts', () =>
+  gulp.src(paths.fonts)
+  .pipe(gulp.dest(paths.dist + 'fonts')));
+
+gulp.task('libs', ['css:libs', 'js:libs', 'imgs', 'fonts']);
 
 //SASS
-gulp.task("sass", () => gulp.src(paths.sass).pipe($.sourcemaps.init()).pipe($.sass({
-  outputStyle: "compressed"
-}).on('error', $.sass.logError)).pipe($.autoprefixer({
-  browsers: ["last 2 versions", "ie >= 9"]
-})).pipe($.sourcemaps.write()).pipe(gulp.dest(paths.dist + 'css')).pipe($.livereload({
-  start: true
-})));
+gulp.task("sass", () =>
+  gulp.src(paths.sass)
+  .pipe($.sourcemaps.init())
+  .pipe($.sass({
+    outputStyle: "compressed"
+  }).on('error', $.sass.logError))
+  .pipe($.autoprefixer({
+    browsers: ["last 2 versions", "ie >= 9"]
+  }))
+  .pipe($.sourcemaps.write())
+  .pipe(gulp.dest(paths.dist + 'css'))
+  .pipe($.livereload({
+    start: true
+  })));
 
 //JADE
-gulp.task('jade', () => gulp.src(paths.jade).pipe($.jade({
-  pretty: true
-})).pipe(gulp.dest(paths.dist)));
+gulp.task('jade', () =>
+  gulp.src(paths.jade)
+  .pipe($.jade({
+    pretty: true
+  }))
+  .pipe(gulp.dest(paths.dist)));
 
 //JS
-gulp.task('js:hint', function() {
-  return gulp.src(paths.js).pipe($.jshint()).pipe($.jshint.reporter('default'));
-});
+gulp.task('js:hint', () =>
+  gulp.src(paths.js)
+  .pipe($.jshint())
+  .pipe($.jshint.reporter('default')));
 
-gulp.task('js', ['js:hint'], function() {
-  return gulp.src(paths.js).pipe($.sourcemaps.init()).pipe($.concat('all.min.js')).pipe($.babel({
+gulp.task('js', ['js:hint'], () =>
+  gulp.src(paths.js)
+  .pipe($.sourcemaps.init())
+  .pipe($.concat('all.min.js'))
+  .pipe($.babel({
     presets: ['es2015']
-  })).pipe($.uglify()).pipe($.sourcemaps.write()).pipe(gulp.dest(paths.dist + 'js'));
-});
+  }))
+  .pipe($.uglify())
+  .pipe($.sourcemaps.write())
+  .pipe(gulp.dest(paths.dist + 'js')));
 
 gulp.task('watch', function() {
   $.livereload.listen();

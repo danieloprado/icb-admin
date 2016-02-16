@@ -72,6 +72,8 @@
             }
 
             break;
+          default:
+            deferred.reject(response);
         }
 
         return deferred.promise;

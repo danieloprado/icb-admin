@@ -13,7 +13,8 @@
     "jQuery": "^2.2.0",
     "angular-marked": "~1.0.1",
     "angular-material-data-table": "~0.9.10",
-    "angular-i18n": "~1.4.9"
+    "angular-i18n": "~1.4.9",
+    "material-design-icons": "~2.2.0"
   },
   "private": true,
   "resolutions": {

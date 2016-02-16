@@ -11,16 +11,9 @@ var Service = {
   list: query => Church.find(query || {}),
 
   listByUser: (user) => {
-    const userService = require('user/services/userService');
-    return userService.findOne({
-        _id: user._id
-      })
-      .populate("churches.church")
-      .then((user) => {
-        return _.map(user.churches, (churchInfo) => {
-          return churchInfo.church;
-        });
-      });
+    return Church.find({
+      "users.user": user._id
+    });
   },
 
   create: (obj) => {

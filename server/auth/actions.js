@@ -1,73 +1,77 @@
-const jwt = require('jsonwebtoken');
+const _ = require("lodash");
+
 const userService = require("user/services/userService");
+const churchService = require("church/services/churchService");
+const tokenService = require("./services/tokenService");
 
-var auth = require('config').auth;
-
-const sendToken = (res, user, churchId) => {
+function sendToken(res, token) {
   res.header('Access-Control-Expose-Headers', 'X-Token');
-
-  const tokenData = {
-    email: user.email,
-    name: user.name,
-    _id: user._id,
-    exp: Math.floor(Date.now() / 1000) + auth.timeout
-  };
-
-  const send = () => {
-    const token = jwt.sign(tokenData, auth.secret);
-
-    res.setHeader("X-Token", token);
-    return res.send({
-      token: token
-    });
-  };
-
-  if (churchId) {
-    user.getRoles(churchId).then((roles) => {
-      console.log(roles);
-      tokenData.churchId = churchId;
-      tokenData.roles = roles;
-
-      send();
-    });
-    return;
-  }
-
-  send();
-};
+  res.setHeader("X-Token", token);
+  return res.send({
+    token: token
+  });
+}
 
 function login(req, res, next) {
 
-  userService.findByEmail(req.body.email).then(user => {
-    if (!user) {
-      return res.status(400).send({
-        message: "O email ou a senha são inválidos"
-      });
-    }
+  userService.findByEmail(req.body.email)
+    .then(user => {
+      if (!user) {
+        throw {
+          status: 400,
+          message: "O email ou a senha são inválidos"
+        };
+      }
 
-    user.verifyPassword(req.body.password).then(() => {
-      sendToken(res, user);
-    }).catch((err) => {
-      return res.status(400).send({
-        message: "O email ou a senha são inválidos"
-      });
-    });
-
-  }).catch(next);
+      return user.verifyPassword(req.body.password)
+        .then(() => user)
+        .catch(() => {
+          throw {
+            status: 400,
+            message: "O email ou a senha são inválidos"
+          };
+        });
+    })
+    .then((user) => {
+      return churchService.listByUser(user).then((churches) => ({
+        user, churches
+      }));
+    })
+    .then((info) => {
+      const church = _.head(info.churches);
+      return tokenService.generate(info.user, church);
+    })
+    .then((token) => {
+      sendToken(res, token);
+    })
+    .catch(next);
 }
 
 function selectChurch(req, res, next) {
   if (!req.body.churchId) {
-    return res.status(400).send({
+    throw {
+      status: 400,
       message: "A igreja é obrigatória"
-    });
+    };
   }
 
-  userService.findOne({
-    _id: req.user._id
-  }).then((user) => {
-    sendToken(res, user, req.body.churchId);
-  }).catch(next);
+  churchService.findOne({
+      _id: req.body.churchId
+    })
+    .then((church) => {
+      if (!church) {
+        throw {
+          status: 400,
+          message: "Igreja não encontrada"
+        };
+      }
+
+      return tokenService.generate(req.user, church);
+    })
+    .then((token) => {
+      sendToken(res, token);
+    })
+    .catch(next);
 }
 
 module.exports = {
