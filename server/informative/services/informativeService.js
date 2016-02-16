@@ -6,8 +6,9 @@ var Service = {
 
   list: query => Informative.find(query || {}),
 
-  create: (obj) => {
+  create: (obj, user) => {
     const informative = new Informative(obj);
+    informative.church = user.church._id;
     return informative.save();
   },
 

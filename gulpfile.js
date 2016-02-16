@@ -20,6 +20,7 @@ var paths = {
     'bower_components/animate.css/animate.min.css',
     'bower_components/angular-material/angular-material.min.css',
     'bower_components/angular-material-data-table/dist/md-data-table.min.css',
+    'bower_components/angular-material-icons/angular-material-icons.css',
     'bower_components/material-design-icons/iconfont/material-icons.css'
   ],
 
@@ -27,22 +28,21 @@ var paths = {
     'bower_components/jQuery/dist/jquery.min.js',
 
     //angular
-    'bower_components/angular/angular.js',
-    'bower_components/angular-route/angular-route.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/angular-aria/angular-aria.js',
+    'bower_components/angular/angular.min.js',
+    'bower_components/angular-route/angular-route.min.js',
+    'bower_components/angular-animate/angular-animate.min.js',
+    'bower_components/angular-aria/angular-aria.min.js',
     'bower_components/angular-i18n/angular-locale_pt-br.js',
-    'bower_components/angular-jwt/dist/angular-jwt.js',
-    'bower_components/angular-material/angular-material.js',
-    'bower_components/angular-material-data-table/dist/md-data-table.js',
+    'bower_components/angular-jwt/dist/angular-jwt.min.js',
+    'bower_components/angular-material/angular-material.min.js',
+    'bower_components/angular-material-data-table/dist/md-data-table.min.js',
     'bower_components/angular-messages/angular-messages.min.js',
     'bower_components/angular-jwt/dist/angular-jwt.min.js',
+    'bower_components/angular-material-icons/angular-material-icons.min.js',
 
     //markdown
-    'bower_components/marked/lib/marked.js',
-    'bower_components/angular-marked/dist/angular-marked.js',
-
-    'bower_components/angular-material-data-table/dist/md-data-table.min.js'
+    'bower_components/marked/marked.min.js',
+    'bower_components/angular-marked/dist/angular-marked.min.js'
   ]
 };
 

@@ -11,9 +11,7 @@ const ChurchUserSchema = new Schema({
     ref: 'Church',
     required: true
   }
-}, {
-  _id: false
-});
+}, {_id: false});
 
 const ChurchSchema = new Schema({
   name: {
@@ -27,9 +25,7 @@ const ChurchSchema = new Schema({
     }
   },
   users: [ChurchUserSchema]
-}, {
-  timestamps: true
-});
+}, {timestamps: true});
 
 ChurchSchema.pre('save', function(next) {
   var church = this;
@@ -38,16 +34,14 @@ ChurchSchema.pre('save', function(next) {
     return next();
   }
 
-  church.slug = slugGenerator(church.name, {
-    lower: true
-  });
+  church.slug = slugGenerator(church.name, {lower: true});
   return next();
 });
 
 ChurchSchema.methods.getUserRoles = function(user) {
   return new Promise((resolve, reject) => {
     const userInfo = _.find(this.users, (item) => {
-      return item.user == user._id || item.user._id == user._id;
+      return item.user.equals(user._id);
     });
 
     if (userInfo) {

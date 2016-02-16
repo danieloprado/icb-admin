@@ -12,17 +12,21 @@ function generate(user, church) {
       exp: Math.floor(Date.now() / 1000) + auth.timeout
     };
 
-    if (church) {
+    if (!church) {
+      resolve(jwt.sign(tokenData, auth.secret));
+    }
+
+    tokenData.roles = church.getUserRoles(user).then((roles) => {
+      tokenData.roles = roles;
       tokenData.church = {
         _id: church._id,
         name: church.name,
         slug: church.slug
       };
 
-      tokenData.roles = church.getUserRoles(user);
-    }
+      tokenData.resolve(jwt.sign(tokenData, auth.secret));
+    });
 
-    resolve(jwt.sign(tokenData, auth.secret));
   });
 }
 
