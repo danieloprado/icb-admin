@@ -27,7 +27,7 @@
       });
     };
 
-    const form = ($event, informative) => {
+    const form = ($event, informative) =>
       $mdDialog.show({
         templateUrl: 'views/informative/form.html',
         controller: 'icbInformative.formCtrl',
@@ -37,15 +37,7 @@
         locals: {
           informative: angular.copy(informative || {})
         }
-      }).then(function() {
-        console.log("OK!");
-      }).catch(function() {
-        console.log("catch!");
-      }).finally(function() {
-        console.log("finally!");
-
       });
-    };
 
     const save = (model) => {
       return $http.post(endpoints.save, model).then(function(response) {

@@ -21,8 +21,9 @@
     };
 
     $scope.submit = () => {
-      Loader(service.save($scope.model)).then(() => {
-        $mdDialog.hide();
+      Loader(service.save($scope.model)).then((informative) => {
+        Toast("Salvo");
+        $mdDialog.hide(informative);
         $scope.model = {};
       }).catch((res) => {
         switch (res.status) {

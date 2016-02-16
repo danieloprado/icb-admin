@@ -22,7 +22,6 @@ const checkLogin = (roles) => {
     roles.push("admin");
 
     const isAuthorized = _.intersection(roles, req.user.roles).length > 0;
-
     if (!isAuthorized) {
       throw {
         status: 403,

@@ -14,11 +14,11 @@ ng-md-icon {
   }
 }
 
-.md-button:not(.md-fab) ng-md-icon {
-  margin: 5px 10px 0 0;
-  float: left;
-  fill: inherit;
+.md-button:not(.md-fab) ng-md-icon + span{
+  margin-left: 10px;
+  display: inline-block;
 }
+
 
 .md-fab {
   fill: white;
@@ -27,7 +27,7 @@ ng-md-icon {
 md-datepicker {
   margin-top: 18px !important;
   display: block;
-  
+
   .md-datepicker-input-container {
     margin-left: 0;
     width: calc(100% - 60px);
@@ -60,7 +60,7 @@ icb-loading > div {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  
+
   md-progress-circular {
     position: absolute;
     right: 0;

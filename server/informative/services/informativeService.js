@@ -18,7 +18,9 @@ var Service = {
 
     return Informative.findOneAndUpdate({
       _id: obj._id
-    }, obj);
+    }, obj, {
+      new: true
+    });
   }
 
 };

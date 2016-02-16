@@ -45,7 +45,7 @@ html(lang='en', ng-app='icbApp')
         md-toolbar.main-toolbar(layout='row')
           .md-toolbar-tools
             md-button.md-icon-button(ng-click="toggleSidenav('left')", hide-gt-sm='')
-              md-icon(aria-label='Menu', md-svg-icon='/icons/menu.svg')
+              ng-md-icon(icon="menu", size=24)
             h1 {{ pageTitle || 'ICB' }}
             
         md-content.main-content(ng-view='', layout='column', flex='', layout-padding='')
