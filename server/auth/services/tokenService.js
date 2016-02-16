@@ -24,7 +24,7 @@ function generate(user, church) {
         slug: church.slug
       };
 
-      tokenData.resolve(jwt.sign(tokenData, auth.secret));
+      resolve(jwt.sign(tokenData, auth.secret));
     });
 
   });

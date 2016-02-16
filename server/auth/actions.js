@@ -13,7 +13,6 @@ function sendToken(res, token) {
 }
 
 function login(req, res, next) {
-
   userService.findByEmail(req.body.email)
     .then(user => {
       if (!user) {
@@ -34,7 +33,8 @@ function login(req, res, next) {
     })
     .then((user) => {
       return churchService.listByUser(user).then((churches) => ({
-        user, churches
+        user,
+        churches
       }));
     })
     .then((info) => {

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/login', actions.login);
 
-router.use(checkLogin(null, true));
+router.use(checkLogin());
 router.post('/select-church', actions.selectChurch);
 
 module.exports = router;

@@ -3,6 +3,11 @@ md-content {
 }
 
 ng-md-icon {
+  &[size='32'] {
+    width: 32px;
+    height: 32px;
+  }
+
   svg {
     vertical-align: middle;
     fill: inherit;
@@ -10,9 +15,8 @@ ng-md-icon {
 }
 
 .md-button:not(.md-fab) ng-md-icon {
-  margin: 0 10px 0 0;
+  margin: 5px 10px 0 0;
   float: left;
-  height: 24px;
   fill: inherit;
 }
 
