@@ -12,5 +12,6 @@ router.get('/:id', actions.get);
 
 router.use(checkLogin(["admin"]));
 router.post('/', actions.save);
+router.delete('/', actions.remove);
 
 module.exports = router;

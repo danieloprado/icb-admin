@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Informative = mongoose.model('Informative');
 
-var Service = {
+module.exports = {
   findOne: query => Informative.findOne(query || {}),
 
   list: query => Informative.find(query || {}),
@@ -21,8 +21,10 @@ var Service = {
     }, obj, {
       new: true
     });
-  }
+  },
+
+  remove: (informative) => Informative.remove({
+    _id: informative._id
+  })
 
 };
-
-module.exports = Service;
