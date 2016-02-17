@@ -39,6 +39,7 @@ var paths = {
     'bower_components/angular-messages/angular-messages.min.js',
     'bower_components/angular-jwt/dist/angular-jwt.min.js',
     'bower_components/angular-material-icons/angular-material-icons.min.js',
+    'bower_components/angular-sanitize/angular-sanitize.min.js',
 
     //markdown
     'bower_components/marked/marked.min.js',

@@ -41,6 +41,10 @@
 
     const save = (model) => {
       return $http.post(endpoints.save, model).then(function(response) {
+        if (response.data.date) {
+          response.data.date = new Date(response.data.date);
+        }
+
         return response.data;
       });
     };

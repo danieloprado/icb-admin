@@ -21,3 +21,6 @@ md-card
               md-icon edit
             md-button.md-icon-button(ng-click="delete($event, informative)")
               md-icon delete
+
+    div(ng-show="informatives.length == 0",align="center")
+      | Nenhum informativo criado

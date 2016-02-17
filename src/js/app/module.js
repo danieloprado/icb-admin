@@ -2,6 +2,7 @@
   'use strict';
 
   angular.module('icbApp', [
+    'ngSanitize',
     'ngMaterial',
     'ngMdIcons',
     'ngMessages',

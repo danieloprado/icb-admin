@@ -2,24 +2,21 @@
   "name": "icb",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "~1.4.9",
-    "angular-route": "~1.4.9",
+    "angular": "~1.5.0",
+    "angular-route": "~1.5.0",
     "angular-material": "~1.0.4",
-    "angular-aria": "~1.4.9",
-    "angular-animate": "~1.4.9",
+    "angular-aria": "~1.5.0",
+    "angular-animate": "~1.5.0",
     "angular-jwt": "~0.0.9",
     "animate.css": "~3.5.1",
-    "angular-messages": "~1.4.9",
+    "angular-messages": "~1.5.0",
+    "angular-sanitize": "~1.5.0",
     "jQuery": "^2.2.0",
     "angular-marked": "~1.0.1",
     "angular-material-data-table": "~0.9.10",
-    "angular-i18n": "~1.4.9",
+    "angular-i18n": "~1.5.0",
     "angular-material-icons": "~0.6.0",
     "material-design-icons": "~2.2.0"
   },
-  "private": true,
-  "resolutions": {
-    "angular": "1.4.9",
-    "angular-material": "~1.0.4"
-  }
+  "private": true
 }

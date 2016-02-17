@@ -4,12 +4,12 @@
   angular.module('icbInformative')
     .controller("icbInformative.listCtrl", [
       '$scope',
-      '$mdDialog',
+      'Dialog',
       'informativeService',
       ListCtrl
     ]);
 
-  function ListCtrl($scope, $mdDialog, informativeService) {
+  function ListCtrl($scope, dialog, informativeService) {
     $scope.$emit("change-page-title", "Informative");
     $scope.selected = [];
 
@@ -34,16 +34,7 @@
     };
 
     $scope.delete = ($event, informative) => {
-      const confirm = $mdDialog.confirm()
-        .title("Confirmar")
-        .textContent("Tem certeza?")
-        .ok("Sim")
-        .cancel("Não")
-        .targetEvent($event);
-
-      $mdDialog.show(confirm).then(() => {
-        console.log("é verdade");
-      });
+      dialog.confirm(`Deseja apagar o informativo **${informative.title}**`, $event);
     };
   }
 
