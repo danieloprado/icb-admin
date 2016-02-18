@@ -2,11 +2,14 @@
   'use strict';
 
   angular.module('icbApp')
-    .config(['$httpProvider', configInterceptor])
+    .config(['$mdDateLocaleProvider', '$injector', configLocale])
     .config(['$mdThemingProvider', configTheme]);
 
-  function configInterceptor($httpProvider) {
-    //  $httpProvider.interceptors.push('errorInterceptor');
+  function configLocale($mdDateLocaleProvider, $injector) {
+    $mdDateLocaleProvider.formatDate = function(date) {
+      return date;
+    };
+
   }
 
   function configTheme($mdThemingProvider, $translateProvider) {
