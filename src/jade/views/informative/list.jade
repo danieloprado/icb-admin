@@ -1,26 +1,26 @@
 .fab-actions
-  md-button.md-fab(ng-click="create($event)")
-    ng-md-icon(icon="add",size=32)
+	md-button.md-fab(ng-click="create($event)")
+		ng-md-icon(icon="add",size=32)
 
 md-card
-  md-table-container
-  
-    table(md-table, md-progress="dataPromise",)
-      thead(md-head, md-order="query.order")
-        tr(md-row)
-          th(md-column, md-order-by="title") Titulo
-          th(md-column, md-order-by="date") Dia
-          th(md-column,width="120")
-          
-      tbody(md-body)
-        tr(md-row, ng-repeat="informative in informatives | filter:query.filter | orderBy:query.order")
-          td(md-cell) {{informative.title}}
-          td(md-cell) {{informative.date | date}}
-          td.text-right(md-cell)
-            md-button.md-icon-button(ng-click="edit($event, informative)")
-              md-icon edit
-            md-button.md-icon-button(ng-click="delete($event, informative)")
-              md-icon delete
+	md-table-container
 
-    div(ng-show="informatives.length == 0",align="center")
-      | Nenhum informativo criado
+		table(md-table, md-progress="dataPromise",)
+			thead(md-head, md-order="query.order")
+				tr(md-row)
+					th(md-column, md-order-by="title") Titulo
+					th(md-column, md-order-by="date") Dia
+					th(md-column,width="120")
+
+			tbody(md-body)
+				tr(md-row, ng-repeat="informative in informatives | filter:query.filter | orderBy:query.order")
+					td(md-cell) {{informative.title}}
+					td(md-cell) {{informative.date | date}}
+					td.text-right(md-cell)
+						md-button.md-icon-button(ng-click="edit($event, informative)")
+							md-icon edit
+						md-button.md-icon-button(ng-click="delete($event, informative, $index)")
+							md-icon delete
+
+		div(ng-show="informatives.length == 0",align="center")
+			| Nenhum informativo criado

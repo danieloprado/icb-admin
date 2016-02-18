@@ -1,11 +1,17 @@
 const service = require('./services/informativeService');
 
 function list(req, res, next) {
-  service.list(req.query).then(informatives => res.send(informatives)).catch(next);
+  service.list({
+      church: req.user.church._id
+    })
+    .then(informatives => res.send(informatives))
+    .catch(next);
 }
 
 function get(req, res, next) {
-  service.findOne({_id: req.params.id}).then(informative => {
+  service.findOne({
+    _id: req.params.id
+  }).then(informative => {
     if (!informative) {
       res.status(404).json("Informative not found");
       return;
@@ -29,8 +35,20 @@ function save(req, res, next) {
   }).catch(next);
 }
 
+function remove(req, res, next) {
+  service.remove({
+      _id: req.body.id
+    })
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch(next);
+}
+
+
 module.exports = {
   list: list,
   get: get,
-  save: save
+  save: save,
+  remove: remove
 };

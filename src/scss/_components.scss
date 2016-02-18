@@ -24,7 +24,7 @@ ng-md-icon {
 }
 
 md-datepicker {
-  margin-top: 18px !important;
+  margin-top: 15px !important;
   margin-bottom: 36px !important;
   display: block;
   
@@ -55,6 +55,7 @@ md-datepicker {
   md-datepicker.ng-invalid {
     .md-datepicker-input-container {
       border-color: $danger;
+      border-width: 2px;
     }
 
     md-icon {
@@ -62,9 +63,10 @@ md-datepicker {
     }
 
     & + [ng-messages] {
-      padding-left: 50px;
+      padding-left: 40px;
       color: $danger;
       font-size: 12px;
+      margin-top: -35px;
     }
   }
 }

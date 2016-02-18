@@ -12,11 +12,12 @@
   function InformativeService(API, $http, $mdDialog) {
     let endpoints = {
       list: API + '/informative/',
-      save: API + '/informative/'
+      save: API + '/informative/',
+      remove: API + '/informative/remove'
     };
 
     const list = () => {
-      return $http.get(endpoints.list).then(function(response) {
+      return $http.get(endpoints.list).then((response) => {
         return response.data.map((item) => {
           if (item.date) {
             item.date = new Date(item.date);
@@ -40,7 +41,7 @@
       });
 
     const save = (model) => {
-      return $http.post(endpoints.save, model).then(function(response) {
+      return $http.post(endpoints.save, model).then((response) => {
         if (response.data.date) {
           response.data.date = new Date(response.data.date);
         }
@@ -49,10 +50,18 @@
       });
     };
 
+    const remove = (id) => {
+      console.log(id);
+      return $http.post(endpoints.remove, {
+        id
+      });
+    };
+
     return {
       list: list,
       form: form,
-      save: save
+      save: save,
+      remove: remove
     };
   }
 
