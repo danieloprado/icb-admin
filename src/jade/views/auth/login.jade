@@ -1,7 +1,7 @@
 section.content-hover.login-content.animated.fadeIn(ng-if='!hide')
 	.content.animated.fadeInDown
 
-		form(md-form-validator, ng-submit='submit()')          
+		form(ng-submit='loginForm.$valid && submit()',name='loginForm', novalidate='')          
 
 			.logo
 				img(src="/imgs/logo.png")
@@ -9,15 +9,15 @@ section.content-hover.login-content.animated.fadeIn(ng-if='!hide')
 			md-input-container.md-block
 				label Email
 				input(ng-model='model.email', name='email', type='email', required)
-				md-messages
-					md-message(email) Email inválido
-					md-message(required) Obrigatório
+				div(ng-messages='loginForm.email.$error', ng-show="loginForm.$submitted || loginForm.email.$touched", md-auto-hide='false')
+					div(ng-message='email') Email inválido
+					div(ng-message='required') Obrigatório
 
 			md-input-container.md-block
 				label Senha
 				input(ng-model='model.password', name='password', type='password', required)
-				md-messages
-					md-message(required) Obrigatório
+				div(ng-messages='loginForm.password.$error', ng-show="loginForm.$submitted || loginForm.password.$touched", md-auto-hide='false')
+					div(ng-message='required') Obrigatório
 
 			md-dialog-actions(layout='row')
 				span(flex='')
