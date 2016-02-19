@@ -4,17 +4,16 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   appPath = require('app-module-path'),
-  logger = require('morgan');
+  logger = require('morgan'),
+  timeout = require('connect-timeout');
 
 const authModule = require("auth/module");
 const churchModule = require("church/module");
 const informativeModule = require("informative/module");
 const userModule = require("user/module");
 
-const seed = require('./seed');
-
-const app = express();
 const publicDir = __dirname + "/../dist";
+const seed = require('./seed');
 
 //mongodb://root:123@ds056698.mongolab.com:56698/icb
 mongoose.Promise = Promise;
@@ -24,6 +23,9 @@ mongoose.connect('mongodb://localhost/icb', function(err) {
   seed();
 });
 
+const app = express();
+
+app.use(timeout('5s'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

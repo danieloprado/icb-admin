@@ -26,6 +26,11 @@
     this.removeToken = () => $window.localStorage.removeItem("token");
 
     this.hasToken = () => isValidToken($window.localStorage.getItem('token'));
+
+    this.getUser = function() {
+      if (!this.hasToken()) return null;
+      return jwtHelper.decodeToken(this.getToken());
+    };
   }
 
 })(angular);

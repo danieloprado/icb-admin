@@ -6,17 +6,26 @@
       '$scope',
       '$mdSidenav',
       '$rootScope',
+      'auth',
       AppCtrl
     ]);
 
-  function AppCtrl($scope, $mdSidenav, $rootScope) {
+  function AppCtrl($scope, $mdSidenav, $rootScope, auth) {
     $rootScope.pageTitle = "Home";
 
-    $scope.$on("change-page-title", function(info, data) {
+    $scope.$on("change-page-title", (info, data) => {
       $rootScope.pageTitle = data;
     });
 
-    $scope.toggleSidenav = function(menuId) {
+    if (auth.hasToken()) {
+      $rootScope.user = auth.getUser();
+    }
+
+    $scope.$on("user-token-changed", () => {
+      $rootScope.user = auth.getUser();
+    });
+
+    $scope.toggleSidenav = (menuId) => {
       $mdSidenav('left').toggle();
     };
 
