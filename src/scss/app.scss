@@ -64,7 +64,7 @@ md-toolbar {
   // background-size: cover;
   // background-position: center;
   .logo {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     text-align: center;
     
     img {
@@ -81,7 +81,7 @@ md-toolbar {
     bottom: 0;
     margin: auto;
     width: 300px;
-    height: 300px;
+    height: 360px;
     max-width: calc(100% - 30px);
   }
 }
@@ -103,6 +103,12 @@ md-toolbar {
       img {
         max-width: 100px;
         max-height: 100px;
+      }
+
+      p {
+        float: none;
+        width: 100%;
+        padding: 10px 0;
       }
     }
 

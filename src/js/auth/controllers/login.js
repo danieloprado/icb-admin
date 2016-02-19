@@ -9,7 +9,7 @@
       'Loader',
       'loginService',
       function($scope, $timeout, Toast, Loader, loginService) {
-        $scope.$emit("change-page-title", "Login");
+        //$scope.$emit("change-page-title", "Login");
 
         $scope.model = {
           email: "danieloprado@outlook.com",

@@ -12,6 +12,7 @@
     'hc.marked',
     'md.data.table',
     'icbAuth',
+    'icbChurch',
     'icbInformative'
   ]).constant('API', '/api');
 

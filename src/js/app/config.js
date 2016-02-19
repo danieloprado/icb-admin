@@ -2,12 +2,18 @@
   'use strict';
 
   angular.module('icbApp')
-    .config(['$mdDateLocaleProvider', '$injector', configLocale])
+    .config(['$mdDateLocaleProvider', configLocale])
     .config(['$mdThemingProvider', configTheme]);
 
-  function configLocale($mdDateLocaleProvider, $injector) {
+  function configLocale($mdDateLocaleProvider) {
     $mdDateLocaleProvider.formatDate = function(date) {
-      return date;
+      var fix = (number) => {
+        return (number < 10 ? "0" : "") + number;
+      };
+
+      return fix(date.getDate()) + "/" +
+        fix(date.getMonth() + 1) + "/" +
+        date.getFullYear();
     };
 
   }
