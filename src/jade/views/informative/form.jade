@@ -4,7 +4,7 @@ md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
 			h2(ng-if="!editing") Novo Informativo
 			h2(ng-if="editing") Editar Informativo
 
-	form(md-form-validator, ng-submit="submit()", name="infoForm")
+	form(md-form-validator, ng-submit="submit()")
 		md-dialog-content
 			.md-dialog-content
 
@@ -16,7 +16,7 @@ md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
 								md-input-container.md-block
 									label Titulo
 									input(ng-model='model.title', name='title', required)
-									md-messages(field="title")
+									md-messages
 										md-message(required) Obrigatório
 
 							div(flex=5,hide-sm,hide-xs)
@@ -30,7 +30,7 @@ md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
 						md-input-container.md-block
 							label Mensagem
 							textarea(ng-model='model.message', name='message', required)
-							md-messages(field="message")
+							md-messages
 								md-message(required) Obrigatório
 
 					div(flex=5)
