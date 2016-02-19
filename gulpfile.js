@@ -43,7 +43,10 @@ var paths = {
 
     //markdown
     'bower_components/marked/marked.min.js',
-    'bower_components/angular-marked/dist/angular-marked.min.js'
+    'bower_components/angular-marked/dist/angular-marked.min.js',
+
+    //validator
+    'bower_components/md-form-validator/dist/md-form-validator.min.js'
   ]
 };
 

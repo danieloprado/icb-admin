@@ -7,6 +7,8 @@
 
   function configLocale($mdDateLocaleProvider) {
     $mdDateLocaleProvider.formatDate = function(date) {
+      if (!date) return null;
+
       var fix = (number) => {
         return (number < 10 ? "0" : "") + number;
       };

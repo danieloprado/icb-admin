@@ -11,6 +11,7 @@
     'angular-jwt',
     'hc.marked',
     'md.data.table',
+    'mdFormValidator',
     'icbAuth',
     'icbChurch',
     'icbInformative'
