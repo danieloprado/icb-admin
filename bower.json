@@ -16,7 +16,8 @@
     "angular-material-data-table": "~0.9.10",
     "angular-i18n": "~1.5.0",
     "angular-material-icons": "~0.6.0",
-    "material-design-icons": "~2.2.0"
+    "material-design-icons": "~2.2.0",
+    "md-form-validator": "~0.1.0"
   },
   "private": true,
   "resolutions": {
