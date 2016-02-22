@@ -26,6 +26,7 @@ var paths = {
 
   jsLibs: [
     'bower_components/jQuery/dist/jquery.min.js',
+    'bower_components/lodash/dist/lodash.min.js',
 
     //angular
     'bower_components/angular/angular.min.js',
@@ -41,12 +42,17 @@ var paths = {
     'bower_components/angular-material-icons/angular-material-icons.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
 
+    //Maps
+    'bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
+    'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
+
     //markdown
     'bower_components/marked/marked.min.js',
     'bower_components/angular-marked/dist/angular-marked.min.js',
 
     //validator
     'bower_components/md-form-validator/dist/md-form-validator.min.js'
+
   ]
 };
 

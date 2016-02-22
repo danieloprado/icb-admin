@@ -12,6 +12,7 @@
     'hc.marked',
     'md.data.table',
     'mdFormValidator',
+    'uiGmapgoogle-maps',
     'icbAuth',
     'icbChurch',
     'icbInformative'

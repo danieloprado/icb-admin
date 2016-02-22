@@ -2,6 +2,25 @@ md-content {
   color: inherit;
 }
 
+.angular-google-map-container {
+  display: block;
+  width: calc(100% - 30px);
+  min-height: 300px;
+  margin: 0 15px 15px;
+}
+
+.layout-padding,
+.layout-padding-gt-sm,
+.layout-padding-gt-sm>*,
+.layout-padding-md,
+.layout-padding-md>*,
+.layout-padding>*,
+.layout-padding>.flex,
+.layout-padding>.flex-gt-sm,
+.layout-padding>.flex-md {
+  padding: 15px;
+}
+
 ng-md-icon {
   &[size='32'] {
     width: 32px;
@@ -21,6 +40,21 @@ ng-md-icon {
 
 .md-fab {
   fill: $white;
+}
+
+md-input-container {
+  margin-bottom: 0;
+  padding: 2px 15px;
+  
+  label {
+    padding-left: 15px !important;
+  }
+
+  &.md-input-focused label:not(.md-no-float),
+  &.md-input-has-placeholder label:not(.md-no-float),
+  &.md-input-has-value label:not(.md-no-float) {
+    transform: translate3d(5px,6px,0) scale(.75);
+  }
 }
 
 md-datepicker {

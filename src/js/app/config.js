@@ -3,6 +3,7 @@
 
   angular.module('icbApp')
     .config(['$mdDateLocaleProvider', configLocale])
+    .config(['uiGmapGoogleMapApiProvider', configMaps])
     .config(['$mdThemingProvider', configTheme]);
 
   function configLocale($mdDateLocaleProvider) {
@@ -17,7 +18,13 @@
         fix(date.getMonth() + 1) + "/" +
         date.getFullYear();
     };
+  }
 
+  function configMaps(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      libraries: 'places'
+    });
   }
 
   function configTheme($mdThemingProvider, $translateProvider) {
