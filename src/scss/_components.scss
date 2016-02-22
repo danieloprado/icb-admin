@@ -2,13 +2,6 @@ md-content {
   color: inherit;
 }
 
-.angular-google-map-container {
-  display: block;
-  width: calc(100% - 30px);
-  min-height: 300px;
-  margin: 0 15px 15px;
-}
-
 .layout-padding,
 .layout-padding-gt-sm,
 .layout-padding-gt-sm>*,
@@ -119,5 +112,52 @@ icb-loading > div {
     left: 0;
     top: 0;
     margin: auto !important;
+  }
+}
+
+icb-place-maps {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  
+  md-progress-circular {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto !important;
+    z-index: 0;
+  }
+
+  ui-gmap-google-map {
+    z-index: 1;
+    position: relative;
+    
+    .angular-google-map-container {
+      display: block;
+      width: calc(100% - 30px);
+      min-height: 300px;
+      margin: 0 15px 15px;
+      
+      input[type=text] {
+        background-color: $white;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 }

@@ -1,15 +1,21 @@
-(function() {
+((angular) => {
   'use strict';
 
   angular.module('icbApp')
-    .directive('icbLoading', [directive]);
+    .directive('icbLoading', [IcbLoading]);
 
-  function directive() {
+  function IcbLoading() {
 
     return {
       restrict: 'E',
       scope: true,
-      template: '<div ng-if="!hide"><md-progress-circular md-diameter="120" md-mode="indeterminate"></md-progress-circular></div>',
+      template: `
+      <div ng-if="!hide">
+        <md-progress-circular
+            md-diameter="120" 
+            md-mode="indeterminate">
+        </md-progress-circular>
+      </div>`,
       link: (scope) => {
         scope.hide = true;
 
@@ -26,4 +32,4 @@
 
   }
 
-})();
+})(angular);
