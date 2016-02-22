@@ -10,12 +10,15 @@
 
   function ChurchService(API, $http) {
     let endpoints = {
-      list: API + '/informative/'
+      current: API + '/church/current'
     };
 
+    const current = () => $http.get(endpoints.current).then(response => response.data);
+
+    const save = (model) => $http.post(endpoints.current, model);
 
     return {
-
+      current, save
     };
   }
 

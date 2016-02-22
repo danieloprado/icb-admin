@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const emailValidator = require("email-validator");
 const bcrypt = require('bcrypt-nodejs');
 const _ = require("lodash");
 
@@ -18,8 +19,8 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    lowercase: true,
     required: true,
+    validate: [(email) => emailValidator.validate(email), 'Invalid email'],
     index: {
       unique: true
     }
@@ -48,6 +49,15 @@ UserSchema.pre('save', function(next) {
     });
   });
 });
+
+UserSchema.methods.toJSON = function() {
+  var user = this.toObject();
+
+  delete user.__v;
+  delete user.password;
+
+  return user;
+};
 
 UserSchema.methods.verifyPassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {

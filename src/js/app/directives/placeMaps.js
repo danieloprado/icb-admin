@@ -24,14 +24,31 @@
                           idkey="marker.id"></ui-gmap-marker>
           <ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
         </ui-gmap-google-map>`,
-      controller: ['$scope', '$templateCache', ($scope, $templateCache) => {
+      controller: ['$scope', '$templateCache', 'lodash', ($scope, $templateCache, _) => {
         $scope.placeholder = $scope.placeholder || "Pesquisar";
+        $scope.ngModel = $scope.ngModel || {};
+
+        const initialValue = {
+          latitude: $scope.ngModel.lat || -23.9549052,
+          longitude: $scope.ngModel.lng || -46.3306706,
+        };
+
+        const updateValue = (value) => {
+          console.log(value);
+          if (_.isEmpty(value)) {
+            value = {
+              lat: -23.9549052,
+              lng: -46.3306706,
+            };
+          }
+
+          $scope.ngModel.lat = $scope.map.center.latitude = $scope.marker.coords.latitude = value.lat;
+          $scope.ngModel.lng = $scope.map.center.longitude = $scope.marker.coords.longitude = value.lng;
+          $scope.ngModel.address = value.address;
+        };
 
         $scope.map = {
-          center: {
-            latitude: -23.9549052,
-            longitude: -46.3306706
-          },
+          center: initialValue,
           zoom: 14
         };
 
@@ -41,10 +58,7 @@
 
         $scope.marker = {
           id: 0,
-          coords: {
-            latitude: -23.9549052,
-            longitude: -46.3306706
-          },
+          coords: initialValue,
           options: {
             draggable: true
           },
@@ -75,14 +89,17 @@
                 lng: place.geometry.location.lng()
               };
 
-              $scope.ngModel.lat = $scope.map.center.latitude = $scope.marker.coords.latitude = coords.lat;
-              $scope.ngModel.lng = $scope.map.center.longitude = $scope.marker.coords.longitude = coords.lng;
-              $scope.ngModel.address = place.formatted_address;
+              updateValue({
+                lat: coords.lat,
+                lng: coords.lng,
+                address: place.formatted_address
+              });
+
             }
           }
         };
 
-
+        $scope.$watch("ngModel", updateValue, true);
       }]
 
     };

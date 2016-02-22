@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const emailValidator = require("email-validator");
 const slugGenerator = require('slug');
 const _ = require('lodash');
 
@@ -11,7 +12,9 @@ const ChurchUserSchema = new Schema({
     ref: 'Church',
     required: true
   }
-}, {_id: false});
+}, {
+  _id: false
+});
 
 const ChurchSchema = new Schema({
   name: {
@@ -24,8 +27,19 @@ const ChurchSchema = new Schema({
       unique: true
     }
   },
+  email: {
+    type: String,
+    validate: [(email) => emailValidator.validate(email), 'Invalid email'],
+  },
+  location: {
+    address: String,
+    lat: Number,
+    lng: Number
+  },
   users: [ChurchUserSchema]
-}, {timestamps: true});
+}, {
+  timestamps: true
+});
 
 ChurchSchema.pre('save', function(next) {
   var church = this;
@@ -34,9 +48,19 @@ ChurchSchema.pre('save', function(next) {
     return next();
   }
 
-  church.slug = slugGenerator(church.name, {lower: true});
+  church.slug = slugGenerator(church.name, {
+    lower: true
+  });
   return next();
 });
+
+ChurchSchema.methods.toJSON = function() {
+  const church = this.toObject();
+
+  delete church.__v;
+
+  return church;
+};
 
 ChurchSchema.methods.getUserRoles = function(user) {
   return new Promise((resolve, reject) => {

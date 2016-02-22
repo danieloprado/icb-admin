@@ -5,8 +5,9 @@ const checkLogin = require("auth/middlewares/checkLogin");
 
 const router = express.Router();
 
-router.use(checkLogin(null, true));
+router.use(checkLogin());
 
 router.get('/', actions.list);
+router.get('/current', actions.current);
 
 module.exports = router;

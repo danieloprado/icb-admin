@@ -21,6 +21,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "connect-timeout": "^1.7.0",
+    "email-validator": "^1.0.4",
     "express": "^4.13.3",
     "jsonwebtoken": "^5.4.1",
     "lodash": "^4.1.0",

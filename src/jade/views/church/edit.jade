@@ -17,8 +17,6 @@ md-card
 						md-message(email) Email inválido
 						md-message(required) Obrigatório
 
-
-
 			div(flex)
 				md-input-container.md-block
 					label Telefone
@@ -27,7 +25,7 @@ md-card
 						md-message(required) Obrigatório
 
 		icb-place-maps(ng-model="location",placeholder="Endereço")
-
+		| {{location}}
 
 		div(align="right")
 			md-button.md-raised.md-accent(type="submit") Salvar

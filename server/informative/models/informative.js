@@ -23,4 +23,12 @@ const InformativeSchema = new Schema({
   timestamps: true
 });
 
+InformativeSchema.methods.toJSON = function() {
+  const Informative = this.toObject();
+
+  delete Informative.__v;
+
+  return Informative;
+};
+
 module.exports = mongoose.model('Informative', InformativeSchema);
