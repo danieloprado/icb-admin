@@ -23,7 +23,7 @@
   function configMaps(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
       //    key: 'your api key',
-      libraries: 'places'
+      libraries: 'places,geocoder'
     });
   }
 
