@@ -18,8 +18,25 @@ function current(req, res, next) {
     .catch(next);
 }
 
+function save(req, res, next) {
+  const church = req.body;
+
+  if (church._id != req.user.church._id) {
+    throw {
+      status: 403
+    };
+  }
+
+  service.update(church)
+    .then(_ => {
+      return res.json();
+    })
+    .catch(next);
+}
+
 
 module.exports = {
   list: list,
-  current: current
+  current: current,
+  save: save
 };

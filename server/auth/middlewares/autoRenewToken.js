@@ -1,35 +1,30 @@
-var auth = require('config').auth;
-var jwt = require('jsonwebtoken');
+const tokenService = require("./../services/tokenService");
+const auth = require('config').auth;
 
 function autoRenewToken(req, res, next) {
-  var token = req.get('Authorization');
+  const token = req.get('Authorization');
 
   if (!token) {
     return next();
   }
 
-  token = token.split(' ')[1];
-  jwt.verify(token, auth.secret, function(err, decoded) {
+  tokenService.verify(token.split(' ')[1])
+    .then((decoded) => {
+      req.user = decoded;
 
-    if (err || !decoded) {
-      next();
-    }
+      var now = Math.floor(Date.now() / 1000);
+      var diff = decoded.exp - now;
 
-    req.user = decoded;
+      if (diff > (auth.timeout * 0.6)) {
+        return;
+      }
 
-    var now = Math.floor(Date.now() / 1000);
-    var diff = decoded.exp - now;
-
-    if (diff <= (auth.timeout * 0.6)) {
-      decoded.exp = now + auth.timeout;
-      token = jwt.sign(decoded, auth.secret);
-
-      res.header('Access-Control-Expose-Headers', 'X-Token');
-      res.setHeader("X-Token", token);
-    }
-
-    next();
-  });
+      return tokenService.renew(decoded).then(token => {
+        res.setHeader("X-Token", token);
+      });
+    })
+    .then(next)
+    .catch(next);
 }
 
 module.exports = autoRenewToken;

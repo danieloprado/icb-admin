@@ -20,11 +20,12 @@
         $scope.model = church;
       });
 
-    $scope.$watch("location", (v) => {
-      console.log(v);
-    }, true);
-
-    $scope.submit = () => {};
+    $scope.submit = () => {
+      Loader(service.save($scope.model))
+        .then(() => {
+          Toast("Informações atualizadas");
+        });
+    };
 
   }
 

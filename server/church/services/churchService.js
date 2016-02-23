@@ -21,14 +21,16 @@ var Service = {
     return church.save();
   },
 
-  update: (obj) => {
-    delete obj.createdAt;
-    delete obj.updatedAt;
-
-    return Church.findOneAndUpdate({
+  update: (obj) =>
+    Church.findOne({
       _id: obj._id
-    }, obj);
-  }
+    })
+    .then(church => {
+      if (!church) throw "Not found";
+
+      _.assignIn(church, obj);
+      return church.save();
+    })
 
 };
 

@@ -42,7 +42,10 @@ const ChurchSchema = new Schema({
 });
 
 ChurchSchema.pre('save', function(next) {
-  var church = this;
+  const church = this;
+
+  console.log("PRE SAVE!!!");
+  console.log(church.name, church.isModified('name'));
 
   if (!church.isModified('name')) {
     return next();

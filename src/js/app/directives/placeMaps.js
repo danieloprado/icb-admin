@@ -26,11 +26,11 @@
           <ui-gmap-search-box template="searchbox.template" events="searchbox.events" />
         </ui-gmap-google-map>`,
 
-      controller: ['$scope', '$templateCache', '$q', 'lodash', 'Toast', 'Loader', Controller]
+      controller: ['$scope', '$templateCache', '$q', '$timeout', 'lodash', 'Toast', 'Loader', Controller]
     };
   }
 
-  function Controller($scope, $templateCache, $q, _, Toast, Loader) {
+  function Controller($scope, $templateCache, $q, $timeout, _, Toast, Loader) {
     $scope.placeholder = $scope.placeholder || "Pesquisar";
     $scope.ngModel = $scope.ngModel || {};
 
@@ -39,18 +39,21 @@
       longitude: $scope.ngModel.lng || -46.3306706,
     };
 
+    let timeoutUpdate;
     const updateValue = (value) => {
-      console.trace(value);
-      if (_.isEmpty(value)) {
-        value = {
-          lat: -23.9549052,
-          lng: -46.3306706,
-        };
-      }
+      console.log('updateValue');
+      value = value || {};
+      value.lat = value.lat || -23.9549052;
+      value.lng = value.lng || -46.3306706;
 
-      $scope.ngModel.lat = $scope.map.center.latitude = $scope.marker.coords.latitude = value.lat;
-      $scope.ngModel.lng = $scope.map.center.longitude = $scope.marker.coords.longitude = value.lng;
-      $scope.ngModel.address = value.address;
+      $timeout.cancel(timeoutUpdate);
+      timeoutUpdate = $timeout(_ => {
+        $scope.ngModel = $scope.ngModel || {};
+        $scope.ngModel.lat = $scope.map.center.latitude = $scope.marker.coords.latitude = value.lat;
+        $scope.ngModel.lng = $scope.map.center.longitude = $scope.marker.coords.longitude = value.lng;
+        $scope.ngModel.address = value.address;
+      }, 500);
+
     };
 
     $scope.map = {
@@ -109,6 +112,7 @@
           let places = searchBox.getPlaces();
 
           if (places.length === 0) {
+            Toast("Não foi possivel achar o endereço");
             return;
           }
 
@@ -128,7 +132,7 @@
       }
     };
 
-    $scope.$watch("ngModel", updateValue, true);
+    //$scope.$watch("ngModel", updateValue, true);
   }
 
 })(angular);

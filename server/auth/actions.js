@@ -5,7 +5,6 @@ const churchService = require("church/services/churchService");
 const tokenService = require("./services/tokenService");
 
 function sendToken(res, token) {
-  res.header('Access-Control-Expose-Headers', 'X-Token');
   res.setHeader("X-Token", token);
   return res.send({
     token: token

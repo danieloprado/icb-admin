@@ -36,6 +36,7 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Expose-Headers', 'X-Token');
   next();
 });
 
@@ -64,7 +65,8 @@ app.get("*", function(req, res) {
   });
 });
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handleconst auth = require('config').auth;
+r
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -74,10 +76,19 @@ app.use(function(req, res, next) {
 // error handlers
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.error(err);
+    console.error(err.stack);
+
+    if (typeof err == 'string') {
+      err = {
+        message: err
+      };
+    }
+
     res.status(err.status || 500);
     res.send({
       message: err.message,
-      status: err.status,
+      status: err.status || 500,
       stack: err.stack
     });
   });
