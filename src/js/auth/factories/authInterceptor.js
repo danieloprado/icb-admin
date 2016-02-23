@@ -39,7 +39,6 @@
         var token = response.headers('X-Token');
         if (token && token !== auth.getToken()) {
           auth.setToken(token);
-          console.log("renew!", auth.getUser());
           $rootScope.$broadcast("user-token-changed");
         }
 

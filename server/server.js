@@ -66,7 +66,6 @@ app.get("*", function(req, res) {
 });
 
 // catch 404 and forward to error handleconst auth = require('config').auth;
-r
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

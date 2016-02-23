@@ -1,4 +1,5 @@
 const service = require('./services/churchService');
+const tokenService = require("auth/services/tokenService");
 
 function list(req, res, next) {
   service.listByUser(req.user)
@@ -28,8 +29,10 @@ function save(req, res, next) {
   }
 
   service.update(church)
-    .then(_ => {
-      return res.json();
+    .then(church => tokenService.updateChurch(req.user, church))
+    .then(token => {
+      res.setHeader("X-Token", token);
+      res.json();
     })
     .catch(next);
 }

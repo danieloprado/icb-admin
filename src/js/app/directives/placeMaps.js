@@ -39,21 +39,32 @@
       longitude: $scope.ngModel.lng || -46.3306706,
     };
 
-    let timeoutUpdate;
+    const setCenter = (lat, lng) => {
+      $scope.map.center.latitude = $scope.marker.coords.latitude = lat;
+      $scope.map.center.longitude = $scope.marker.coords.longitude = lng;
+    };
+
     const updateValue = (value) => {
-      console.log('updateValue');
+      $scope.ngModel = $scope.ngModel || {};
+      $scope.data = {
+        searchBox: "data"
+      };
+
       value = value || {};
       value.lat = value.lat || -23.9549052;
       value.lng = value.lng || -46.3306706;
 
-      $timeout.cancel(timeoutUpdate);
-      timeoutUpdate = $timeout(_ => {
-        $scope.ngModel = $scope.ngModel || {};
-        $scope.ngModel.lat = $scope.map.center.latitude = $scope.marker.coords.latitude = value.lat;
-        $scope.ngModel.lng = $scope.map.center.longitude = $scope.marker.coords.longitude = value.lng;
-        $scope.ngModel.address = value.address;
-      }, 500);
+      if (_.isEqual(value, {
+          lat: $scope.ngModel.lat,
+          lng: $scope.ngModel.lng,
+          address: $scope.ngModel.address
+        })) {
+        return;
+      }
 
+      $scope.ngModel.lat = value.lat;
+      $scope.ngModel.lng = value.lng;
+      $scope.ngModel.address = $scope.data.searchBox = value.address;
     };
 
     $scope.map = {
@@ -103,21 +114,21 @@
     };
 
     $templateCache.put('icbPlaceMapsSearchBox',
-      `<input type="text" class="ng-scope" placeholder="${$scope.placeholder}">`);
+      `<input type="text" class="ng-scope" ng-model="data.searchBox" placeholder="${$scope.placeholder}">`);
 
     $scope.searchbox = {
       template: 'icbPlaceMapsSearchBox',
       events: {
         places_changed: (searchBox) => {
-          let places = searchBox.getPlaces();
+          const places = searchBox.getPlaces();
 
           if (places.length === 0) {
             Toast("Não foi possivel achar o endereço");
             return;
           }
 
-          let place = places[0];
-          let coords = {
+          const place = places[0];
+          const coords = {
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng()
           };
@@ -132,7 +143,13 @@
       }
     };
 
-    //$scope.$watch("ngModel", updateValue, true);
+    $scope.$watch("ngModel", (value) => {
+      if (!value) return;
+
+      setCenter(value.lat, value.lng);
+      updateValue(value);
+      $scope.data.searchBox = value.address;
+    }, true);
   }
 
 })(angular);

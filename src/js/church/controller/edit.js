@@ -15,6 +15,10 @@
     $scope.$emit("change-page-title", "Igreja");
     $scope.model = {};
 
+    $scope.$watch("model.location", (v) => {
+      console.log(v);
+    }, true);
+
     Loader(service.current())
       .then((church) => {
         $scope.model = church;

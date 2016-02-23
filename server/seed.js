@@ -12,7 +12,12 @@ const createChurch = () => {
 
       console.log("seed: create church");
       return churchService.create({
-        name: "ICB Sorocaba"
+        name: "ICB Sorocaba",
+        location: {
+          address: "R. Cesário Mota, 217 - Centro, Sorocaba - SP, 18035-200",
+          lat: -23.5027917,
+          lng: -47.461769900000036
+        }
       });
     });
 };
