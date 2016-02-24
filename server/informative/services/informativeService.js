@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const mongoose = require('mongoose');
 const Informative = mongoose.model('Informative');
 
@@ -12,16 +13,16 @@ module.exports = {
     return informative.save();
   },
 
-  update: (obj) => {
-    delete obj.createdAt;
-    delete obj.updatedAt;
-
-    return Informative.findOneAndUpdate({
+  update: obj =>
+    Informative.findOne({
       _id: obj._id
-    }, obj, {
-      new: true
-    });
-  },
+    })
+    .then(informative => {
+      if (!informative) throw "Not found";
+
+      _.assignIn(informative, obj);
+      return informative.save();
+    }),
 
   remove: (informative) => Informative.remove({
     _id: informative._id
