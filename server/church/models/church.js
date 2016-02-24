@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const emailValidator = require("email-validator");
-const slugGenerator = require('slug');
 const _ = require('lodash');
 
 const Schema = mongoose.Schema;
@@ -9,7 +8,7 @@ const ChurchUserSchema = new Schema({
   roles: [String],
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'Church',
+    ref: 'User',
     required: true
   }
 }, {
@@ -26,9 +25,18 @@ const ChurchSchema = new Schema({
     validate: [(email) => emailValidator.validate(email), 'Invalid email'],
   },
   location: {
-    address: String,
-    lat: Number,
-    lng: Number
+    address: {
+      type: String,
+      required: true
+    },
+    lat: {
+      type: Number,
+      required: true
+    },
+    lng: {
+      type: Number,
+      required: true
+    }
   },
   users: [ChurchUserSchema]
 }, {
