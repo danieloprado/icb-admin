@@ -4,10 +4,6 @@ const Church = require('church/models/church');
 var Service = {
   findOne: query => Church.findOne(query || {}),
 
-  findBySlug: slug => Church.findOne({
-    slug: slug
-  }),
-
   list: query => Church.find(query || {}),
 
   listByUser: (user) => {

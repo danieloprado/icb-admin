@@ -4,7 +4,7 @@ var churchService = require('church/services/churchService');
 const createChurch = () => {
   console.log("seed: begin create church");
 
-  return churchService.findBySlug("icb-sorocaba")
+  return churchService.findOne()
     .then((church) => {
       if (church) {
         return church;

@@ -21,12 +21,6 @@ const ChurchSchema = new Schema({
     type: String,
     required: true
   },
-  slug: {
-    type: String,
-    index: {
-      unique: true
-    }
-  },
   email: {
     type: String,
     validate: [(email) => emailValidator.validate(email), 'Invalid email'],
@@ -39,19 +33,6 @@ const ChurchSchema = new Schema({
   users: [ChurchUserSchema]
 }, {
   timestamps: true
-});
-
-ChurchSchema.pre('save', function(next) {
-  const church = this;
-
-  if (!church.isModified('name')) {
-    return next();
-  }
-
-  church.slug = slugGenerator(church.name, {
-    lower: true
-  });
-  return next();
 });
 
 ChurchSchema.methods.toJSON = function() {

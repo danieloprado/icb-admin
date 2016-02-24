@@ -23,10 +23,25 @@
                           events="marker.events"
                           idkey="marker.id" />
 
-          <ui-gmap-search-box template="searchbox.template" events="searchbox.events" />
+          <ui-gmap-search-box template="searchbox.template" options="searchbox.options" events="searchbox.events" />
         </ui-gmap-google-map>`,
 
-      controller: ['$scope', '$templateCache', '$q', '$timeout', 'lodash', 'Toast', 'Loader', Controller]
+      controller: ['$scope', '$templateCache', '$q', '$timeout', 'lodash', 'Toast', 'Loader', Controller],
+      link: ($scope, elem, attrs) => {
+        $scope.$watch("ngModel", (v) => {
+          elem.find('input[type=text]').val(v.address);
+        }, true);
+
+        (function checkInput() {
+          if (elem.find('input[type=text]').size() > 0) {
+            elem.find('input[type=text]').val($scope.ngModel.address);
+            return;
+          }
+
+          setTimeout(checkInput, 50);
+        })();
+
+      }
     };
   }
 
@@ -46,9 +61,6 @@
 
     const updateValue = (value) => {
       $scope.ngModel = $scope.ngModel || {};
-      $scope.data = {
-        searchBox: "data"
-      };
 
       value = value || {};
       value.lat = value.lat || -23.9549052;
@@ -64,7 +76,7 @@
 
       $scope.ngModel.lat = value.lat;
       $scope.ngModel.lng = value.lng;
-      $scope.ngModel.address = $scope.data.searchBox = value.address;
+      $scope.ngModel.address = value.address;
     };
 
     $scope.map = {
@@ -114,10 +126,13 @@
     };
 
     $templateCache.put('icbPlaceMapsSearchBox',
-      `<input type="text" class="ng-scope" ng-model="data.searchBox" placeholder="${$scope.placeholder}">`);
+      `<input type="text" class="ng-scope" placeholder="${$scope.placeholder}">`);
 
     $scope.searchbox = {
       template: 'icbPlaceMapsSearchBox',
+      options: {
+        autocomplete: true
+      },
       events: {
         places_changed: (searchBox) => {
           const places = searchBox.getPlaces();
@@ -148,7 +163,6 @@
 
       setCenter(value.lat, value.lng);
       updateValue(value);
-      $scope.data.searchBox = value.address;
     }, true);
   }
 
