@@ -2,18 +2,6 @@ md-content {
   color: inherit;
 }
 
-.layout-padding,
-.layout-padding-gt-sm,
-.layout-padding-gt-sm>*,
-.layout-padding-md,
-.layout-padding-md>*,
-.layout-padding>*,
-.layout-padding>.flex,
-.layout-padding>.flex-gt-sm,
-.layout-padding>.flex-md {
-  padding: 15px;
-}
-
 ng-md-icon {
   &[size='32'] {
     width: 32px;
@@ -38,6 +26,7 @@ ng-md-icon {
 md-input-container {
   margin-bottom: 0;
   padding: 2px 15px;
+  margin-top: 30px;
   
   label {
     padding-left: 15px !important;
@@ -47,6 +36,10 @@ md-input-container {
   &.md-input-has-placeholder label:not(.md-no-float),
   &.md-input-has-value label:not(.md-no-float) {
     transform: translate3d(5px,6px,0) scale(.75);
+  }
+
+  .md-errors-spacer {
+    min-height: 10px;
   }
 }
 
@@ -73,6 +66,10 @@ md-dialog {
   md-dialog-actions {
     border-top: 1px solid $border-color;
     padding: 10px 20px;
+  }
+
+  .md-dialog-content {
+    padding: 8px;
   }
 }
 
@@ -120,6 +117,7 @@ icb-place-maps {
   width: 100%;
   min-height: 300px;
   position: relative;
+  margin-top: 20px;
   
   md-progress-circular {
     position: absolute;
@@ -148,16 +146,21 @@ icb-place-maps {
         margin-left: 12px;
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
-        width: 300px;
+        width: calc(100% - 25px);
+        max-width: 500px;
         margin-top: 10px;
         border: 1px solid transparent;
         border-radius: 2px 0 0 2px;
         box-sizing: border-box;
-        -moz-box-sizing: border-box;
         height: 32px;
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        left: 0 !important;
       }
     }
+  }
+
+  .gm-style-mtc {
+    display: none;
   }
 }

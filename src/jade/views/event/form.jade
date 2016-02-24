@@ -1,0 +1,30 @@
+md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
+	md-toolbar
+		.md-toolbar-tools
+			h2(ng-if="!editing") Novo Evento
+			h2(ng-if="editing") Editar Evento
+
+	form(md-form-validator, ng-submit="submit()")
+		md-dialog-content
+			.md-dialog-content
+
+				div(layout="row",layout-sm="column",layout-xs="column")
+					div(flex)
+
+						md-input-container.md-block
+							label Nome
+							input(ng-model='model.name', name='name', required)
+							md-messages
+								md-message(required) Obrigatório
+
+						md-input-container.md-block
+							label Descrição
+							textarea(ng-model='model.description', name='description')
+
+					div(flex=5,hide-sm,hide-xs)
+
+					div(flex)				
+						icb-place-maps(ng-model="model.location",placeholder="Local")
+
+		md-dialog-actions(layout="row")
+			md-button.md-raised.md-accent(type="submit") Salvar

@@ -15,6 +15,7 @@
     'uiGmapgoogle-maps',
     'icbAuth',
     'icbChurch',
+    'icbEvent',
     'icbInformative'
   ]).constant('API', '/api');
 

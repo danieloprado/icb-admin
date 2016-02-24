@@ -23,7 +23,7 @@
                           events="marker.events"
                           idkey="marker.id" />
 
-          <ui-gmap-search-box template="searchbox.template" options="searchbox.options" events="searchbox.events" />
+          <ui-gmap-search-box template="searchbox.template" events="searchbox.events" />
         </ui-gmap-google-map>`,
 
       controller: ['$scope', '$templateCache', '$q', '$timeout', 'lodash', 'Toast', 'Loader', Controller],
@@ -130,9 +130,6 @@
 
     $scope.searchbox = {
       template: 'icbPlaceMapsSearchBox',
-      options: {
-        autocomplete: true
-      },
       events: {
         places_changed: (searchBox) => {
           const places = searchBox.getPlaces();

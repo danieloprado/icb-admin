@@ -1,0 +1,23 @@
+md-button.md-fab.md-fab-bottom-right(ng-click="create($event)")
+	ng-md-icon(icon="add",size=32)
+
+md-card
+	md-table-container
+
+		table(md-table, md-progress="dataPromise",)
+			thead(md-head, md-order="query.order")
+				tr(md-row)
+					th(md-column, md-order-by="name") Titulo
+					th(md-column,width="120")
+
+			tbody(md-body)
+				tr(md-row, ng-repeat="event in events | filter:query.filter | orderBy:query.order")
+					td(md-cell) {{event.name}}
+					td.text-right(md-cell)
+						md-button.md-icon-button(ng-click="edit($event, event)")
+							md-icon edit
+						md-button.md-icon-button(ng-click="delete($event, event, $index)")
+							md-icon delete
+
+		div(ng-show="events.length == 0",align="center")
+			| Nenhum evento criado

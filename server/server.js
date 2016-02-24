@@ -9,6 +9,7 @@ const express = require('express'),
 
 const authModule = require("auth/module");
 const churchModule = require("church/module");
+const eventModule = require("event/module");
 const informativeModule = require("informative/module");
 const userModule = require("user/module");
 
@@ -50,6 +51,7 @@ app.all('/views/*', function(req, res, next) {
 
 app.use('/api/auth', authModule.routes);
 app.use('/api/church', churchModule.routes);
+app.use('/api/event', eventModule.routes);
 app.use('/api/informative', informativeModule.routes);
 app.use('/api/user', userModule.routes);
 

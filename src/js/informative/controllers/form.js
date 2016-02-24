@@ -4,6 +4,7 @@
   angular.module('icbInformative').controller("icbInformative.formCtrl", [
     '$scope',
     '$mdDialog',
+    'lodash',
     'Loader',
     'Toast',
     'informative',
@@ -11,8 +12,9 @@
     FormCtrl
   ]);
 
-  function FormCtrl($scope, $mdDialog, Loader, Toast, informative, service) {
+  function FormCtrl($scope, $mdDialog, _, Loader, Toast, informative, service) {
     $scope.model = informative || {};
+    $scope.editing = !_.isEmpty($scope.model);
 
     $scope.getFullMarkdown = () => {
       let title = $scope.model.title ? "# " + $scope.model.title : "";
@@ -31,7 +33,7 @@
             Toast(res.data.message);
             break;
           default:
-            Toast("Ocorreu um erro no servidor");
+            Toast.genericError();
         }
       });
     };
