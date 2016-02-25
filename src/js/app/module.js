@@ -8,6 +8,7 @@
     'ngMessages',
     'ngAnimate',
     'ngRoute',
+    'ngMask',
     'angular-jwt',
     'hc.marked',
     'md.data.table',

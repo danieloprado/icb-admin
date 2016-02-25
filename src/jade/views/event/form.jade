@@ -20,7 +20,6 @@ md-dialog(flex="70", flex-lg="90", flex-md="95", flex-sm="95", flex-xs="95")
 							label Descrição
 							textarea(ng-model='model.description', name='description')
 
-
 						ng-form(layout="row",layout-xs="column", ng-repeat="date in model.dates", name="eventDateForm")
 							div(flex)
 								md-datepicker(ng-model="date.date", name="date", md-placeholder="Data", required)
@@ -30,18 +29,24 @@ md-dialog(flex="70", flex-lg="90", flex-md="95", flex-sm="95", flex-xs="95")
 							div(flex)
 								md-input-container.md-block
 									label Inicio
-									input(ng-model='date.begin', required)
-									md-messages
-										md-message(required) Obrigatório							
+									input(ng-model='date.begin', name="begin",mask="99:99", required)
+									div(ng-messages="eventDateForm.begin.$error", ng-show="eventForm.$submitted || eventDateForm.begin.$touched", md-auto-hide='false')
+										div(ng-message='required') Obrigatório						
 
 							div(flex)
 								md-input-container.md-block
 									label Termino
-									input(ng-model='date.end', required)
-									md-messages
-										md-message(required) Obrigatório
+									input(ng-model='date.end', name="end", required)
+									div(ng-messages="eventDateForm.end.$error", ng-show="eventForm.$submitted || eventDateForm.end.$touched", md-auto-hide='false')
+										div(ng-message='required') Obrigatório
 
-						md-button.md-raised.md-accent(ng-click="addDate()") Adicionar data
+							md-button.md-icon-button.md-warn.m-input
+								ng-md-icon(icon="delete")
+								md-tooltip Remover
+
+
+						div(align="right")
+							md-button.md-raised.md-accent(ng-click="addDate()") Adicionar
 
 					div(flex=5,hide-sm,hide-xs)
 

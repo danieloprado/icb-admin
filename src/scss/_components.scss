@@ -39,7 +39,7 @@ md-input-container {
   }
 
   .md-errors-spacer {
-    min-height: 10px;
+    min-height: 0;
   }
 }
 
@@ -60,6 +60,19 @@ md-datepicker {
     padding-left: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+}
+
+md-input-container,
+md-datepicker {
+  [ng-messages],
+  + [ng-messages] {
+    min-height: 19px;
+    
+    &.ng-hide {
+      display: block !important;
+      visibility: hidden;
+    }
   }
 }
 

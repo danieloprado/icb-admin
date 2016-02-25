@@ -41,6 +41,7 @@ var paths = {
     'bower_components/angular-jwt/dist/angular-jwt.min.js',
     'bower_components/angular-material-icons/angular-material-icons.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
+    'bower_components/ngMask/dist/ngMask.min.js',
 
     //Maps
     'bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',

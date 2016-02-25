@@ -19,7 +19,8 @@
     "material-design-icons": "~2.2.0",
     "md-form-validator": "~0.1.2",
     "angular-google-maps": "~2.3.2",
-    "lodash": "~4.5.1"
+    "lodash": "~4.5.1",
+    "ngMask": "angular-mask#~3.0.16"
   },
   "private": true,
   "resolutions": {

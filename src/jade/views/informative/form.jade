@@ -30,7 +30,7 @@ md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
 						md-input-container.md-block
 							label Mensagem
 							textarea(ng-model='model.message', name='message', required)
-							md-messages
+							md-messages(field="message")
 								md-message(required) Obrigatório
 
 					div(flex=5)
