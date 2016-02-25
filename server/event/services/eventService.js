@@ -6,8 +6,9 @@ var Service = {
 
   list: query => Event.find(query || {}),
 
-  create: (obj) => {
+  create: (obj, user) => {
     const event = new Event(obj);
+    event.church = user.church._id;
     return event.save();
   },
 
@@ -20,7 +21,11 @@ var Service = {
 
       _.assignIn(event, obj);
       return event.save();
-    })
+    }),
+
+  remove: (event) => Event.remove({
+    _id: event._id
+  })
 
 };
 

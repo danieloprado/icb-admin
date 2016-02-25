@@ -111,6 +111,12 @@ md-datepicker {
   }
 }
 
+table.md-table td.md-cell {
+  vertical-align: top;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
 icb-loading > div {
   position: absolute;
   z-index: 10000;

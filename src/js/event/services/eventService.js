@@ -19,9 +19,11 @@
     const list = () => {
       return $http.get(endpoints.list).then((response) => {
         return response.data.map((item) => {
-          if (item.date) {
-            item.date = new Date(item.date);
-          }
+
+          item.dates.forEach(date => {
+            date.beginDate = new Date(date.beginDate);
+            date.endDate = new Date(date.endDate);
+          });
 
           return item;
         });
@@ -51,7 +53,6 @@
     };
 
     const remove = (id) => {
-      console.log(id);
       return $http.post(endpoints.remove, {
         id
       });

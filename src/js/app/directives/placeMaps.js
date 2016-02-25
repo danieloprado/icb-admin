@@ -41,6 +41,13 @@
           setTimeout(checkInput, 50);
         })();
 
+        elem.on('keypress keyup keydown', 'input[type=text]', ($event) => {
+          const keyCode = $event.keyCode || $event.which;
+          if (keyCode == 13) {
+            $event.preventDefault();
+          }
+        });
+
       }
     };
   }
@@ -55,8 +62,8 @@
     };
 
     const setCenter = (lat, lng) => {
-      $scope.map.center.latitude = $scope.marker.coords.latitude = lat;
-      $scope.map.center.longitude = $scope.marker.coords.longitude = lng;
+      $scope.map.center.latitude = $scope.marker.coords.latitude = lat || -23.9549052;
+      $scope.map.center.longitude = $scope.marker.coords.longitude = lng || 46.3306706;
     };
 
     const updateValue = (value) => {
@@ -71,6 +78,13 @@
           lng: $scope.ngModel.lng,
           address: $scope.ngModel.address
         })) {
+        return;
+      }
+
+      if (!value.address) {
+        delete $scope.ngModel.lat;
+        delete $scope.ngModel.lng;
+        delete $scope.ngModel.address;
         return;
       }
 

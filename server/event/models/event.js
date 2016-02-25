@@ -9,7 +9,7 @@ const EventSchema = new Schema({
     require: true
   },
   description: String,
-  local: {
+  location: {
     address: {
       type: String,
       required: true

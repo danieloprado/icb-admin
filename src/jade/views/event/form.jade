@@ -29,18 +29,22 @@ md-dialog(flex="70", flex-lg="90", flex-md="95", flex-sm="95", flex-xs="95")
 							div(flex)
 								md-input-container.md-block
 									label Inicio
-									input(ng-model='date.begin', name="begin",mask="99:99", required)
+									input(ng-model='date.begin', name="begin",mask="29:59", hour, required)
 									div(ng-messages="eventDateForm.begin.$error", ng-show="eventForm.$submitted || eventDateForm.begin.$touched", md-auto-hide='false')
 										div(ng-message='required') Obrigatório						
+										div(ng-message='mask') Hora inválida						
+										div(ng-message='hour') Hora inválida						
 
 							div(flex)
 								md-input-container.md-block
 									label Termino
-									input(ng-model='date.end', name="end", required)
+									input(ng-model='date.end', name="end", mask="29:59", hour, required)
 									div(ng-messages="eventDateForm.end.$error", ng-show="eventForm.$submitted || eventDateForm.end.$touched", md-auto-hide='false')
 										div(ng-message='required') Obrigatório
+										div(ng-message='mask') Hora inválida
+										div(ng-message='hour') Hora inválida
 
-							md-button.md-icon-button.md-warn.m-input
+							md-button.md-icon-button.md-warn.m-input(ng-click="removeDate(date)",ng-show="model.dates.length > 1")
 								ng-md-icon(icon="delete")
 								md-tooltip Remover
 
