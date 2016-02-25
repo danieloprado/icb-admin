@@ -1,16 +1,15 @@
-md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
+md-dialog(flex="70", flex-lg="90", flex-md="95", flex-sm="95", flex-xs="95")
 	md-toolbar
 		.md-toolbar-tools
 			h2(ng-if="!editing") Novo Evento
 			h2(ng-if="editing") Editar Evento
 
-	form(md-form-validator, ng-submit="submit()")
+	form(md-form-validator, ng-submit="submit()", name="eventForm")
 		md-dialog-content
 			.md-dialog-content
 
 				div(layout="row",layout-sm="column",layout-xs="column")
 					div(flex)
-
 						md-input-container.md-block
 							label Nome
 							input(ng-model='model.name', name='name', required)
@@ -21,9 +20,32 @@ md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
 							label Descrição
 							textarea(ng-model='model.description', name='description')
 
+
+						ng-form(layout="row",layout-xs="column", ng-repeat="date in model.dates", name="eventDateForm")
+							div(flex)
+								md-datepicker(ng-model="date.date", name="date", md-placeholder="Data", required)
+								div(ng-messages="eventDateForm.date.$error", ng-show="eventForm.$submitted || eventDateForm.date.$touched", md-auto-hide='false')
+									div(ng-message='required') Obrigatório
+
+							div(flex)
+								md-input-container.md-block
+									label Inicio
+									input(ng-model='date.begin', required)
+									md-messages
+										md-message(required) Obrigatório							
+
+							div(flex)
+								md-input-container.md-block
+									label Termino
+									input(ng-model='date.end', required)
+									md-messages
+										md-message(required) Obrigatório
+
+						md-button.md-raised.md-accent(ng-click="addDate()") Adicionar data
+
 					div(flex=5,hide-sm,hide-xs)
 
-					div(flex)				
+					div(flex)
 						icb-place-maps(ng-model="model.location",placeholder="Local")
 
 		md-dialog-actions(layout="row")

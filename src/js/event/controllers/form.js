@@ -14,7 +14,12 @@
 
   function FormCtrl($scope, $mdDialog, _, Loader, Toast, event, service) {
     $scope.model = event || {};
+    $scope.model.dates = $scope.model.dates || [{}];
     $scope.editing = !_.isEmpty($scope.model);
+
+    $scope.addDate = () => {
+      $scope.model.dates.push({});
+    };
 
     $scope.submit = () => {
       Loader(service.save($scope.model))
