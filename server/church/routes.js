@@ -5,7 +5,8 @@ const checkLogin = require("auth/middlewares/checkLogin");
 
 const router = express.Router();
 
-router.get('/', checkLogin(), actions.list);
+router.get('/', actions.list);
+router.get('/:id', actions.get);
 router.get('/current', checkLogin(), actions.current);
 
 router.post('/current', checkLogin(["admin"]), actions.save);

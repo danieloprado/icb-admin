@@ -47,6 +47,7 @@ ChurchSchema.methods.toJSON = function() {
   const church = this.toObject();
 
   delete church.__v;
+  delete church.users;
 
   return church;
 };
