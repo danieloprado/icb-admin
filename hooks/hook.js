@@ -8,9 +8,11 @@ const execOptions = {
 gith({
   repo: 'danieloprado/icb-admin'
 }).on('all', function(payload) {
+  console.log(payload);
   if (payload.branch === 'master') {
     execFile('hook.sh', execOptions, function(error, stdout, stderr) {
       console.log('exec complete');
     });
   }
 });
+console.log('teste');
