@@ -49,6 +49,10 @@ app.all('/views/*', function(req, res, next) {
   next(err);
 });
 
+app.get('/api/test', function(req, res, next) {
+  res.send("OK!");
+});
+
 app.use('/api/auth', authModule.routes);
 app.use('/api/church', churchModule.routes);
 app.use('/api/event', eventModule.routes);
