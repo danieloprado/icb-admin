@@ -1,0 +1,10 @@
+{
+  "apps": [{
+    "name": "icb",
+    "script": "server/server.js",
+    "env": {
+      "PORT": "80"
+    },
+    "watch": ["server"]
+  }],
+}
