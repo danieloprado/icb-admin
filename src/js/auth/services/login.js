@@ -22,7 +22,7 @@
     this.openLogin = () => {
       loginPromise = $q.defer();
 
-      $timeout(() => $rootScope.$broadcast("show-login"));
+      $timeout(() => $rootScope.$broadcast("show-login"), 50);
       return loginPromise.promise;
     };
 
