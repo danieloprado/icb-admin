@@ -16,7 +16,6 @@ const userModule = require("user/module");
 const publicDir = __dirname + "/../dist";
 const seed = require('./seed');
 
-//mongodb://root:123@ds056698.mongolab.com:56698/icb
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/icb', function(err) {
   if (err)
