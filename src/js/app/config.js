@@ -1,5 +1,6 @@
 (function(angular) {
   'use strict';
+  alert('oi felipe');
 
   angular.module('icbApp')
     .config(['$mdDateLocaleProvider', configLocale])
