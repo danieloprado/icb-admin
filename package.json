@@ -23,6 +23,7 @@
     "connect-timeout": "^1.7.0",
     "email-validator": "^1.0.4",
     "express": "^4.13.3",
+    "gith": "^1.0.4",
     "jsonwebtoken": "^5.4.1",
     "lodash": "^4.1.0",
     "mongoose": "^4.2.6",

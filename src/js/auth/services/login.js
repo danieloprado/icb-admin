@@ -24,7 +24,6 @@
     this.openLogin = function() {
       loginPromise = $q.defer();
 
-      //$timeout(() => $rootScope.$broadcast("show-login"), 50);
       this.showLogin = true;
       return loginPromise.promise;
     };
@@ -35,7 +34,6 @@
       promise.then(() => {
         loginPromise.resolve();
         this.showLogin = false;
-        //  $timeout(() => $rootScope.$broadcast("hide-login"));
       });
 
       return promise;
