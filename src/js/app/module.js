@@ -20,5 +20,4 @@
     'icbInformative'
   ]).constant('API', '/api');
 
-
 })(angular);
