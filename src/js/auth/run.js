@@ -5,6 +5,7 @@
 
   function loginCheck($rootScope, $location, auth, loginService) {
     $rootScope.$on("$routeChangeStart", ($event, next) => {
+      alert('mudou!');
       if (!next.$$route || next.$$route.allowAnonymous || auth.hasToken()) {
         return true;
       }
