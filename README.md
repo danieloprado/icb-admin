@@ -1,7 +1,7 @@
 ICB Admin
 =========
 
-[![Build Status](https://travis-ci.org/danieloprado/icb-admin.svg?branch=master)](https://travis-ci.org/danieloprado/icb-admin)
+[![Build Status](https://codeship.com/projects/7a0be000-bed9-0133-f9f4-6e90c22d1400/status?branch=master)](https://codeship.com/projects/7a0be000-bed9-0133-f9f4-6e90c22d1400/status?branch=master)
 
 Development
 
@@ -12,7 +12,8 @@ npm install
 npm start
 ```
 
-Development
+Start Deploy
 ``` bash
-pm2 start server/server.js --watch --name 'icb'
+cd /path/to/app
+pm2 start ecosystem.json
 ```
