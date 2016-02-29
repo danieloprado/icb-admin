@@ -1,6 +1,6 @@
 {
   "name": "icb",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "description": "ICB App",
   "scripts": {
     "seed": "node server/seed.js",
