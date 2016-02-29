@@ -29,6 +29,7 @@
       controller: ['$scope', '$templateCache', '$q', '$timeout', 'lodash', 'Toast', 'Loader', Controller],
       link: ($scope, elem, attrs) => {
         $scope.$watch("ngModel", (v) => {
+          if (!v) return;
           elem.find('input[type=text]').val(v.address);
         }, true);
 
