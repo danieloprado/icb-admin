@@ -10,18 +10,9 @@ const EventSchema = new Schema({
   },
   description: String,
   location: {
-    address: {
-      type: String,
-      required: true
-    },
-    lat: {
-      type: Number,
-      required: true
-    },
-    lng: {
-      type: Number,
-      required: true
-    }
+    address: String,
+    lat: String,
+    lng: String
   },
   dates: [{
     beginDate: {

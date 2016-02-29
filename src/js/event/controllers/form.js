@@ -39,7 +39,6 @@
     };
 
     $scope.submit = () => {
-      console.log("save!");
       var data = angular.copy(model);
 
       data.dates = model.dates.map(dateInfo => {

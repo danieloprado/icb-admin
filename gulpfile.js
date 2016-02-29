@@ -24,6 +24,7 @@ var paths = {
     'bower_components/material-design-icons/iconfont/material-icons.css'
   ],
 
+
   jsLibs: [
     'bower_components/jQuery/dist/jquery.min.js',
     'bower_components/lodash/dist/lodash.min.js',

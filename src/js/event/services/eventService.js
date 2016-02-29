@@ -44,11 +44,14 @@
 
     const save = (model) => {
       return $http.post(endpoints.save, model).then((response) => {
-        if (response.data.date) {
-          response.data.date = new Date(response.data.date);
-        }
+        const event = response.data;
 
-        return response.data;
+        event.dates.forEach(date => {
+          date.beginDate = new Date(date.beginDate);
+          date.endDate = new Date(date.endDate);
+        });
+
+        return event;
       });
     };
 
