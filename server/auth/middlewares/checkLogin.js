@@ -18,11 +18,7 @@ const checkLogin = (roles) => {
       return next();
     }
 
-    roles = _.flattenDeep([roles]);
-    roles.push("admin");
-
-    const isAuthorized = _.intersection(roles, req.user.roles).length > 0;
-    if (!isAuthorized) {
+    if (!req.user.hasRoles(roles, "admin")) {
       throw {
         status: 403,
         message: "Senta lá Cláudia!"

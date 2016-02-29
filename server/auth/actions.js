@@ -46,7 +46,7 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function selectChurch(req, res, next) {
+function loginChurch(req, res, next) {
   if (!req.body.churchId) {
     throw {
       status: 400,
@@ -65,7 +65,7 @@ function selectChurch(req, res, next) {
         };
       }
 
-      return tokenService.generate(req.user, church);
+      return tokenService.generate(req.user || {}, church);
     })
     .then((token) => {
       sendToken(res, token);
@@ -74,6 +74,6 @@ function selectChurch(req, res, next) {
 }
 
 module.exports = {
-  login: login,
-  selectChurch: selectChurch
+  login,
+  loginChurch
 };

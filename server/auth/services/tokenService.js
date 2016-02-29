@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const auth = require('config').auth;
 
@@ -9,21 +10,21 @@ function generate(user, church) {
       email: user.email,
       name: user.name,
       roles: [],
-      exp: Math.floor(Date.now() / 1000) + auth.timeout
-    };
-
-    if (!church) {
-      resolve(jwt.sign(tokenData, auth.secret));
-    }
-
-    tokenData.roles = church.getUserRoles(user).then((roles) => {
-      tokenData.roles = roles;
-      tokenData.church = {
+      isAnonymous: _.isEmpty(user),
+      church: {
         _id: church._id,
         name: church.name,
         slug: church.slug
-      };
+      }
+    };
 
+    if (!user) {
+      return resolve(jwt.sign(tokenData, auth.secret));
+    }
+
+    tokenData.exp = Math.floor(Date.now() / 1000) + auth.timeout;
+    tokenData.roles = church.getUserRoles(user).then((roles) => {
+      tokenData.roles = roles;
       resolve(jwt.sign(tokenData, auth.secret));
     });
 

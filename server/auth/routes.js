@@ -5,8 +5,6 @@ const checkLogin = require("auth/middlewares/checkLogin");
 const router = express.Router();
 
 router.post('/login', actions.login);
-
-router.use(checkLogin());
-router.post('/select-church', actions.selectChurch);
+router.post('/login-church', actions.loginChurch);
 
 module.exports = router;
