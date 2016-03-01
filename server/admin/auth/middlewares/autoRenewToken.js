@@ -9,7 +9,6 @@ function autoRenewToken(req, res, next) {
 
   if (!token) {
     return next();
-
   }
 
   tokenService.verify(token.split(' ')[1])
