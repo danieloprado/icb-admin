@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = function User() {
+module.exports = function UserToken() {
 
   this.hasRoles = function() {
     const roles = _.flattenDeep(arguments);

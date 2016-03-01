@@ -18,6 +18,6 @@
     'icbChurch',
     'icbEvent',
     'icbInformative'
-  ]).constant('API', '/api');
+  ]).constant('API', '/api/admin');
 
 })(angular);

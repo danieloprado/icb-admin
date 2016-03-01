@@ -1,8 +1,8 @@
 const _ = require("lodash");
 
-const userService = require("user/services/userService");
-const churchService = require("church/services/churchService");
-const tokenService = require("./services/tokenService");
+const userService = require("admin/user/services/userService");
+const churchService = require("admin/church/services/churchService");
+const tokenService = require("admin/auth/services/tokenService");
 
 function sendToken(res, token) {
   res.setHeader("X-Token", token);

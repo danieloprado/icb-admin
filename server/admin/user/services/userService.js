@@ -1,5 +1,5 @@
-const churchService = require('church/services/churchService');
-const User = require("user/models/user");
+const churchService = require('admin/church/services/churchService');
+const User = require("models/user");
 
 module.exports = {
   findOne: query => User.findOne(query || {}),
@@ -19,7 +19,8 @@ module.exports = {
 
     var user = new User(data);
     church.users.push({
-      roles, user
+      roles,
+      user
     });
     return user.save().then(() => {
       return church.save();

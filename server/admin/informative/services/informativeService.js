@@ -1,6 +1,5 @@
 const _ = require('lodash');
-const mongoose = require('mongoose');
-const Informative = mongoose.model('Informative');
+const Informative = require('models/informative');
 
 module.exports = {
   findOne: query => Informative.findOne(query || {}),

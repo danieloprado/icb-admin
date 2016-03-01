@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
-const tokenService = require("./../services/tokenService");
-const User = require("./../models/user");
+const tokenService = require("admin/auth/services/tokenService");
+const UserToken = require("models/userToken");
 const auth = require('config').auth;
 
 function autoRenewToken(req, res, next) {
@@ -13,7 +13,7 @@ function autoRenewToken(req, res, next) {
 
   tokenService.verify(token.split(' ')[1])
     .then((decoded) => {
-      req.user = _.assignIn(decoded, new User());
+      req.user = _.assignIn(decoded, new UserToken());
 
       var now = Math.floor(Date.now() / 1000);
       var diff = decoded.exp - now;

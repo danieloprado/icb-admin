@@ -7,20 +7,12 @@ const express = require('express'),
   logger = require('morgan'),
   timeout = require('connect-timeout');
 
-const authModule = require("auth/module");
-const churchModule = require("church/module");
-const eventModule = require("event/module");
-const informativeModule = require("informative/module");
-const userModule = require("user/module");
-
+const adminRoutes = require('admin/routes');
 const publicDir = __dirname + "/../dist";
-const seed = require('./seed');
 
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/icb', function(err) {
-  if (err)
-    throw err;
-  seed();
+  if (err) throw err;
 });
 
 const app = express();
@@ -31,7 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(authModule.middlewares.autoRenewToken);
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -40,21 +31,18 @@ app.use(function(req, res, next) {
   next();
 });
 
-//Views
-app.use(express.static(publicDir));
-app.all('/views/*', function(req, res, next) {
+
+app.use('/api/admin/', adminRoutes);
+
+app.use('/api', function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-app.use('/api/auth', authModule.routes);
-app.use('/api/church', churchModule.routes);
-app.use('/api/event', eventModule.routes);
-app.use('/api/informative', informativeModule.routes);
-app.use('/api/user', userModule.routes);
-
-app.use('/api', function(req, res, next) {
+//Views
+app.use(express.static(publicDir));
+app.all('/views/*', function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -66,14 +54,13 @@ app.get("*", function(req, res) {
   });
 });
 
-// catch 404 and forward to error handleconst auth = require('config').auth;
+// error handlers
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handlers
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     console.error(err);
@@ -104,7 +91,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log('Running on port ' + port);
 });

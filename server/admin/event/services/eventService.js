@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Event = require('event/models/event');
+const Event = require('models/event');
 
 var Service = {
   findOne: query => Event.findOne(query || {}),

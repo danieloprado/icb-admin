@@ -1,5 +1,5 @@
 const service = require('./services/churchService');
-const tokenService = require("auth/services/tokenService");
+const tokenService = require("admin/auth/services/tokenService");
 
 function list(req, res, next) {
   service.list()

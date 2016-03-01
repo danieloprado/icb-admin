@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Church = require('church/models/church');
+const Church = require('models/church');
 
 var Service = {
   findOne: query => Church.findOne(query || {}),
