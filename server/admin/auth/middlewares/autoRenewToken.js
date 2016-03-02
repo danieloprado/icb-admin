@@ -5,28 +5,17 @@ const UserToken = require("models/userToken");
 const auth = require('config').auth;
 
 function autoRenewToken(req, res, next) {
-  const token = req.get('Authorization');
+  if (!req.user) return next();
 
-  if (!token) {
-    return next();
-  }
+  const now = Math.floor(Date.now() / 1000);
+  const diff = req.user.exp - now;
 
-  tokenService.verify(token.split(' ')[1])
-    .then((decoded) => {
-      req.user = _.assignIn(decoded, new UserToken());
+  if (diff > (auth.timeout * 0.6)) return next();
 
-      var now = Math.floor(Date.now() / 1000);
-      var diff = decoded.exp - now;
-
-      if (diff > (auth.timeout * 0.6)) {
-        return;
-      }
-
-      return tokenService.renew(decoded).then(token => {
-        res.setHeader("X-Token", token);
-      });
+  tokenService.renew(req.user)
+    .then(token => {
+      res.setHeader("X-Token", token);
     })
-    .then(next)
     .catch(next);
 }
 

@@ -7,11 +7,12 @@ const express = require('express'),
   logger = require('morgan'),
   timeout = require('connect-timeout');
 
+const middlewares = require('middlewares');
 const adminRoutes = require('admin/routes');
 const publicDir = __dirname + "/../dist";
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/icb', function(err) {
+mongoose.connect('mongodb://localhost/icb', (err) => {
   if (err) throw err;
 });
 
@@ -23,30 +24,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-  res.header('Access-Control-Expose-Headers', 'X-Token');
-  next();
-});
 
+app.use(middlewares.allowCors);
+app.use(middlewares.bindUser);
 
 app.use('/api/admin/', adminRoutes);
-
-app.use('/api', function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+app.use('/api', middlewares.notFound);
 
 //Views
 app.use(express.static(publicDir));
-app.all('/views/*', function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+app.all('/views/*', middlewares.notFound);
 
 app.get("*", function(req, res) {
   res.sendFile('index.html', {

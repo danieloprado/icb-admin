@@ -31,17 +31,6 @@ function generate(user, church) {
   });
 }
 
-function verify(token) {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, auth.secret, function(err, decoded) {
-      if (err || !decoded) {
-        return reject();
-      }
-
-      resolve(decoded);
-    });
-  });
-}
 
 function renew(decoded) {
   return new Promise((resolve, reject) => {
@@ -67,7 +56,6 @@ function updateChurch(decoded, church) {
 
 module.exports = {
   generate: generate,
-  verify: verify,
   renew: renew,
   updateChurch: updateChurch
 };
