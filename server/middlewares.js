@@ -18,17 +18,21 @@ function bindUser(req, res, next) {
   if (!token) return next();
 
   jwt.verify(token.split(' ')[1], auth.secret, (err, decoded) => {
-    if (decoded) {
-      req.user = _.assignIn(decoded, new UserToken());
+    if (!decoded) {
+      next();
     }
 
-    next();
+    UserToken.bind(decoded).then((userToken) => {
+      req.user = userToken;
+      next();
+    });
+
   });
 }
 
 function notFound(req, res, next) {
-  var err = new Error(message);
-  err.status = status;
+  var err = new Error("not found");
+  err.status = 404;
   next(err);
 }
 

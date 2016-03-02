@@ -1,36 +1,14 @@
-const _ = require('lodash');
-const jwt = require('jsonwebtoken');
-const auth = require('config').auth;
+const _ = require('lodash'),
+  jwt = require('jsonwebtoken'),
+  auth = require('config').auth,
+  UserToken = require('models/userToken');
 
 function generate(user, church) {
-  return new Promise((resolve, reject) => {
-
-    const tokenData = {
-      _id: user._id,
-      email: user.email,
-      name: user.name,
-      roles: [],
-      isAnonymous: _.isEmpty(user),
-      church: {
-        _id: church._id,
-        name: church.name,
-        slug: church.slug
-      }
-    };
-
-    if (!user) {
-      return resolve(jwt.sign(tokenData, auth.secret));
-    }
-
+  return UserToken.create(user, church).then((tokenData) => {
     tokenData.exp = Math.floor(Date.now() / 1000) + auth.timeout;
-    tokenData.roles = church.getUserRoles(user).then((roles) => {
-      tokenData.roles = roles;
-      resolve(jwt.sign(tokenData, auth.secret));
-    });
-
+    return jwt.sign(tokenData, auth.secret);
   });
 }
-
 
 function renew(decoded) {
   return new Promise((resolve, reject) => {

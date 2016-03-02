@@ -10,6 +10,7 @@ const express = require('express'),
 
 const middlewares = require('middlewares');
 const adminRoutes = require('admin/routes');
+const appRoutes = require('app/routes');
 const publicDir = __dirname + "/../dist";
 
 mongoose.Promise = Promise;
@@ -20,7 +21,6 @@ mongoose.connect('mongodb://localhost/icb', (err) => {
 const app = express();
 
 app.use(timeout('5s'));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -29,7 +29,8 @@ app.use(bodyParser.urlencoded({
 app.use(middlewares.allowCors);
 app.use(middlewares.bindUser);
 
-app.use('/api/admin/', adminRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/app', appRoutes);
 app.use('/api', middlewares.notFound);
 
 //Views
