@@ -5,7 +5,7 @@ const _ = require('lodash'),
 
 function generate(user, church) {
   return UserToken.create(user, church).then((tokenData) => {
-    tokenData.exp = Math.floor(Date.now() / 1000) + auth.timeout;
+    tokenData.exp = Math.floor(Date.now() / 1000) + auth.adminTimeout;
     return jwt.sign(tokenData, auth.secret);
   });
 }
@@ -13,7 +13,7 @@ function generate(user, church) {
 function renew(decoded) {
   return new Promise((resolve, reject) => {
     const now = Math.floor(Date.now() / 1000);
-    decoded.exp = now + auth.timeout;
+    decoded.exp = now + auth.adminTimeout;
 
     resolve(jwt.sign(decoded, auth.secret));
   });
