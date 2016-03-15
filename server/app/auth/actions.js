@@ -3,6 +3,13 @@ const _ = require("lodash");
 const churchService = require('app/church/services/churchService');
 const tokenService = require('./services/tokenService');
 
+function sendToken(res, token) {
+  res.setHeader("X-Token", token);
+  return res.send({
+    token: token
+  });
+}
+
 function loginChurch(req, res, next) {
   churchService.findOne({
     _id: req.body.id
@@ -16,9 +23,7 @@ function loginChurch(req, res, next) {
 
     return tokenService.generateAnonymous(church);
   }).then((token) => {
-    return res.json({
-      token: token
-    });
+    sendToken(res, token);
   }).catch(next);
 }
 

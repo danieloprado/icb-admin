@@ -21,6 +21,7 @@ mongoose.connect('mongodb://localhost/icb', (err) => {
 const app = express();
 
 app.use(timeout('5s'));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
