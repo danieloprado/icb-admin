@@ -15,6 +15,7 @@ function autoRenewToken(req, res, next) {
   tokenService.renew(req.user)
     .then(token => {
       res.setHeader("X-Token", token);
+      next();
     })
     .catch(next);
 }

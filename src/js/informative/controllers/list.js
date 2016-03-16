@@ -15,7 +15,7 @@
     $scope.selected = [];
 
     $scope.query = {
-      order: "title"
+      order: "-date"
     };
 
     $scope.dataPromise = service.list().then((data) => {
