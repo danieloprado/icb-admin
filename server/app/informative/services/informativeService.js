@@ -2,7 +2,15 @@ const _ = require('lodash');
 const Informative = require('models/informative');
 
 const Service = {
-  last: query => Informative.findOne({
+  list: churchId => Informative.find({
+    churchId: churchId,
+    date: {
+      $lte: new Date()
+    }
+  }).sort('-date'),
+
+  last: churchId => Informative.findOne({
+    churchId: churchId,
     date: {
       $lt: new Date()
     }
