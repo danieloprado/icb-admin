@@ -11,6 +11,7 @@ function sendToken(res, token) {
 }
 
 function loginChurch(req, res, next) {
+  console.log(req.body.id);
   churchService.findOne({
     _id: req.body.id
   }).then((church) => {

@@ -1,5 +1,12 @@
 const service = require('./services/eventService');
 
+function list(req, res, next) {
+  service.list(req.user.church_id)
+    .then(events => {
+      return res.json(events);
+    })
+    .catch(next);
+}
 
 function next(req, res, next) {
   service.next(req.user.church_id)
@@ -10,5 +17,6 @@ function next(req, res, next) {
 }
 
 module.exports = {
+  list,
   next
 };
