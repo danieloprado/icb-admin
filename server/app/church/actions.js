@@ -8,6 +8,17 @@ function list(req, res, next) {
     .catch(next);
 }
 
+function current(req, res, next) {
+  service.findOne({
+      _id: req.user.church._id
+    })
+    .then(church => {
+      return res.json(church);
+    })
+    .catch(next);
+}
+
 module.exports = {
-  list
+  list,
+  current
 };

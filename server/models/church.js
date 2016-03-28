@@ -20,9 +20,10 @@ const ChurchSchema = new Schema({
     type: String,
     required: true
   },
+  phone: String,
   email: {
     type: String,
-    validate: [(email) => emailValidator.validate(email), 'Invalid email'],
+    validate: [(email) => !email || emailValidator.validate(email), 'Invalid email'],
   },
   location: {
     address: {
