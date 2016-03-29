@@ -4,27 +4,35 @@
   angular.module('icbAuth')
     .controller("icbAuth.loginCtrl", [
       '$scope',
-      '$timeout',
+      '$mdDialog',
+      '$location',
       'Toast',
       'Loader',
-      'loginService',
-      function($scope, $timeout, Toast, Loader, loginService) {
-        //$scope.$emit("change-page-title", "Login");
-
+      'Auth',
+      'Dialog',
+      'LoginService',
+      function($scope, $mdDialog, $location, Toast, Loader, Auth, Dialog, LoginService) {
         $scope.model = {
           email: "danieloprado@outlook.com",
           password: "123"
         };
 
-        $scope.submit = function() {
-          Loader(loginService.login($scope.model))
-            .then(function() {
-              $timeout(() => {
-                $scope.model = {};
-              }, 500);
-            })
-            .catch(function(res) {
-              console.log(res);
+        if (Auth.hasToken()) {
+          $scope.model.email = Auth.getUser().email;
+          $scope.lockUser = true;
+        }
+
+        $scope.changeUser = () => {
+          $mdDialog.cancel();
+          LoginService.logout().then(_ => {
+            $location.path("/");
+          });
+        };
+
+        $scope.submit = () => {
+          Loader(LoginService.login($scope.model))
+            .then(() => $mdDialog.hide())
+            .catch((res) => {
               switch (res.status) {
                 case 400:
                   Toast(res.data.message);

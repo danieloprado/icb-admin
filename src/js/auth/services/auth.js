@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('icbAuth')
-    .service('auth', ['$window', 'jwtHelper', Auth]);
+    .service('Auth', ['$window', 'jwtHelper', Auth]);
 
   function Auth($window, jwtHelper) {
     var isValidToken = token => {

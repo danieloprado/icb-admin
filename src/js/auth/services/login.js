@@ -1,19 +1,17 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth').service('loginService', [
+  angular.module('icbAuth').factory('LoginService', [
     'API',
     '$http',
     '$q',
-    '$timeout',
-    '$rootScope',
     '$route',
     '$mdDialog',
-    'auth',
+    'Auth',
     LoginService
   ]);
 
-  function LoginService(API, $http, $q, $timeout, $rootScope, $route, $mdDialog, auth) {
+  function LoginService(API, $http, $q, $route, $mdDialog, Auth) {
     let loginPromise = null;
     let endpoints = {
       login: API + '/auth/login'
@@ -21,27 +19,28 @@
 
     this.showLogin = false;
 
-    this.openLogin = function() {
-      loginPromise = $q.defer();
-
-      this.showLogin = true;
-      return loginPromise.promise;
-    };
-
-    this.login = (credentials) => {
-      var promise = $http.post(endpoints.login, credentials);
-
-      promise.then(() => {
-        loginPromise.resolve();
-        this.showLogin = false;
+    const openLogin = function() {
+      return $mdDialog.show({
+        templateUrl: 'views/auth/login.html',
+        controller: 'icbAuth.loginCtrl',
+        clickOutsideToClose: false,
+        escapeToClose: false
       });
-
-      return promise;
     };
 
-    this.logout = () => {
-      auth.removeToken();
-      $route.reload();
+    const login = (credentials) => {
+      return $http.post(endpoints.login, credentials);
+    };
+
+    const logout = () => {
+      Auth.removeToken();
+      return $q.resolve();
+    };
+
+    return {
+      openLogin,
+      login,
+      logout
     };
   }
 

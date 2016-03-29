@@ -2,16 +2,16 @@
   'use strict';
 
   angular.module('icbAuth')
-    .directive('icbLogout', ['loginService', '$timeout', Logout]);
+    .directive('icbLogout', ['LoginService', '$timeout', Logout]);
 
-  function Logout(loginService, $timeout) {
+  function Logout(LoginService, $timeout) {
 
     return {
       restrict: 'A',
       scope: false,
       link: (scope, elem) => {
         angular.element(elem).on("click", function() {
-          loginService.logout();
+          LoginService.logout();
         });
       }
     };

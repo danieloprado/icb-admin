@@ -13,7 +13,7 @@ html(lang='en', ng-app='icbApp')
 
 	body.ng-cloak(layout='column', ng-controller='icbApp.appCtrl')
 		icb-loading
-		icb-login
+		//icb-login
 
 		div(layout="row", flex)
 			md-sidenav.md-sidenav-left.md-whiteframe-4dp(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')")
@@ -40,7 +40,7 @@ html(lang='en', ng-app='icbApp')
 						| Dashboard
 					md-button(ng-href="/event", ng-click="toggleSidenav('left')")
 						ng-md-icon(icon="event", size=24)
-						| Eventos
+						| Agenda
 					md-button(ng-href="/informative", ng-click="toggleSidenav('left')")
 						ng-md-icon(icon="description", size=24)
 						| Informativos

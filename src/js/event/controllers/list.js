@@ -11,8 +11,6 @@
     ]);
 
   function ListCtrl($scope, dialog, Toast, service) {
-    $scope.$emit("change-page-title", "Eventos");
-
     $scope.query = {
       order: "name"
     };

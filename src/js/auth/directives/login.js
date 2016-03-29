@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module('icbAuth')
-    .directive('icbLogin', ['loginService', Login]);
+    .directive('icbLogin', ['LoginService', Login]);
 
-  function Login(loginService) {
+  function Login(LoginService) {
 
     return {
       restrict: 'E',
@@ -13,7 +13,7 @@
       controller: 'icbAuth.loginCtrl',
       link: (scope, elem) => {
         scope.hide = true;
-        scope.service = loginService;
+        scope.service = LoginService;
 
         scope.$watch("service.showLogin", (show) => {
           scope.hide = !show;

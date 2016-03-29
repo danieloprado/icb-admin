@@ -6,13 +6,27 @@
 
   function service($mdToast) {
 
-    var obj = function(message) {
+    const Toast = function(message) {
       $mdToast.show($mdToast.simple().textContent(message).position("top right"));
     };
 
-    obj.genericError = () => obj("Que vergonha! Aconteceu um erro inesperado...");
+    Toast.genericError = () => Toast("Que vergonha! Aconteceu um erro inesperado...");
+    Toast.userChanged = () => Toast("O usuário foi alterado, seu trabalho não foi salvo.");
 
-    return obj;
+    Toast.httpHandler = (res) => {
+      switch (res.status) {
+        case 400:
+          Toast(res.data.message);
+          break;
+        case 401:
+          Toast.userChanged();
+          break;
+        default:
+          Toast.genericError();
+      }
+    };
+
+    return Toast;
   }
 
 })(angular);

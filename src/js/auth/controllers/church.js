@@ -6,7 +6,7 @@
     '$mdDialog',
     'Loader',
     'Toast',
-    'authChurchService',
+    'AuthChurchService',
     FormCtrl
   ]);
 

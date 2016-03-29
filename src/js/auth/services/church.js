@@ -1,15 +1,15 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth').service('authChurchService', [
+  angular.module('icbAuth').service('AuthChurchService', [
     'API',
     '$http',
     '$mdDialog',
-    'auth',
+    'Auth',
     AuthChurchService
   ]);
 
-  function AuthChurchService(API, $http, $mdDialog, auth) {
+  function AuthChurchService(API, $http, $mdDialog, Auth) {
     let endpoints = {
       list: API + '/church/',
       selectChurch: API + '/auth/select-church'

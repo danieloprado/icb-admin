@@ -1,24 +1,28 @@
-section.content-hover.login-content.animated.fadeIn(ng-if='!hide')
-	.content.animated.fadeInDown
+md-dialog(flex="70", flex-lg="30", flex-md="50", flex-sm="95", flex-xs="95")
+	md-dialog-content
+		md-content.md-inline-form(layout="column")
+			form(md-form-validator,ng-submit="submit()", novalidate)
 
-		form(ng-submit='loginForm.$valid && submit()',name='loginForm', novalidate='')          
+				md-toolbar
+					.md-toolbar-tools
+						h2 Login
 
-			.logo
-				img(src="/imgs/logo.png")
+				md-content(layout-padding)
+					div(layout="column")
+						md-input-container
+							label Email
+							input(ng-model="model.email", name="email", required, ng-disabled="lockUser")
+							md-messages(field="email")
+								md-message(email) Email inválido
+								md-message(required) Digite seu email
 
-			md-input-container.md-block
-				label Email
-				input(ng-model='model.email', name='email', type='email', required)
-				div(ng-messages='loginForm.email.$error', ng-show="loginForm.$submitted || loginForm.email.$touched", md-auto-hide='false')
-					div(ng-message='email') Email inválido
-					div(ng-message='required') Obrigatório
+						md-input-container
+							label Senha
+							input(ng-model="model.password", name="password", type="password", required)
+							md-messages(field="password")
+								md-message(required) Digite sua senha
 
-			md-input-container.md-block
-				label Senha
-				input(ng-model='model.password', name='password', type='password', required)
-				div(ng-messages='loginForm.password.$error', ng-show="loginForm.$submitted || loginForm.password.$touched", md-auto-hide='false')
-					div(ng-message='required') Obrigatório
-
-			md-dialog-actions(layout='row')
-				span(flex='')
-				md-button.md-raised.md-accent(type='submit') Entrar
+				md-dialog-actions(layout="row")
+					md-button.md-raised(type="button", ng-show="lockUser", ng-click="changeUser()") Trocar de usuário
+					span(flex)
+					md-button.md-raised.md-accent(type="submit") Entrar

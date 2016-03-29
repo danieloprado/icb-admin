@@ -1,16 +1,16 @@
 (function(angular) {
   'use strict';
 
-  angular.module('icbAuth').run(['$rootScope', '$location', 'auth', 'loginService', loginCheck]);
+  angular.module('icbAuth').run(['$rootScope', '$location', 'Auth', 'LoginService', loginCheck]);
 
-  function loginCheck($rootScope, $location, auth, loginService) {
+  function loginCheck($rootScope, $location, Auth, LoginService) {
     $rootScope.$on("$routeChangeStart", ($event, next) => {
-      if (!next.$$route || next.$$route.allowAnonymous || auth.hasToken()) {
+      if (!next.$$route || next.$$route.allowAnonymous || Auth.hasToken()) {
         return true;
       }
 
       next.$$route.resolve = next.$$route.resolve || {};
-      next.$$route.resolve.login = () => loginService.openLogin();
+      next.$$route.resolve.login = () => LoginService.openLogin();
     });
 
     $rootScope.$on("$routeChangeSuccess", ($event, current) => {
@@ -19,7 +19,7 @@
       }
     });
 
-    $rootScope.$on("$routeChangeError", loginService.logout);
+    $rootScope.$on("$routeChangeError", LoginService.logout);
   }
 
 })(angular);

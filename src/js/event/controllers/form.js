@@ -63,15 +63,7 @@
           Toast("Salvo");
           $mdDialog.hide(event);
           $scope.model = {};
-        }).catch((res) => {
-          switch (res.status) {
-            case 400:
-              Toast(res.data.message);
-              break;
-            default:
-              Toast.genericError();
-          }
-        });
+        }).catch((res) => Toast.httpHandler(res));
     };
 
   }
