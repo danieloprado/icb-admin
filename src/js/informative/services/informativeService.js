@@ -28,17 +28,9 @@
       });
     };
 
-    const form = ($event, informative) =>
-      $mdDialog.show({
-        templateUrl: 'views/informative/form.html',
-        controller: 'icbInformative.formCtrl',
-        clickOutsideToClose: true,
-        escapeToClose: true,
-        targetEvent: $event,
-        locals: {
-          informative: angular.copy(informative || {})
-        }
-      });
+    const get = (id) => {
+      return $http.get(`${API}/informative/${id}`).then(res => res.data);
+    };
 
     const save = (model) => {
       return $http.post(endpoints.save, model).then((response) => {
@@ -51,17 +43,15 @@
     };
 
     const remove = (id) => {
-      console.log(id);
       return $http.post(endpoints.remove, {
         id
       });
     };
 
     return {
-      list: list,
-      form: form,
-      save: save,
-      remove: remove
+      list,
+      save,
+      remove
     };
   }
 

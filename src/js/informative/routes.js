@@ -16,6 +16,10 @@
       .when('/informative/create', {
         templateUrl: '/views/informative/form.html',
         controller: 'icbInformative.formCtrl',
+      })
+      .when('/informative/:id', {
+        templateUrl: '/views/informative/form.html',
+        controller: 'icbInformative.formCtrl',
       });
   }
 

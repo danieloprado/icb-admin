@@ -1,6 +1,6 @@
 icb-title Informativos
 
-md-button.md-fab.md-fab-bottom-right(ng-click="create($event)")
+md-button.md-fab.md-fab-bottom-right(href="/informative/create")
 	ng-md-icon(icon="add",size=32)
 
 md-card
@@ -18,7 +18,7 @@ md-card
 					td(md-cell) {{informative.title}}
 					td(md-cell) {{informative.date | date}}
 					td.text-right(md-cell)
-						md-button.md-icon-button(ng-click="edit($event, informative)")
+						md-button.md-icon-button(href="/informative/{{informative._id}}")
 							md-icon edit
 						md-button.md-icon-button(ng-click="delete($event, informative, $index)")
 							md-icon delete
