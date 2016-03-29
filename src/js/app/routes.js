@@ -14,7 +14,7 @@
 
         $routeProvider
           .when('/', {
-            templateUrl: 'views/app/home.html',
+            templateUrl: '/views/app/home.html',
             controller: 'icbApp.homeCtrl'
           })
           .otherwise({

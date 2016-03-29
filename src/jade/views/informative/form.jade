@@ -1,9 +1,7 @@
-md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
-	md-toolbar
-		.md-toolbar-tools
-			h2(ng-if="!editing") Novo Informativo
-			h2(ng-if="editing") Editar Informativo
+icb-title(ng-if="!editing") Novo Informativo
+icb-title(ng-if="editing") Editar Informativo
 
+md-card
 	form(md-form-validator, ng-submit="submit()")
 		md-dialog-content
 			.md-dialog-content
@@ -38,5 +36,5 @@ md-dialog(flex="70", flex-lg="70", flex-md="90", flex-sm="90", flex-xs="90")
 						label.md-title Preview
 						div(marked='getFullMarkdown()')
 
-		md-dialog-actions(layout="row")
+		md-card-actions( layout="row",layout-align="end center")
 			md-button.md-raised.md-accent(type="submit") Salvar

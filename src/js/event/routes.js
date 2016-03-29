@@ -10,7 +10,7 @@
   function Routes($routeProvider) {
     $routeProvider
       .when('/event', {
-        templateUrl: 'views/event/list.html',
+        templateUrl: '/views/event/list.html',
         controller: 'icbEvent.listCtrl',
       });
   }

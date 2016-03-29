@@ -7,13 +7,12 @@
     'lodash',
     'Loader',
     'Toast',
-    'informative',
     'informativeService',
     FormCtrl
   ]);
 
-  function FormCtrl($scope, $mdDialog, _, Loader, Toast, informative, service) {
-    $scope.model = informative || {};
+  function FormCtrl($scope, $mdDialog, _, Loader, Toast, service) {
+    $scope.model = {}; //informative || {};
     $scope.editing = !_.isEmpty($scope.model);
 
     $scope.getFullMarkdown = () => {

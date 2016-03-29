@@ -11,7 +11,6 @@
     ]);
 
   function ListCtrl($scope, dialog, Toast, service) {
-    $scope.$emit("change-page-title", "Informativos");
     $scope.selected = [];
 
     $scope.query = {

@@ -21,7 +21,7 @@
 
     const openLogin = function() {
       return $mdDialog.show({
-        templateUrl: 'views/auth/login.html',
+        templateUrl: '/views/auth/login.html',
         controller: 'icbAuth.loginCtrl',
         clickOutsideToClose: false,
         escapeToClose: false
