@@ -29,7 +29,10 @@
     };
 
     const get = (id) => {
-      return $http.get(`${API}/informative/${id}`).then(res => res.data);
+      return $http.get(`${API}/informative/${id}`).then(res => {
+        res.data.date = new Date(res.data.date);
+        return res.data;
+      });
     };
 
     const save = (model) => {
@@ -50,6 +53,7 @@
 
     return {
       list,
+      get,
       save,
       remove
     };

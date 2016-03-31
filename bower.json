@@ -2,28 +2,25 @@
   "name": "icb",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "~1.5.0",
-    "angular-route": "~1.5.0",
-    "angular-material": "~1.0.4",
-    "angular-aria": "~1.5.0",
-    "angular-animate": "~1.5.0",
+    "angular": "~1.5.3",
+    "angular-route": "~1.5.3",
+    "angular-material": "~1.1.0-rc2",
+    "angular-aria": "~1.5.3",
+    "angular-animate": "~1.5.3",
     "angular-jwt": "~0.0.9",
     "animate.css": "~3.5.1",
-    "angular-messages": "~1.5.0",
-    "angular-sanitize": "~1.5.0",
-    "jQuery": "^2.2.0",
+    "angular-messages": "~1.5.3",
+    "angular-sanitize": "~1.5.3",
+    "jQuery": "^2.2.2",
     "angular-marked": "~1.0.1",
-    "angular-material-data-table": "~0.9.10",
-    "angular-i18n": "~1.5.0",
-    "angular-material-icons": "~0.6.0",
-    "material-design-icons": "~2.2.0",
-    "md-form-validator": "~0.1.2",
+    "angular-material-data-table": "~0.10.2",
+    "angular-i18n": "~1.5.3",
+    "angular-material-icons": "~0.7.0",
+    "material-design-icons": "~2.2.3",
+    "md-form-validator": "~0.1.4",
     "angular-google-maps": "~2.3.2",
-    "lodash": "~4.5.1",
+    "lodash": "~4.7.0",
     "ngMask": "angular-mask#~3.0.16"
   },
-  "private": true,
-  "resolutions": {
-    "angular": "1.5.0"
-  }
+  "private": true
 }

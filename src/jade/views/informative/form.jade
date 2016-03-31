@@ -3,38 +3,36 @@ icb-title(ng-if="editing") Editar Informativo
 
 md-card
 	form(md-form-validator, ng-submit="submit()")
-		md-dialog-content
-			.md-dialog-content
+		md-content
 
-				div(layout="row",layout-sm="column",layout-xs="column")
+			div(layout="column",layout-gt-md="row")
 
-					div(flex)
-						div(layout="row",layout-lg="row")
-							div(flex)
-								md-input-container.md-block
-									label Titulo
-									input(ng-model='model.title', name='title', required)
-									md-messages
-										md-message(required) Obrigatório
-
-							div(flex=5,hide-sm,hide-xs)
-
-							div(flex)
-								md-datepicker(ng-model="model.date", name="date", md-placeholder="Dia disponível", required)
-								md-messages(field="date")
-									md-message(valid) Data inválida
+				div(flex)
+					div(layout="column",layout-gt-xs="row")
+						div(flex)
+							md-input-container.md-block
+								label Titulo
+								input(ng-model='model.title', name='title', required)
+								md-messages
 									md-message(required) Obrigatório
 
-						md-input-container.md-block
-							label Mensagem
-							textarea(ng-model='model.message', name='message', required)
-							md-messages(field="message")
+						div(flex)
+							md-datepicker(ng-model="model.date", name="date", md-placeholder="Dia disponível", required)
+							md-messages(field="date")
+								md-message(valid) Data inválida
 								md-message(required) Obrigatório
 
-					div(flex=5)
-					div.p-t-md(flex)
-						label.md-title Preview
-						div(marked='getFullMarkdown()')
+					md-input-container.md-block
+						label Mensagem
+						textarea(ng-model='model.message', name='message', required)
+						md-messages(field="message")
+							md-message(required) Obrigatório
 
-		md-card-actions( layout="row",layout-align="end center")
+				div.padding(flex)
+					label.md-title Preview
+					div(marked='getFullMarkdown()')
+
+		md-card-actions( layout="row",layout-align="space-between center")
+			md-button.md-raised(href="/informative") Cancelar
+
 			md-button.md-raised.md-accent(type="submit") Salvar

@@ -13,10 +13,17 @@
   ]);
 
   function FormCtrl($scope, $routeParams, $location, _, Loader, Toast, service) {
-    console.log($routeParams);
+    $scope.model = {};
+    $scope.editing = false;
 
-    $scope.model = {}; //informative || {};
-    $scope.editing = !_.isEmpty($scope.model);
+    if ($routeParams.id) {
+      Loader(service.get($routeParams.id)).then(informative => {
+        $scope.model = informative;
+        $scope.editing = true;
+      });
+    }
+
+
 
     $scope.getFullMarkdown = () => {
       let title = $scope.model.title ? "# " + $scope.model.title : "";

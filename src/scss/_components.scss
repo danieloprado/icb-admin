@@ -27,7 +27,7 @@ md-input-container {
   margin-bottom: 0;
   padding: 2px 15px;
   margin-top: 30px;
-  
+
   label {
     padding-left: 15px !important;
   }
@@ -50,7 +50,7 @@ md-datepicker {
   padding-right: 0 !important;
   padding-left: 10px !important;
   display: block;
-  
+
   .md-datepicker-input-container {
     margin-left: 0;
     width: calc(100% - 40px);
@@ -63,12 +63,12 @@ md-datepicker {
   }
 }
 
-md-input-container,
-md-datepicker {
-  [ng-messages],
-  + [ng-messages] {
+md-datepicker,
+md-input-container {
+  + [ng-messages],
+  [ng-messages] {
     min-height: 19px;
-    
+
     &.ng-hide {
       display: block !important;
       visibility: hidden;
@@ -78,7 +78,7 @@ md-datepicker {
 
 md-dialog {
   max-height: calc(100vh - 50px) !important;
-  
+
   md-dialog-actions {
     border-top: 1px solid $border-color;
     padding: 10px 20px;
@@ -123,7 +123,7 @@ icb-loading > div {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  
+
   md-progress-circular {
     position: absolute;
     right: 0;
@@ -140,7 +140,7 @@ icb-place-maps {
   min-height: 300px;
   position: relative;
   margin-top: 20px;
-  
+
   md-progress-circular {
     position: absolute;
     top: 0;
@@ -154,13 +154,13 @@ icb-place-maps {
   ui-gmap-google-map {
     z-index: 1;
     position: relative;
-    
+
     .angular-google-map-container {
       display: block;
       width: calc(100% - 30px);
       min-height: 300px;
       margin: 0 15px 15px;
-      
+
       input[type=text] {
         background-color: $white;
         font-size: 15px;
