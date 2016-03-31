@@ -55,7 +55,7 @@ html(lang='en', ng-app='icbApp')
 							ng-md-icon(icon="menu", size=24)
 						h1 {{ pageTitle || 'ICB' }}
 
-				md-content.main-content(ng-view='', layout='column', flex='', layout-padding='')
+				ng-view.main-content
 
 		script(src='/js/libs.min.js')
 		script(src='/js/all.min.js')

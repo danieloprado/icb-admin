@@ -22,33 +22,38 @@ ng-md-icon {
 .md-fab {
   fill: $white;
 }
+//
+// md-input-container {
+//   margin-bottom: 0;
+//   padding: 2px 15px;
+//   margin-top: 30px;
+//
+//   label {
+//     padding-left: 15px !important;
+//     width: auto !important;
+//   }
+//
+//   &.md-input-focused label:not(.md-no-float),
+//   &.md-input-has-placeholder label:not(.md-no-float),
+//   &.md-input-has-value label:not(.md-no-float) {
+//     transform: translate3d(5px,6px,0) scale(.75);
+//   }
+//
+//   .md-errors-spacer {
+//     min-height: 0;
+//   }
+// }
 
-md-input-container {
-  margin-bottom: 0;
-  padding: 2px 15px;
-  margin-top: 30px;
-
-  label {
-    padding-left: 15px !important;
-  }
-
-  &.md-input-focused label:not(.md-no-float),
-  &.md-input-has-placeholder label:not(.md-no-float),
-  &.md-input-has-value label:not(.md-no-float) {
-    transform: translate3d(5px,6px,0) scale(.75);
-  }
-
-  .md-errors-spacer {
-    min-height: 0;
-  }
+md-input-container.md-default-theme.md-input-invalid .md-input,
+md-input-container.md-input-invalid .md-input {
+  border-bottom-width: 2px;
 }
 
 md-datepicker {
-  margin-top: 27px !important;
+  margin-top: 16px !important;
   margin-bottom: 7px;
-  margin-right: 10px !important;
+  margin-right: 0 !important;
   padding-right: 0 !important;
-  padding-left: 10px !important;
   display: block;
 
   .md-datepicker-input-container {

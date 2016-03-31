@@ -3,18 +3,17 @@ icb-title(ng-if="editing") Editar Informativo
 
 md-card
 	form(md-form-validator, ng-submit="submit()")
-		md-content
+		md-content(layout-padding)
 
 			div(layout="column",layout-gt-md="row")
 
 				div(flex)
 					div(layout="column",layout-gt-xs="row")
-						div(flex)
-							md-input-container.md-block
-								label Titulo
-								input(ng-model='model.title', name='title', required)
-								md-messages
-									md-message(required) Obrigatório
+						md-input-container.md-block
+							label Titulo
+							input(ng-model='model.title', name='title', required)
+							md-messages
+								md-message(required) Obrigatório
 
 						div(flex)
 							md-datepicker(ng-model="model.date", name="date", md-placeholder="Dia disponível", required)
@@ -28,11 +27,11 @@ md-card
 						md-messages(field="message")
 							md-message(required) Obrigatório
 
-				div.padding(flex)
+				div(flex)
 					label.md-title Preview
 					div(marked='getFullMarkdown()')
 
-		md-card-actions( layout="row",layout-align="space-between center")
+		md-card-actions.padding(layout="row",layout-align="space-between center")
 			md-button.md-raised(href="/informative") Cancelar
 
 			md-button.md-raised.md-accent(type="submit") Salvar

@@ -5,7 +5,7 @@
 @import "fonts";
 
 .padding {
-  padding: 15px;
+  padding: 8px;
 }
 
 body {
@@ -60,7 +60,7 @@ md-toolbar {
   z-index: 99;
   overflow: auto;
   animation-duration: 0.5s;
-  @include transition;
+  @include transition();
 }
 
 .login-content {
@@ -140,4 +140,7 @@ md-toolbar {
 
 .main-content {
   background: none;
+  @include media-min-breakpoints(sm) {
+    padding: 8px;
+  }
 }
